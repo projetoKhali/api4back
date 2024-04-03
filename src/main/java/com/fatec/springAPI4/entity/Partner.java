@@ -48,8 +48,8 @@ public class Partner {
     @Column(name = pt_country)
     private String country;
 
-    @Column(name = pt_city)
-    private String city;
+    @Column(name = pt_state)
+    private String state;
 
     @Column(name = pt_number)
     private String number;
