@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2024-04-02 03:43:25.874
+-- Last modification date: 2024-04-04 02:16:50.198
 
 -- tables
 -- Table: Expertise
@@ -12,14 +12,16 @@ CREATE TABLE Expertise (
 
 -- Table: Expertise_Qualifier
 CREATE TABLE Expertise_Qualifier (
-    ex_id integer  NOT NULL,
-    ql_id integer  NOT NULL,
-    CONSTRAINT Expertise_Qualifier_pk PRIMARY KEY (ex_id,ql_id)
+    ex_ql_id integer  NOT NULL,
+    ex_id integer  NOT NULL UNIQUE,
+    ql_id integer  NOT NULL UNIQUE,
+    CONSTRAINT Expertise_Qualifier_pk PRIMARY KEY (ex_ql_id)
 ) ;
 
 -- Table: Partner
 CREATE TABLE Partner (
     pt_id integer  NOT NULL,
+    pt_company_id varchar  NOT NULL UNIQUE,
     pt_name varchar  NOT NULL,
     pt_admin_name varchar  NOT NULL,
     pt_admin_email varchar  NOT NULL,
@@ -37,28 +39,31 @@ CREATE TABLE Partner (
 
 -- Table: Partner_Expertise
 CREATE TABLE Partner_Expertise (
-    pt_id integer  NOT NULL,
-    ex_id integer  NOT NULL,
+    pt_rx_id integer  NOT NULL,
+    pt_id integer  NOT NULL UNIQUE,
+    ex_id integer  NOT NULL UNIQUE,
     insert_date date  DEFAULT sysdate NOT NULL,
     complete_date date  NOT NULL,
-    CONSTRAINT Partner_Expertise_pk PRIMARY KEY (ex_id,pt_id)
+    CONSTRAINT Partner_Expertise_pk PRIMARY KEY (pt_rx_id)
 ) ;
 
 -- Table: Partner_Qualifier
 CREATE TABLE Partner_Qualifier (
-    pt_id integer  NOT NULL,
-    ql_id integer  NOT NULL,
+    pt_ql_id integer  NOT NULL,
+    pt_id integer  NOT NULL UNIQUE,
+    ql_id integer  NOT NULL UNIQUE,
     insert_date date  DEFAULT sysdate NOT NULL,
     complete_date date  NOT NULL,
-    CONSTRAINT Partner_Qualifier_pk PRIMARY KEY (pt_id,ql_id)
+    CONSTRAINT Partner_Qualifier_pk PRIMARY KEY (pt_ql_id)
 ) ;
 
 -- Table: Partner_Track
 CREATE TABLE Partner_Track (
-    pt_id integer  NOT NULL,
-    tk_id integer  NOT NULL,
+    pt_tk_id integer  NOT NULL,
+    pt_id integer  NOT NULL UNIQUE,
+    tk_id integer  NOT NULL UNIQUE,
     insert_date date  DEFAULT sysdate NOT NULL,
-    CONSTRAINT Partner_Track_pk PRIMARY KEY (pt_id,tk_id)
+    CONSTRAINT Partner_Track_pk PRIMARY KEY (pt_tk_id)
 ) ;
 
 -- Table: Qualifier
@@ -133,3 +138,4 @@ ALTER TABLE Partner_Track ADD CONSTRAINT Partner_Track_Track
     REFERENCES Track (tk_id);
 
 -- End of file.
+
