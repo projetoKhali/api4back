@@ -22,7 +22,7 @@ public class Expertise {
     @Column(name = ex_name)
     private String name;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "tk_id")
     private Track track;
 
