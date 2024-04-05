@@ -21,7 +21,7 @@ CREATE TABLE Expertise_Qualifier (
 -- Table: Partner
 CREATE TABLE Partner (
     pt_id integer  NOT NULL,
-    pt_company_id varchar  NOT NULL CHECK (unique),
+    pt_company_id varchar  NOT NULL UNIQUE,
     pt_name varchar  NOT NULL,
     pt_admin_name varchar  NOT NULL,
     pt_admin_email varchar  NOT NULL,
