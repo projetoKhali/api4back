@@ -39,7 +39,7 @@ CREATE TABLE Partner (
 
 -- Table: Partner_Expertise
 CREATE TABLE Partner_Expertise (
-    pt_rx_id integer  NOT NULL,
+    pt_ex_id integer  NOT NULL,
     pt_id integer  NOT NULL,
     ex_id integer  NOT NULL,
     pt_ex_insert_date date  DEFAULT sysdate NOT NULL,
