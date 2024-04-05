@@ -15,7 +15,7 @@ import java.time.LocalDate;
 
 @Getter @Setter @AllArgsConstructor
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "pt_id", "ex_id" }) })
+@Table(name = "Partner_Expertise", uniqueConstraints = { @UniqueConstraint(columnNames = { "pt_id", "ex_id" }) })
 public class PartnerExpertise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,9 +30,9 @@ public class PartnerExpertise {
     @JoinColumn(name = "ex_id", referencedColumnName = "ex_id")
     private Expertise expertiseId;
     
-    @Column(name = pt_ex_insert_date)
+    @Column(name = "pt_ex_insert_date")
     private LocalDate insertDate;   
     
-    @Column(name = pt_ex_complete_date)
+    @Column(name = "pt_ex_complete_date")
     private LocalDate completeDate;   
 }

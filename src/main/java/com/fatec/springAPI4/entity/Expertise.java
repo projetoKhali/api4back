@@ -10,16 +10,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import javax.validation.constraints.NotNull;
+
 @Getter @Setter @AllArgsConstructor
 @Entity
 @Table
 public class Expertise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = ex_id)
+    @Column(name = "ex_id")
     private Long id;
 
-    @Column(name = ex_name)
+    @Column(name = "ex_name")
     private String name;
     
     @ManyToOne
@@ -27,5 +29,5 @@ public class Expertise {
     private Track track;
 
     @Column(name = "ex_qualifiers")
-    private List<Qualifier> qualifiers;
+    private Set<Qualifier> qualifiers;
 }
