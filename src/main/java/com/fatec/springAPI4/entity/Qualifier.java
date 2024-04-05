@@ -16,9 +16,9 @@ import jakarta.persistence.Table;
 public class Qualifier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = ql_id)
+    @Column(name = "ql_id")
     private Long id;
 
-    @Column(name = ql_name)
+    @Column(name = "ql_name")
     private String name;
 }
