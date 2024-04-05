@@ -14,11 +14,11 @@ import java.time.LocalDate;
 
 @Getter @Setter @AllArgsConstructor
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "pt_id", "tk_id" }) })
+@Table(name = "Partner_Track", uniqueConstraints = { @UniqueConstraint(columnNames = { "pt_id", "tk_id" }) })
 public class PartnerTrack {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = pt_tk_id)
+    @Column(name = "pt_tk_id")
     private Long id;
     
     @ManyToOne
@@ -29,6 +29,6 @@ public class PartnerTrack {
     @JoinColumn(name = "tk_id", referencedColumnName = "tk_id")
     private Track trackId;
     
-    @Column(name = pt_tk_insert_date)
+    @Column(name = "pt_tk_insert_date")
     private LocalDate insertDate;   
 }

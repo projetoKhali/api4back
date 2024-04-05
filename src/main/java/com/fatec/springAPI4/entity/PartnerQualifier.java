@@ -15,11 +15,11 @@ import java.time.LocalDate;
 
 @Getter @Setter @AllArgsConstructor
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "pt_id", "ql_id" }) })
+@Table(name = "Parter_Qualifier", uniqueConstraints = { @UniqueConstraint(columnNames = { "pt_id", "ql_id" }) })
 public class PartnerQualifier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = pt_ql_id)
+    @Column(name = "pt_ql_id")
     private Long id;
     
     @ManyToOne
@@ -30,9 +30,9 @@ public class PartnerQualifier {
     @JoinColumn(name = "ql_id", referencedColumnName = "ql_id")
     private Qualifier qualifierId;
     
-    @Column(name = pt_ql_insert_date)
+    @Column(name = "pt_ql_insert_date")
     private LocalDate insertDate;   
     
-    @Column(name = pt_ql_complete_date)
+    @Column(name = "pt_ql_complete_date")
     private LocalDate completeDate;   
 }
