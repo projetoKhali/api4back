@@ -1,4 +1,4 @@
-package com.fatec.springAPI4;
+package com.fatec.springApi4;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
