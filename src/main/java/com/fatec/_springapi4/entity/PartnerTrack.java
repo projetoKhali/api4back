@@ -1,4 +1,4 @@
-package com.fatec.springApi4.entity;
+package com.fatec.springapi4.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,31 +13,25 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-
 import java.time.LocalDate;
 
+@Getter @Setter @AllArgsConstructor
 @Entity
-@Table(name = "Parter_Qualifier", uniqueConstraints = { @UniqueConstraint(columnNames = { "pt_id", "ql_id" }) })
-@Getter
-@Setter
-@AllArgsConstructor
-public class PartnerQualifier {
+@Table(name = "Partner_Track", uniqueConstraints = { @UniqueConstraint(columnNames = { "pt_id", "tk_id" }) })
+public class PartnerTrack {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pt_ql_id")
+    @Column(name = "pt_tk_id")
     private Long id;
     
     @ManyToOne
-    @JoinColumn(name = "pt_id", referencedColumnName = "pt_id")
+    @JoinColumn(unique=true, name = "pt_id", referencedColumnName = "pt_id")
     private Partner partnerId;
     
     @ManyToOne
-    @JoinColumn(name = "ql_id", referencedColumnName = "ql_id")
-    private Qualifier qualifierId;
+    @JoinColumn(name = "tk_id", referencedColumnName = "tk_id")
+    private Track trackId;
     
-    @Column(name = "pt_ql_insert_date")
+    @Column(name = "pt_tk_insert_date")
     private LocalDate insertDate;   
-    
-    @Column(name = "pt_ql_complete_date")
-    private LocalDate completeDate;   
 }

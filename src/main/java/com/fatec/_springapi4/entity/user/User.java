@@ -1,4 +1,4 @@
-package com.fatec.springApi4.entity.user;
+package com.fatec.springapi4.entity.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.fatec.springApi4.entity;
+package com.fatec.springapi4.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,13 +16,15 @@ import jakarta.persistence.UniqueConstraint;
 
 import java.time.LocalDate;
 
-@Getter @Setter @AllArgsConstructor
 @Entity
-@Table(name = "Partner_Expertise", uniqueConstraints = { @UniqueConstraint(columnNames = { "pt_id", "ex_id" }) })
-public class PartnerExpertise {
+@Table(name = "Parter_Qualifier", uniqueConstraints = { @UniqueConstraint(columnNames = { "pt_id", "ql_id" }) })
+@Getter
+@Setter
+@AllArgsConstructor
+public class PartnerQualifier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pt_ex_id")
+    @Column(name = "pt_ql_id")
     private Long id;
     
     @ManyToOne
@@ -30,12 +32,12 @@ public class PartnerExpertise {
     private Partner partnerId;
     
     @ManyToOne
-    @JoinColumn(name = "ex_id", referencedColumnName = "ex_id")
-    private Expertise expertiseId;
+    @JoinColumn(name = "ql_id", referencedColumnName = "ql_id")
+    private Qualifier qualifierId;
     
-    @Column(name = "pt_ex_insert_date")
+    @Column(name = "pt_ql_insert_date")
     private LocalDate insertDate;   
     
-    @Column(name = "pt_ex_complete_date")
+    @Column(name = "pt_ql_complete_date")
     private LocalDate completeDate;   
 }

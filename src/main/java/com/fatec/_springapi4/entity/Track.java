@@ -1,4 +1,4 @@
-package com.fatec.springApi4.entity;
+package com.fatec.springapi4.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,15 +11,20 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.time.LocalDate;
+
 @Getter @Setter @AllArgsConstructor
 @Entity
 @Table
-public class Qualifier {
+public class Track {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ql_id")
+    @Column(name = "tk_id")
     private Long id;
 
-    @Column(name = "ql_name")
+    @Column(name = "tk_name")
     private String name;
+    
+    @Column(name = "tk_complete_date")
+    private LocalDate completeDate;
 }
