@@ -1,4 +1,4 @@
-package main.java.com.fatec.springAPI4.entity.User;
+package com.fatec.springApi4.entity.user;
 
 public enum ProfileType {
     Oracle(0),
