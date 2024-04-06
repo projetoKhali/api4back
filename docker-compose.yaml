@@ -8,7 +8,7 @@ services:
       - ORACLE_HOME=/opt/oracle/product/21c/dbhome_1
       - ORACLE_SID=ORCLCDB
       - ORACLE_PDB=ORCLPDB1
-      - ORACLE_PWD=secret
+      - ORACLE_PWD=Secr3t
     ulimits:
       nofile:
         soft: 65536
