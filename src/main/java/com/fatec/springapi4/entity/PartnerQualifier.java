@@ -2,6 +2,7 @@ package com.fatec.springapi4.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.Column;
@@ -21,6 +22,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class PartnerQualifier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

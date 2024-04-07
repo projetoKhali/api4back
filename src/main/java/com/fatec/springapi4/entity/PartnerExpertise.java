@@ -2,6 +2,7 @@ package com.fatec.springapi4.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.Column;
@@ -16,7 +17,7 @@ import jakarta.persistence.UniqueConstraint;
 
 import java.time.LocalDate;
 
-@Getter @Setter @AllArgsConstructor
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor
 @Entity
 @Table(name = "Partner_Expertise", uniqueConstraints = { @UniqueConstraint(columnNames = { "pt_id", "ex_id" }) })
 public class PartnerExpertise {
