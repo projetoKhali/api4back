@@ -1,13 +1,13 @@
-package com.fatec.springapi4;
+package com.fatec.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringApi4Application {
+public class ApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringApi4Application.class, args);
+		SpringApplication.run(ApiApplication.class, args);
 	}
 
 }

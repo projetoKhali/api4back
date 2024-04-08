@@ -1,5 +1,5 @@
-package com.fatec.springapi4.entity;
-
+package com.fatec.api.entity;
+    
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,26 +13,28 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+
 import java.time.LocalDate;
 
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 @Entity
-@Table(name = "Partner_Track", uniqueConstraints = { @UniqueConstraint(columnNames = { "pt_id", "tk_id" }) })
-public class PartnerTrack {
+@Table
+public class Track {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pt_tk_id")
+    @Column(name = "tk_id")
     private Long id;
+
+    @Column(name = "tk_name")
+    private String name;
     
+    @Column(name = "tk_insert_date")
+    private LocalDate insertDate;
+
     @ManyToOne
-    @JoinColumn(unique=true, name = "pt_id", referencedColumnName = "pt_id")
-    private Partner partnerId;
-    
-    @ManyToOne
-    @JoinColumn(name = "tk_id", referencedColumnName = "tk_id")
-    private Track trackId;
-    
-    @Column(name = "pt_tk_insert_date")
-    private LocalDate insertDate;   
+    @JoinColumn(name = "pt_id", referencedColumnName = "pt_id")
+    private Partner partner;
+
+    @Column(name = "association_date")
+    private LocalDate ascTrackDate;
 }
