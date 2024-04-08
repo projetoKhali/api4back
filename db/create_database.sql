@@ -45,7 +45,7 @@ CREATE TABLE Partner_Expertise (
     pt_ex_insert_date date  DEFAULT sysdate NOT NULL,
     pt_ex_complete_date date  NOT NULL,
     CONSTRAINT pt_ex_unique UNIQUE (pt_id, ex_id),
-    CONSTRAINT Partner_Expertise_pk PRIMARY KEY (pt_rx_id)
+    CONSTRAINT Partner_Expertise_pk PRIMARY KEY (pt_ex_id)
 ) ;
 
 -- Table: Partner_Qualifier
