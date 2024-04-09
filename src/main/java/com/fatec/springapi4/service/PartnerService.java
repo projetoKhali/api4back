@@ -1,22 +1,56 @@
 package com.fatec.springapi4.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fatec.springapi4.dto.ExpertiseDTO;
+import com.fatec.springapi4.dto.PartnerDTO;
+import com.fatec.springapi4.dto.QualifierDTO;
+import com.fatec.springapi4.dto.TrackDTO;
+import com.fatec.springapi4.entity.Expertise;
 import com.fatec.springapi4.entity.Partner;
+import com.fatec.springapi4.entity.PartnerExpertise;
+import com.fatec.springapi4.entity.PartnerQualifier;
+import com.fatec.springapi4.entity.PartnerTrack;
+import com.fatec.springapi4.entity.Qualifier;
+import com.fatec.springapi4.entity.Track;
+import com.fatec.springapi4.repository.PartnerExpertiseRepository;
+import com.fatec.springapi4.repository.PartnerQualifierRepository;
 import com.fatec.springapi4.repository.PartnerRepository;
+import com.fatec.springapi4.repository.PartnerTrackRepository;
+import com.fatec.springapi4.repository.QualifierRepository;
+import com.fatec.springapi4.repository.TrackRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class PartnerService implements IPartnerService{
 
     @Autowired
-    PartnerRepository partnerRep;
+    PartnerRepository partnerRepository;
+    
+    @Autowired
+    PartnerTrackRepository partnerTrackRepository;
+
+    @Autowired
+    PartnerExpertiseRepository partnerExpertiseRepository;
+
+    @Autowired
+    PartnerQualifierRepository partnerQualifierRepository;
+
+    @Autowired
+    TrackRepository trackRepository;
+
+    @Autowired
+    QualifierRepository qualifierRepository;
+
 
     public Partner findPartnerById(Long id) {
-        Optional<Partner> partnerOp = partnerRep.findById(id);
+        Optional<Partner> partnerOp = partnerRepository.findById(id);
         if(partnerOp.isPresent()) {
             return partnerOp.get();
         }
@@ -24,7 +58,7 @@ public class PartnerService implements IPartnerService{
     }
 
     public List<Partner> listPartners () {
-        return partnerRep.findAll();
+        return partnerRepository.findAll();
     }
 
     public Partner saveAndUpdatePartner(Partner partner) {
@@ -32,11 +66,11 @@ public class PartnerService implements IPartnerService{
             partner.getName() == null) {
                 throw new IllegalArgumentException("Error!");
             }
-            return partnerRep.save(partner);
+            return partnerRepository.save(partner);
         }
     
     public void delPartnerById (Long id) {
-        partnerRep.deleteById(id);
+        partnerRepository.deleteById(id);
     }
     
 }

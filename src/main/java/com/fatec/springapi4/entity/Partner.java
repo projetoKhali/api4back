@@ -1,15 +1,10 @@
-package com.fatec.springapi4
-.entity;
+package com.fatec.springapi4.entity;
 
 import java.time.LocalDate;
-import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -58,8 +53,5 @@ public class Partner {
     private Boolean memberType;
 
     @Column(name = "pt_first_date_membership")
-    private LocalDate membership;
-
-    @OneToMany(mappedBy = "partner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Track> tracks;
+    private LocalDate membership;   
 }

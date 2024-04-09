@@ -1,5 +1,4 @@
-package com.fatec.springapi4
-.entity;
+package com.fatec.springapi4.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,5 +21,5 @@ public class Qualifier {
     private Long id;
 
     @Column(name = "ql_name")
-    private String name;   
+    private String name;
 }
