@@ -1,4 +1,4 @@
-package com.fatec.api.service;
+package com.fatec.springapi4.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fatec.api.entity.Qualifier;
-import com.fatec.api.repository.QualifierRepository;
+import com.fatec.springapi4.entity.Qualifier;
+import com.fatec.springapi4.repository.QualifierRepository;
 
 @Service
 public class QualifierService implements IQualifierService{

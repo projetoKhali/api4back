@@ -1,4 +1,4 @@
-package com.fatec.api.controller;
+package com.fatec.springapi4.controller;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fatec.api.entity.Expertise;
-import com.fatec.api.service.IExpertiseService;
+import com.fatec.springapi4.entity.Expertise;
+import com.fatec.springapi4.service.IExpertiseService;
 
 @RestController
 @CrossOrigin

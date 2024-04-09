@@ -1,4 +1,4 @@
-package com.fatec.api.controller;
+package com.fatec.springapi4.controller;
 
 import java.util.List;
 
@@ -12,36 +12,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fatec.api.entity.Track;
-import com.fatec.api.service.ITrackService;
+import com.fatec.springapi4.entity.Qualifier;
+import com.fatec.springapi4.service.IQualifierService;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/track")
-public class TrackController {
+@RequestMapping(value = "/qualifier")
+public class QualifierController {
 
     @Autowired
-    private ITrackService trackServ;
+    private IQualifierService qlfServ;
 
-    @GetMapping(value = "/{track}")
-    public Track findById(@PathVariable("track") Long id) {
-        return trackServ.findTrackById(id);
+    @GetMapping(value = "/{qualifier}")
+    public Qualifier findById(@PathVariable("qualifier") Long id) {
+        return qlfServ.findQualifierById(id);
     }
 
     @GetMapping
-    public List<Track> listTracks() {
-        return trackServ.listTracks();
+    public List<Qualifier> listQualifiers() {
+        return qlfServ.listQualifiers();
     }
 
     @PostMapping
-    public Track saveAndUpdateTrack(@RequestBody Track track) {
-        return trackServ.saveAndUpdateTrack(track);
+    public Qualifier saveAndUpdateQualifier(@RequestBody Qualifier qlf) {
+        return qlfServ.saveAndUpdateQualifier(qlf);
     }
 
-    @DeleteMapping(value = "/{trackId}")
+    @DeleteMapping(value = "/{qualifierId}")
     public void deleteById(@PathVariable("trackId") Long id) {
-        trackServ.delTrackById(id);
+        qlfServ.delQualifierkById(id);
     }
-
     
 }

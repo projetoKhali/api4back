@@ -1,8 +1,8 @@
-package com.fatec.api.service;
+package com.fatec.springapi4.service;
 
 import java.util.List;
 
-import com.fatec.api.entity.Expertise;
+import com.fatec.springapi4.entity.Expertise;
 
 public interface IExpertiseService {
     

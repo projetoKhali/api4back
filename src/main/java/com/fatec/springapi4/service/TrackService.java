@@ -1,4 +1,4 @@
-package com.fatec.api.service;
+package com.fatec.springapi4.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fatec.api.entity.Track;
-import com.fatec.api.repository.TrackRepository;
+import com.fatec.springapi4.entity.Track;
+import com.fatec.springapi4.repository.TrackRepository;
 
 @Service
 public class TrackService implements ITrackService {
