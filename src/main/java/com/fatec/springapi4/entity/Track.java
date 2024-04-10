@@ -1,5 +1,4 @@
-package com.fatec.springapi4
-.entity;
+package com.fatec.springapi4.entity;
     
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,13 +28,9 @@ public class Track {
     @Column(name = "tk_name")
     private String name;
     
-    @Column(name = "tk_insert_date")
-    private LocalDate insertDate;
+    @Column(name = "tk_complete_date")
+    private LocalDate completeDate;
 
-    @ManyToOne
-    @JoinColumn(name = "pt_id", referencedColumnName = "pt_id")
-    private Partner partner;
-
-    @Column(name = "association_date")
-    private LocalDate ascTrackDate;
+    @Column(name = "tk_association_date")
+    private LocalDate associationDate;
 }

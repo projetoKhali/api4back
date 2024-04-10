@@ -1,5 +1,6 @@
 package com.fatec.springapi4.entity;
 
+import java.util.Set;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -27,6 +28,9 @@ public class Expertise {
     private String name;
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ex_tk_id")
+    @JoinColumn(name = "tk_id")
     private Track track;
+
+    @Column(name = "ex_qualifiers")
+    private Set<Qualifier> qualifiers;
 }

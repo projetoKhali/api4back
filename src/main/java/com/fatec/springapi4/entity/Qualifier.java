@@ -1,5 +1,4 @@
-package com.fatec.springapi4
-.entity;
+package com.fatec.springapi4.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
