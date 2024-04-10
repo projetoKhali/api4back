@@ -13,30 +13,30 @@ import com.fatec.springapi4.repository.QualifierRepository;
 public class QualifierService implements IQualifierService{
 
     @Autowired
-    QualifierRepository qlREp;
+    QualifierRepository qualifierRepository;
 
     public Qualifier findQualifierById(Long id) {
-        Optional<Qualifier> qlOp = qlREp.findById(id);
-        if(qlOp.isPresent()) {
-            return qlOp.get();
+        Optional<Qualifier> qualifierOptional = qualifierRepository.findById(id);
+        if(qualifierOptional.isPresent()) {
+            return qualifierOptional.get();
         }
         throw new IllegalArgumentException("Id inválido!");
     }
 
     public List<Qualifier> listQualifiers () {
-        return qlREp.findAll();
+        return qualifierRepository.findAll();
     }
 
-    public Qualifier saveAndUpdateQualifier(Qualifier qlf) {
-        if(qlf == null ||
-            qlf.getName() == null) {
+    public Qualifier saveAndUpdateQualifier(Qualifier qualifier) {
+        if(qualifier == null ||
+            qualifier.getName() == null) {
                 throw new IllegalArgumentException("Error!");
             }
-            return qlREp.save(qlf);
+            return qualifierRepository.save(qualifier);
         }
     
     public void delQualifierkById (Long id) {
-        qlREp.deleteById(id);
+        qualifierRepository.deleteById(id);
     }
 
 }

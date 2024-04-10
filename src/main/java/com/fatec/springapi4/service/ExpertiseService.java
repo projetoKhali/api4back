@@ -12,18 +12,18 @@ import com.fatec.springapi4.repository.ExpertiseRepository;
 @Service
 public class ExpertiseService implements IExpertiseService {
     @Autowired
-    ExpertiseRepository expRep;
+    ExpertiseRepository expertiseRepository;
 
     public Expertise findExpertiseById(Long id) {
-        Optional<Expertise> expOp = expRep.findById(id);
-        if(expOp.isPresent()) {
-            return expOp.get();
+        Optional<Expertise> expertiseOptional = expertiseRepository.findById(id);
+        if(expertiseOptional.isPresent()) {
+            return expertiseOptional.get();
         }
         throw new IllegalArgumentException("Id inválido!");
     }
 
     public List<Expertise> listExpertises() {
-        return expRep.findAll();
+        return expertiseRepository.findAll();
     }
 
     public Expertise saveAndUpdateExpertise(Expertise expertise) {
@@ -31,10 +31,10 @@ public class ExpertiseService implements IExpertiseService {
         expertise.getName() == null) {
                 throw new IllegalArgumentException("Error!");
             }
-            return expRep.save(expertise);
+            return expertiseRepository.save(expertise);
         }
 
     public void delExpertiseById (Long id) {
-        expRep.deleteById(id);
+        expertiseRepository.deleteById(id);
     }
 }

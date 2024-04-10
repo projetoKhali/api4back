@@ -13,18 +13,18 @@ import com.fatec.springapi4.repository.TrackRepository;
 public class TrackService implements ITrackService {
 
     @Autowired
-    TrackRepository trackRep;
+    TrackRepository trackRepository;
 
     public Track findTrackById(Long id) {
-        Optional<Track> trackOp = trackRep.findById(id);
-        if(trackOp.isPresent()) {
-            return trackOp.get();
+        Optional<Track> trackOptional = trackRepository.findById(id);
+        if(trackOptional.isPresent()) {
+            return trackOptional.get();
         }
         throw new IllegalArgumentException("Id inválido!");
     }
 
     public List<Track> listTracks () {
-        return trackRep.findAll();
+        return trackRepository.findAll();
     }
 
     public Track saveAndUpdateTrack(Track track) {
@@ -32,11 +32,11 @@ public class TrackService implements ITrackService {
             track.getName() == null) {
                 throw new IllegalArgumentException("Error!");
             }
-            return trackRep.save(track);
+            return trackRepository.save(track);
         }
     
     public void delTrackById (Long id) {
-        trackRep.deleteById(id);
+        trackRepository.deleteById(id);
     }
 
 }

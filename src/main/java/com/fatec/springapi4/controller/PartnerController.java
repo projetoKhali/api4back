@@ -21,25 +21,25 @@ import com.fatec.springapi4.service.IPartnerService;
 public class PartnerController {
     
     @Autowired
-    private IPartnerService prtServ;
+    private IPartnerService partnerService;
 
     @GetMapping(value = "/{partner}")
     public Partner findById(@PathVariable("partner") Long id) {
-        return prtServ.findPartnerById(id);
+        return partnerService.findPartnerById(id);
     }
 
     @GetMapping
     public List<Partner> listPartners() {
-        return prtServ.listPartners();
+        return partnerService.listPartners();
     }
 
     @PostMapping
-    public Partner saveAndUpdatePartner(@RequestBody Partner prt) {
-        return prtServ.saveAndUpdatePartner(prt);
+    public Partner saveAndUpdatePartner(@RequestBody Partner partner) {
+        return partnerService.saveAndUpdatePartner(partner);
     }
 
     @DeleteMapping(value = "/{partnerId}")
     public void deleteById(@PathVariable("partnerId") Long id) {
-        prtServ.delPartnerById(id);
+        partnerService.delPartnerById(id);
     }
 }

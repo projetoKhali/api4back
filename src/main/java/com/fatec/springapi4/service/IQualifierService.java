@@ -10,7 +10,7 @@ public interface IQualifierService {
 
     public List<Qualifier> listQualifiers ();
 
-    public Qualifier saveAndUpdateQualifier(Qualifier qlf);
+    public Qualifier saveAndUpdateQualifier(Qualifier qualifier);
 
     public void delQualifierkById (Long id);
 

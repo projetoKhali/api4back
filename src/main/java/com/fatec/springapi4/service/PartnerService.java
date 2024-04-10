@@ -50,9 +50,9 @@ public class PartnerService implements IPartnerService{
 
 
     public Partner findPartnerById(Long id) {
-        Optional<Partner> partnerOp = partnerRepository.findById(id);
-        if(partnerOp.isPresent()) {
-            return partnerOp.get();
+        Optional<Partner> partnerOptional = partnerRepository.findById(id);
+        if(partnerOptional.isPresent()) {
+            return partnerOptional.get();
         }
         throw new IllegalArgumentException("Id inválido!");
     }

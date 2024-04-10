@@ -21,26 +21,26 @@ import com.fatec.springapi4.service.IExpertiseService;
 public class ExpertiseController {
 
     @Autowired
-    private IExpertiseService exppertiseServeService;
+    private IExpertiseService expertiseService;
 
     @GetMapping(value = "/{expertise}")
     public Expertise findById(@PathVariable("expertise") Long id) {
-        return exppertiseServeService.findExpertiseById(id);
+        return expertiseService.findExpertiseById(id);
     }
 
     @GetMapping
     public List<Expertise> listExpertises() {
-        return exppertiseServeService.listExpertises();
+        return expertiseService.listExpertises();
     }
 
     @PostMapping
     public Expertise saveAndUpdateExpertise(@RequestBody Expertise expertise) {
-        return exppertiseServeService.saveAndUpdateExpertise(expertise);
+        return expertiseService.saveAndUpdateExpertise(expertise);
     }
 
     @DeleteMapping(value = "/{expertiseId}")
     public void deleteById(@PathVariable("expertiseId") Long id) {
-        exppertiseServeService.delExpertiseById(id);
+        expertiseService.delExpertiseById(id);
     }
     
 }

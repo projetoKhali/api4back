@@ -21,26 +21,26 @@ import com.fatec.springapi4.service.IQualifierService;
 public class QualifierController {
 
     @Autowired
-    private IQualifierService qlfServ;
+    private IQualifierService qualifierService;
 
     @GetMapping(value = "/{qualifier}")
     public Qualifier findById(@PathVariable("qualifier") Long id) {
-        return qlfServ.findQualifierById(id);
+        return qualifierService.findQualifierById(id);
     }
 
     @GetMapping
     public List<Qualifier> listQualifiers() {
-        return qlfServ.listQualifiers();
+        return qualifierService.listQualifiers();
     }
 
     @PostMapping
-    public Qualifier saveAndUpdateQualifier(@RequestBody Qualifier qlf) {
-        return qlfServ.saveAndUpdateQualifier(qlf);
+    public Qualifier saveAndUpdateQualifier(@RequestBody Qualifier qualifier) {
+        return qualifierService.saveAndUpdateQualifier(qualifier);
     }
 
     @DeleteMapping(value = "/{qualifierId}")
     public void deleteById(@PathVariable("trackId") Long id) {
-        qlfServ.delQualifierkById(id);
+        qualifierService.delQualifierkById(id);
     }
     
 }
