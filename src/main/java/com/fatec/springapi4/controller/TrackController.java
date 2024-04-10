@@ -21,26 +21,26 @@ import com.fatec.springapi4.service.ITrackService;
 public class TrackController {
 
     @Autowired
-    private ITrackService trackServ;
+    private ITrackService trackService;
 
     @GetMapping(value = "/{track}")
     public Track findById(@PathVariable("track") Long id) {
-        return trackServ.findTrackById(id);
+        return trackService.findTrackById(id);
     }
 
     @GetMapping
     public List<Track> listTracks() {
-        return trackServ.listTracks();
+        return trackService.listTracks();
     }
 
     @PostMapping
     public Track saveAndUpdateTrack(@RequestBody Track track) {
-        return trackServ.saveAndUpdateTrack(track);
+        return trackService.saveAndUpdateTrack(track);
     }
 
     @DeleteMapping(value = "/{trackId}")
     public void deleteById(@PathVariable("trackId") Long id) {
-        trackServ.delTrackById(id);
+        trackService.delTrackById(id);
     }
 
     

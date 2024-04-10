@@ -21,5 +21,5 @@ public class Qualifier {
     private Long id;
 
     @Column(name = "ql_name")
-    private String name;   
+    private String name;
 }
