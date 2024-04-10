@@ -1,5 +1,5 @@
 package com.fatec.springapi4.entity;
-
+    
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +26,6 @@ public class Track {
     @Column(name = "tk_name")
     private String name;
     
-    @Column(name = "tk_complete_date")
-    private LocalDate completeDate;
+    @Column(name = "tk_start_date")
+    private LocalDate startDate;
 }
