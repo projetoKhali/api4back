@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
-public class PartnerDTO {
+public class PartnerSimpleDTO {
     private String name;
     private String location;
-    private List<TrackDTO> tracks;
+    private List<PartnerTrackDTO> tracks;
     
 }

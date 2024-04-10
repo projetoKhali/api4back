@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class QualifierDTO {
+public class PartnerQualifierDTO {
     private String name;
     
 }
