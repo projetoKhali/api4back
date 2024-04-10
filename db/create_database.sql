@@ -89,7 +89,7 @@ CREATE TABLE "User" (
     usr_id integer  NOT NULL,
     usr_login varchar  NOT NULL,
     usr_name varchar  NOT NULL,
-    profile_type integer  NOT NULL CHECK (profile_type in (0, 1)),
+    usr_profile_type integer  NOT NULL CHECK (profile_type in (0, 1)),
     usr_password varchar  ENCRYPT  NOT NULL,
     CONSTRAINT User_pk PRIMARY KEY (usr_id)
 ) ;
