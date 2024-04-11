@@ -55,9 +55,9 @@ public class PartnerService implements IPartnerService{
 
 
     public Partner findPartnerById(Long id) {
-        Optional<Partner> partnerOptional = partnerRepository.findById(id);
-        if(partnerOptional.isPresent()) {
-            return partnerOptional.get();
+        Optional<Partner> partnerOp = partnerRepository.findById(id);
+        if(partnerOp.isPresent()) {
+            return partnerOp.get();
         }
         throw new IllegalArgumentException("Id inválido!");
     }
@@ -79,7 +79,8 @@ public class PartnerService implements IPartnerService{
     }
 
     public PartnerSimpleDTO getPartnerSimple(Long partnerId) {
-        Partner partner = partnerRepository.findById(partnerId).orElseThrow(() -> new EntityNotFoundException("Partner not found with id: " + partnerId));
+        Partner partner = partnerRepository.findById(partnerId)
+        .orElseThrow(() -> new EntityNotFoundException("Parceiro não encontrado com o ID: " + partnerId));
 
         PartnerSimpleDTO partnerSimpleDTO = new PartnerSimpleDTO();
         partnerSimpleDTO.setName(partner.getName());
@@ -88,8 +89,8 @@ public class PartnerService implements IPartnerService{
         return new PartnerSimpleDTO();
     }
 
-    public List<PartnerTrackDTO> getPartnerTrack(Long partnerId) {
-        List<PartnerTrack> partnerTracks = partnerTrackRepository.findByPartnerId(partnerId);
+    public List<PartnerTrackDTO> getPartnerTrack(Partner partner) {
+        List<PartnerTrack> partnerTracks = partnerTrackRepository.findByPartnerId(partner);
         List<PartnerTrackDTO> partnerTrackDTOs = new ArrayList<>();
 
         for (PartnerTrack partnerTrack : partnerTracks) {
@@ -109,8 +110,8 @@ public class PartnerService implements IPartnerService{
         return partnerTrackDTOs;
     }
 
-    public List<PartnerExpertiseDTO> getPartnerExpertise(Long partnerId) {
-        List<PartnerExpertise> partnerExpertises = partnerExpertiseRepository.findByPartnerId(partnerId);
+    public List<PartnerExpertiseDTO> getPartnerExpertise(Partner partner) {
+        List<PartnerExpertise> partnerExpertises = partnerExpertiseRepository.findByPartnerId(partner);
         List<PartnerExpertiseDTO> partnerExpertiseDTOs = new ArrayList<>();
 
         for (PartnerExpertise partnerExpertise : partnerExpertises) {
@@ -130,8 +131,8 @@ public class PartnerService implements IPartnerService{
         return partnerExpertiseDTOs;
     }
 
-    public List<PartnerQualifierDTO> getPartnerQuaifier(Long partnerId) {
-        List<PartnerQualifier> partnerQualifiers = partnerQualifierRepository.findByPartnerId(partnerId);
+    public List<PartnerQualifierDTO> getPartnerQuaifier(Partner partner) {
+        List<PartnerQualifier> partnerQualifiers = partnerQualifierRepository.findByPartnerId(partner);
         List<PartnerQualifierDTO> partnerQualifierDTOs = new ArrayList<>();
 
         for (PartnerQualifier partnerQualifier : partnerQualifiers) {
@@ -150,7 +151,5 @@ public class PartnerService implements IPartnerService{
         
         return partnerQualifierDTOs;
     }
-    
-    
     
 }
