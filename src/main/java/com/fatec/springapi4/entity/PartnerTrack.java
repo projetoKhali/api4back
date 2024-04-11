@@ -35,4 +35,7 @@ public class PartnerTrack {
     
     @Column(name = "pt_tk_insert_date")
     private LocalDate insertDate;   
+    
+    @Column(name = "pt_tk_complete_date")
+    private LocalDate completeDate;   
 }
