@@ -1,5 +1,6 @@
 package com.fatec.springapi4.entity;
 
+import java.util.List;
 import java.util.Set;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +18,6 @@ import lombok.Setter;
 
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 @Entity
-@Table
 public class Expertise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,5 +32,5 @@ public class Expertise {
     private Track track;
 
     @Column(name = "ex_qualifiers")
-    private Set<Qualifier> qualifiers;
+    private List<Qualifier> qualifiers;
 }

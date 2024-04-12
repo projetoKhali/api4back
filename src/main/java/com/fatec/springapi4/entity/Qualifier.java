@@ -13,13 +13,13 @@ import lombok.Setter;
 
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 @Entity
-@Table
+@Table(name = "qualifier")
 public class Qualifier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ql_id")
     private Long id;
 
-    @Column(name = "ql_name")
+    @Column(name = "name")
     private String name;
 }

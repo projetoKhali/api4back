@@ -15,7 +15,6 @@ import lombok.Setter;
 
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 @Entity
-@Table
 public class Partner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

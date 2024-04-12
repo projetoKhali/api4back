@@ -7,16 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fatec.springapi4.dto.ExpertiseDTO;
-import com.fatec.springapi4.dto.PartnerDTO;
-import com.fatec.springapi4.dto.QualifierDTO;
-import com.fatec.springapi4.dto.TrackDTO;
-import com.fatec.springapi4.entity.Expertise;
+import com.fatec.springapi4.dto.Product.ProductPartnerDTO;
 import com.fatec.springapi4.entity.Partner;
-import com.fatec.springapi4.entity.PartnerExpertise;
-import com.fatec.springapi4.entity.PartnerQualifier;
 import com.fatec.springapi4.entity.PartnerTrack;
-import com.fatec.springapi4.entity.Qualifier;
 import com.fatec.springapi4.entity.Track;
 import com.fatec.springapi4.repository.PartnerExpertiseRepository;
 import com.fatec.springapi4.repository.PartnerQualifierRepository;
@@ -25,7 +18,6 @@ import com.fatec.springapi4.repository.PartnerTrackRepository;
 import com.fatec.springapi4.repository.QualifierRepository;
 import com.fatec.springapi4.repository.TrackRepository;
 
-import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class PartnerService implements IPartnerService{
@@ -47,6 +39,12 @@ public class PartnerService implements IPartnerService{
 
     @Autowired
     QualifierRepository qualifierRepository;
+    
+    @Autowired
+    ExpertiseService expertiseService;
+    
+    @Autowired
+    QualifierService qualifierService;
 
 
     public Partner findPartnerById(Long id) {
@@ -72,5 +70,23 @@ public class PartnerService implements IPartnerService{
     public void delPartnerById (Long id) {
         partnerRepository.deleteById(id);
     }
-    
+
+    public List<ProductPartnerDTO> findPartnersByTrack (String nameTrack) {
+        Optional<Track> track = trackRepository.findByName(nameTrack);
+        List<PartnerTrack> partnersTracks = partnerTrackRepository.findByTrack(track);
+        List<ProductPartnerDTO> partnersDTO = new ArrayList<ProductPartnerDTO>();
+        if (track.isEmpty()) {return partnersDTO;}
+        for (PartnerTrack partnerTrack : partnersTracks) {
+            Optional<Partner> partnerOptional = partnerRepository.findById(partnerTrack.getId());
+            if (partnerOptional.isEmpty()) {continue;}
+            ProductPartnerDTO partnerDTO = 
+                new ProductPartnerDTO(
+                    partnerOptional.get(), 
+                    partnerTrack, 
+                    expertiseService.findExpertisesDTOByPartnerAndTrack (track.get(), partnerOptional.get()),
+                    qualifierService.findQualifiersDTOByPartnerAndTrack (track.get(), partnerOptional.get()));
+            partnersDTO.add(partnerDTO);
+        }
+        return partnersDTO;
+    }
 }

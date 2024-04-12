@@ -80,7 +80,7 @@ CREATE TABLE Qualifier (
 -- Table: Track
 CREATE TABLE Track (
     tk_id integer  NOT NULL,
-    tk_name varchar  NOT NULL,
+    tk_name varchar  NOT NULL UNIQUE,
     tk_complete_date date,
     tk_association_date date,
     CONSTRAINT Track_pk PRIMARY KEY (tk_id)
