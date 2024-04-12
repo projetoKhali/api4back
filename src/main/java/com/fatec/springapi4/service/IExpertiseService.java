@@ -2,7 +2,11 @@ package com.fatec.springapi4.service;
 
 import java.util.List;
 
+import com.fatec.springapi4.dto.Product.ProductExpertiseDTO;
+import com.fatec.springapi4.dto.Product.ProductExpertisePartnerDTO;
 import com.fatec.springapi4.entity.Expertise;
+import com.fatec.springapi4.entity.Partner;
+import com.fatec.springapi4.entity.Track;
 
 public interface IExpertiseService {
     
@@ -14,4 +18,7 @@ public interface IExpertiseService {
 
     public void delExpertiseById (Long id);
 
+    public List<ProductExpertiseDTO> findExpertisesDTOByTrackName(String trackName);
+
+    public List<ProductExpertisePartnerDTO> findExpertisesDTOByPartnerAndTrack (Track track, Partner partner);
 }
