@@ -12,8 +12,8 @@ import com.fatec.springapi4.entity.Qualifier;
 
 @Repository
 public interface PartnerQualifierRepository extends JpaRepository<PartnerQualifier, Long> {
-    List<PartnerQualifier> findByPartnerId(Partner partnerId);
+    List<PartnerQualifier> findByPartner(Partner partner);
 
-    Optional<PartnerQualifier> findByQualifierIdAndPartnerId(Qualifier qualifier, Partner partner);
+    Optional<PartnerQualifier> findByQualifierAndPartner(Qualifier qualifier, Partner partner);
     
 }

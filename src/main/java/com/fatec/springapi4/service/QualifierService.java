@@ -64,7 +64,7 @@ public class QualifierService implements IQualifierService{
         for(Expertise expertise : expertisesInTrack) {
             List<Qualifier> qualifiersInExp = expertise.getQualifiers();
             for(Qualifier qualifier: qualifiersInExp){
-                Optional<PartnerQualifier> partQual = partQualRepository.findByQualifierIdAndPartnerId(qualifier, partner);
+                Optional<PartnerQualifier> partQual = partQualRepository.findByQualifierAndPartner(qualifier, partner);
                 if (partQual.isEmpty()) {continue;}
                 if (!idsUnicos.add(qualifier.getId())) {continue;} //impedir add de qualifiers iguais
                 ProductQualifierPartnerDTO qualifierPartnerDTO = 

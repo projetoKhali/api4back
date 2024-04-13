@@ -12,10 +12,7 @@ import com.fatec.springapi4.entity.Track;
 
 @Repository
 public interface PartnerTrackRepository extends JpaRepository<PartnerTrack, Long> {
-    List<PartnerTrack> findByPartnerId(Long partnerId);
-    List<PartnerTrack> findByTrackId(Long trackId);
-
     List<PartnerTrack> findByPartner(Partner partner);
-    List<PartnerTrack> findByTrack(Optional<Track> track);
+    List<PartnerTrack> findByTrack(Track track);
     
 }

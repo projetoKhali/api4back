@@ -31,11 +31,11 @@ public class PartnerQualifier {
     
     @ManyToOne
     @JoinColumn(name = "pt_id", referencedColumnName = "pt_id")
-    private Partner partnerId;
+    private Partner partner;
     
     @ManyToOne
     @JoinColumn(name = "ql_id", referencedColumnName = "ql_id")
-    private Qualifier qualifierId;
+    private Qualifier qualifier;
     
     @Column(name = "pt_ql_insert_date")
     private LocalDate insertDate;   

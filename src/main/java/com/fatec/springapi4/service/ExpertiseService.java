@@ -77,7 +77,7 @@ public class ExpertiseService implements IExpertiseService {
         List<ProductExpertisePartnerDTO> expertisesTrackPartner = new ArrayList<ProductExpertisePartnerDTO>();
 
         for(Expertise expertise : expertisesInTrack) {
-            Optional<PartnerExpertise> partExp = partExpRepository.findByExpertiseIdAndPartnerId(expertise, partner);
+            Optional<PartnerExpertise> partExp = partExpRepository.findByExpertiseAndPartner(expertise, partner);
             if(partExp.isEmpty()){continue;}
             ProductExpertisePartnerDTO prodExpPartDTO = 
                 new ProductExpertisePartnerDTO(expertise, partExp.get());

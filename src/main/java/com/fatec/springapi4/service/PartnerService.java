@@ -73,8 +73,9 @@ public class PartnerService implements IPartnerService{
 
     public List<ProductPartnerDTO> findPartnersByTrack (String nameTrack) {
         Optional<Track> track = trackRepository.findByName(nameTrack);
-        List<PartnerTrack> partnersTracks = partnerTrackRepository.findByTrack(track);
         List<ProductPartnerDTO> partnersDTO = new ArrayList<ProductPartnerDTO>();
+        if(track.isEmpty()) {return partnersDTO;}
+        List<PartnerTrack> partnersTracks = partnerTrackRepository.findByTrack(track.get());
         if (track.isEmpty()) {return partnersDTO;}
         for (PartnerTrack partnerTrack : partnersTracks) {
             Optional<Partner> partnerOptional = partnerRepository.findById(partnerTrack.getId());
