@@ -104,9 +104,19 @@ public class PartnerService implements IPartnerService {
 
             partnerTrackDTO.setName(partnerTrack.getTrackId().getName());
 
-            List<PartnerExpertiseDTO> partnerExpertiseDTOs = getAllPartnerExpertise(partner);
+            List<PartnerExpertiseDTO> partnerExpertiseDTOs = getAllPartnerExpertise(partner); //TODOS AS EXPERTISES (TRACKS DIFERENTES)
+            List<PartnerExpertiseDTO> partnerExpertiseDTOByTrack = new ArrayList<>();
 
-            partnerTrackDTO.setExpertises(partnerExpertiseDTOs);
+            for (PartnerExpertiseDTO partnerExpertiseDTO : partnerExpertiseDTOs) {
+                Expertise expertise = expertiseRepository.findByName(partnerExpertiseDTO.getName()).orElse(null);
+
+                if (expertise != null && expertise.getTrack().getName().equals(partnerTrackDTO.getName())) {
+
+                    partnerExpertiseDTOByTrack.add(partnerExpertiseDTO);
+                }
+            }
+
+            partnerTrackDTO.setExpertises(partnerExpertiseDTOByTrack);
 
             partnerTrackDTOs.add(partnerTrackDTO);
         }
@@ -123,7 +133,8 @@ public class PartnerService implements IPartnerService {
 
             partnerExpertiseDTO.setName(partnerExpertise.getExpertiseId().getName());
 
-            partnerExpertiseDTO.setQualifiers(null);
+            List<PartnerQualifierDTO> partnerQualifierDTOs = getAllPartnerQualifier(partner);
+            partnerExpertiseDTO.setQualifiers(partnerQualifierDTOs);
 
             partnerExpertiseDTOs.add(partnerExpertiseDTO);
         }
@@ -131,27 +142,39 @@ public class PartnerService implements IPartnerService {
         return partnerExpertiseDTOs;
     }
 
+    public List<PartnerExpertiseDTO> getAllPartnerExpertiseByTrack(Partner partner, PartnerTrack partnerTrack) {
     
-    
-    public List<PartnerQualifierDTO> getPartnerQualifier(Partner partner) {
+        List<PartnerExpertise> partnerExpertises = partnerExpertiseRepository.findByPartnerId(partner);
+        List<PartnerExpertiseDTO> partnerExpertiseDTOs = new ArrayList<>();
+
+        for (PartnerExpertise partnerExpertise : partnerExpertises) {
+            PartnerExpertiseDTO partnerExpertiseDTO = new PartnerExpertiseDTO();
+
+            partnerExpertiseDTO.setName(partnerExpertise.getExpertiseId().getName());
+
+            List<PartnerQualifierDTO> partnerQualifierDTOs = getAllPartnerQualifier(partner);
+            partnerExpertiseDTO.setQualifiers(partnerQualifierDTOs);
+
+            partnerExpertiseDTOs.add(partnerExpertiseDTO);
+        }
+
+        return partnerExpertiseDTOs;
+    }
+
+    public List<PartnerQualifierDTO> getAllPartnerQualifier(Partner partner) {
         List<PartnerQualifier> partnerQualifiers = partnerQualifierRepository.findByPartnerId(partner);
         List<PartnerQualifierDTO> partnerQualifierDTOs = new ArrayList<>();
 
         for (PartnerQualifier partnerQualifier : partnerQualifiers) {
-            Long qualifierId = partnerQualifier.getQualifierId().getId();
-            Optional<Qualifier> optionalQualifier = qualifierRepository.findById(qualifierId);
+            PartnerQualifierDTO partnerQualifierDTO = new PartnerQualifierDTO();
 
-            if (optionalQualifier.isPresent()) {
-                Qualifier qualifier = optionalQualifier.get();
+            partnerQualifierDTO.setName(partnerQualifier.getQualifierId().getName());
 
-                PartnerQualifierDTO partnerQualifierDTO = new PartnerQualifierDTO();
-                partnerQualifierDTO.setName(qualifier.getName());
-
-                partnerQualifierDTOs.add(partnerQualifierDTO);
-            }
+            partnerQualifierDTOs.add(partnerQualifierDTO);
         }
 
         return partnerQualifierDTOs;
+
     }
 
 }

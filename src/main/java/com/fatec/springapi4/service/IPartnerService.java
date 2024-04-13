@@ -24,6 +24,6 @@ public interface IPartnerService {
 
     public List<PartnerExpertiseDTO> getAllPartnerExpertise(Partner partner);
 
-    public List<PartnerQualifierDTO> getPartnerQualifier(Partner partner);
+    public List<PartnerQualifierDTO> getAllPartnerQualifier(Partner partner);
 
 }

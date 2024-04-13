@@ -25,10 +25,8 @@ public class Track {
 
     @Column(name = "tk_name")
     private String name;
-    
-    @Column(name = "tk_complete_date")
-    private LocalDate completeDate;
 
-    @Column(name = "tk_association_date")
-    private LocalDate associationDate;
+    @Column(name = "tk_insert_date")
+    private LocalDate insertDate;
+
 }

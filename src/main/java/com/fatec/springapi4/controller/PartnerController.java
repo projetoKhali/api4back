@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fatec.springapi4.dto.PartnerExpertiseAssociateDTO;
 import com.fatec.springapi4.dto.PartnerExpertiseDTO;
+import com.fatec.springapi4.dto.PartnerQualifierDTO;
 import com.fatec.springapi4.dto.PartnerSimpleDTO;
 import com.fatec.springapi4.dto.PartnerTrackDTO;
 import com.fatec.springapi4.dto.PartnerTrackAssociateDTO;
 import com.fatec.springapi4.entity.Partner;
-import com.fatec.springapi4.entity.PartnerTrack;
 import com.fatec.springapi4.repository.PartnerRepository;
 import com.fatec.springapi4.service.IPartnerExpertiseService;
 import com.fatec.springapi4.service.IPartnerService;
@@ -68,7 +68,7 @@ public class PartnerController {
     }
 
     @GetMapping("/{partnerId}")
-    public ResponseEntity<PartnerSimpleDTO> getPartnerSimple(@PathVariable Long partnerId) {
+    public ResponseEntity<PartnerSimpleDTO> getPartnerDetails(@PathVariable Long partnerId) {
         PartnerSimpleDTO partnerSimpleDTO = partnerService.getPartnerSimple(partnerId);
         return new ResponseEntity<>(partnerSimpleDTO, HttpStatus.OK);
     }
@@ -87,6 +87,14 @@ public class PartnerController {
         return partnerService.getAllPartnerExpertise(partner);
     }
 
+    @GetMapping("/{partnerId}/qualifiers")
+    public List<PartnerQualifierDTO> getAllPartnerQualifier(@PathVariable Long partnerId) {
+        Partner partner = new Partner();
+        partner.setId(partnerId);
+        return partnerService.getAllPartnerQualifier(partner);
+    }
+
+
 
     //ASSOCIAÇÃO
 
@@ -104,6 +112,18 @@ public class PartnerController {
 
     @PostMapping("/associatePartnerExpertise")
     public ResponseEntity<String> associatePartnerWithExpertise(@RequestBody PartnerExpertiseAssociateDTO dto) {
+        try {
+            iPartnerExpertiseService.associatePartnerWithExpertise(dto);
+            return ResponseEntity.ok("Associação de parceiro com expertise realizada com sucesso.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao associar parceiro com expertise.");
+        }
+    }
+
+    @PostMapping("/associatePartnerQualifier")
+    public ResponseEntity<String> associatePartnerWithQualifier(@RequestBody PartnerExpertiseAssociateDTO dto) {
         try {
             iPartnerExpertiseService.associatePartnerWithExpertise(dto);
             return ResponseEntity.ok("Associação de parceiro com expertise realizada com sucesso.");
