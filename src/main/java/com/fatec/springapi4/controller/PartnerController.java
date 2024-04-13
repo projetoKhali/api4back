@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fatec.springapi4.dto.PartnerExpertiseAssociateDTO;
 import com.fatec.springapi4.dto.PartnerExpertiseDTO;
+import com.fatec.springapi4.dto.PartnerQualifierAssociateDTO;
 import com.fatec.springapi4.dto.PartnerQualifierDTO;
 import com.fatec.springapi4.dto.PartnerSimpleDTO;
 import com.fatec.springapi4.dto.PartnerTrackDTO;
@@ -24,6 +25,7 @@ import com.fatec.springapi4.dto.PartnerTrackAssociateDTO;
 import com.fatec.springapi4.entity.Partner;
 import com.fatec.springapi4.repository.PartnerRepository;
 import com.fatec.springapi4.service.IPartnerExpertiseService;
+import com.fatec.springapi4.service.IPartnerQualifierService;
 import com.fatec.springapi4.service.IPartnerService;
 import com.fatec.springapi4.service.IPartnerTrackService;
 
@@ -46,6 +48,9 @@ public class PartnerController {
 
     @Autowired
     IPartnerExpertiseService iPartnerExpertiseService;
+
+    @Autowired
+    IPartnerQualifierService iPartnerQualifierService;
 
     @GetMapping(value = "/find/{partner}")
     public Partner findById(@PathVariable("partner") Long id) {
@@ -123,15 +128,17 @@ public class PartnerController {
     }
 
     @PostMapping("/associatePartnerQualifier")
-    public ResponseEntity<String> associatePartnerWithQualifier(@RequestBody PartnerExpertiseAssociateDTO dto) {
+    public ResponseEntity<String> associatePartnerWithQualifier(@RequestBody PartnerQualifierAssociateDTO dto) {
         try {
-            iPartnerExpertiseService.associatePartnerWithExpertise(dto);
-            return ResponseEntity.ok("Associação de parceiro com expertise realizada com sucesso.");
+            iPartnerQualifierService.associatePartnerWithQualifier(dto);;
+            return ResponseEntity.ok("Associação de parceiro com qualifier realizada com sucesso.");
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao associar parceiro com expertise.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao associar parceiro com qualifier.");
         }
     }
 
 }
+
+

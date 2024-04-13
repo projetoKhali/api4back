@@ -75,6 +75,7 @@ public class PartnerService implements IPartnerService {
         partnerRepository.deleteById(id);
     }
 
+    
     public PartnerSimpleDTO getPartnerSimple(Long partnerId) {
         Optional<Partner> partnerOptional = partnerRepository.findById(partnerId);
 
@@ -95,6 +96,7 @@ public class PartnerService implements IPartnerService {
         }
     }
 
+    
     public List<PartnerTrackDTO> getAllPartnerTrack(Partner partner) {
         List<PartnerTrack> partnerTracks = partnerTrackRepository.findByPartnerId(partner);
         List<PartnerTrackDTO> partnerTrackDTOs = new ArrayList<>();
@@ -104,7 +106,7 @@ public class PartnerService implements IPartnerService {
 
             partnerTrackDTO.setName(partnerTrack.getTrackId().getName());
 
-            List<PartnerExpertiseDTO> partnerExpertiseDTOs = getAllPartnerExpertise(partner); //TODOS AS EXPERTISES (TRACKS DIFERENTES)
+            List<PartnerExpertiseDTO> partnerExpertiseDTOs = getAllPartnerExpertise(partner);
             List<PartnerExpertiseDTO> partnerExpertiseDTOByTrack = new ArrayList<>();
 
             for (PartnerExpertiseDTO partnerExpertiseDTO : partnerExpertiseDTOs) {
@@ -124,6 +126,7 @@ public class PartnerService implements IPartnerService {
         return partnerTrackDTOs;
     }
 
+    
     public List<PartnerExpertiseDTO> getAllPartnerExpertise(Partner partner) {
         List<PartnerExpertise> partnerExpertises = partnerExpertiseRepository.findByPartnerId(partner);
         List<PartnerExpertiseDTO> partnerExpertiseDTOs = new ArrayList<>();
@@ -161,6 +164,7 @@ public class PartnerService implements IPartnerService {
         return partnerExpertiseDTOs;
     }
 
+
     public List<PartnerQualifierDTO> getAllPartnerQualifier(Partner partner) {
         List<PartnerQualifier> partnerQualifiers = partnerQualifierRepository.findByPartnerId(partner);
         List<PartnerQualifierDTO> partnerQualifierDTOs = new ArrayList<>();
@@ -177,4 +181,19 @@ public class PartnerService implements IPartnerService {
 
     }
 
+    /*public List<PartnerQualifierDTO> getAllPartnerQualifierByExpertise(Partner partner) {
+        List<PartnerQualifier> partnerQualifiers = partnerQualifierRepository.findByPartnerId(partner);
+        List<PartnerQualifierDTO> partnerQualifierDTOs = new ArrayList<>();
+
+        for (PartnerQualifier partnerQualifier : partnerQualifiers) {
+            PartnerQualifierDTO partnerQualifierDTO = new PartnerQualifierDTO();
+
+            partnerQualifierDTO.setName(partnerQualifier.getQualifierId().getName());
+
+            partnerQualifierDTOs.add(partnerQualifierDTO);
+        }
+
+        return partnerQualifierDTOs;
+
+    }*/
 }
