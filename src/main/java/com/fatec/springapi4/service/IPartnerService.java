@@ -20,10 +20,10 @@ public interface IPartnerService {
 
     public PartnerSimpleDTO getPartnerSimple(Long partnerId);
 
-    public List<PartnerTrackDTO> getPartnerTrack(Partner partner);
+    public List<PartnerTrackDTO> getAllPartnerTrack(Partner partner);
 
-    public List<PartnerExpertiseDTO> getPartnerExpertise(Partner partner);
+    public List<PartnerExpertiseDTO> getAllPartnerExpertise(Partner partner);
 
-    public List<PartnerQualifierDTO> getPartnerQuaifier(Partner partner);
-    
+    public List<PartnerQualifierDTO> getPartnerQualifier(Partner partner);
+
 }

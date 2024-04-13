@@ -24,7 +24,7 @@ public class Partner {
 
     @Column(name = "pt_company_id", unique = true)
     private String companyId;
-
+    
     @Column(name = "pt_name")
     private String name;
 

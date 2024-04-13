@@ -26,7 +26,7 @@ public class PartnerTrack {
     private Long id;
     
     @ManyToOne
-    @JoinColumn(unique=true, name = "pt_id", referencedColumnName = "pt_id")
+    @JoinColumn(name = "pt_id", referencedColumnName = "pt_id")
     private Partner partnerId;
     
     @ManyToOne

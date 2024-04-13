@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.fatec.springapi4.dto.PartnerExpertiseDTO;
 import com.fatec.springapi4.dto.PartnerSimpleDTO;
+import com.fatec.springapi4.dto.PartnerTrackAssociateDTO;
 import com.fatec.springapi4.dto.PartnerQualifierDTO;
 import com.fatec.springapi4.dto.PartnerTrackDTO;
-import com.fatec.springapi4.dto.TrackDTO;
 import com.fatec.springapi4.entity.Expertise;
 import com.fatec.springapi4.entity.Partner;
 import com.fatec.springapi4.entity.PartnerExpertise;
@@ -27,14 +27,12 @@ import com.fatec.springapi4.repository.PartnerTrackRepository;
 import com.fatec.springapi4.repository.QualifierRepository;
 import com.fatec.springapi4.repository.TrackRepository;
 
-import jakarta.persistence.EntityNotFoundException;
-
 @Service
-public class PartnerService implements IPartnerService{
+public class PartnerService implements IPartnerService {
 
     @Autowired
     PartnerRepository partnerRepository;
-    
+
     @Autowired
     PartnerTrackRepository partnerTrackRepository;
 
@@ -53,85 +51,89 @@ public class PartnerService implements IPartnerService{
     @Autowired
     QualifierRepository qualifierRepository;
 
-
     public Partner findPartnerById(Long id) {
-        Optional<Partner> partnerOp = partnerRepository.findById(id);
-        if(partnerOp.isPresent()) {
-            return partnerOp.get();
+        Optional<Partner> partnerOptional = partnerRepository.findById(id);
+        if (partnerOptional.isPresent()) {
+            return partnerOptional.get();
         }
         throw new IllegalArgumentException("Id inválido!");
     }
 
-    public List<Partner> listPartners () {
+    public List<Partner> listPartners() {
         return partnerRepository.findAll();
     }
 
     public Partner saveAndUpdatePartner(Partner partner) {
-        if(partner == null ||
-            partner.getName() == null) {
-                throw new IllegalArgumentException("Error!");
-            }
-            return partnerRepository.save(partner);
+        if (partner == null ||
+                partner.getName() == null) {
+            throw new IllegalArgumentException("Error!");
         }
-    
-    public void delPartnerById (Long id) {
+        return partnerRepository.save(partner);
+    }
+
+    public void delPartnerById(Long id) {
         partnerRepository.deleteById(id);
     }
 
     public PartnerSimpleDTO getPartnerSimple(Long partnerId) {
-        Partner partner = partnerRepository.findById(partnerId)
-        .orElseThrow(() -> new EntityNotFoundException("Parceiro não encontrado com o ID: " + partnerId));
+        Optional<Partner> partnerOptional = partnerRepository.findById(partnerId);
 
-        PartnerSimpleDTO partnerSimpleDTO = new PartnerSimpleDTO();
-        partnerSimpleDTO.setName(partner.getName());
-        partnerSimpleDTO.setLocation(partner.getCity());
-        
-        return new PartnerSimpleDTO();
+        if (partnerOptional.isPresent()) {
+            Partner partner = partnerOptional.get();
+
+            PartnerSimpleDTO partnerSimpleDTO = new PartnerSimpleDTO();
+            partnerSimpleDTO.setName(partner.getName());
+            partnerSimpleDTO.setLocation(partner.getCity());
+
+            List<PartnerTrackDTO> partnerTrackDTOs = getAllPartnerTrack(partner);
+
+            partnerSimpleDTO.setTracks(partnerTrackDTOs);
+
+            return partnerSimpleDTO;
+        } else {
+            throw new IllegalArgumentException("Id de parceiro inválido!");
+        }
     }
 
-    public List<PartnerTrackDTO> getPartnerTrack(Partner partner) {
+    public List<PartnerTrackDTO> getAllPartnerTrack(Partner partner) {
         List<PartnerTrack> partnerTracks = partnerTrackRepository.findByPartnerId(partner);
         List<PartnerTrackDTO> partnerTrackDTOs = new ArrayList<>();
 
         for (PartnerTrack partnerTrack : partnerTracks) {
-            Long trackId = partnerTrack.getTrackId().getId();
-            Optional<Track> optionalTrack = trackRepository.findById(trackId);
+            PartnerTrackDTO partnerTrackDTO = new PartnerTrackDTO();
 
-            if (optionalTrack.isPresent()) {
-                Track track = optionalTrack.get();
+            partnerTrackDTO.setName(partnerTrack.getTrackId().getName());
 
-                PartnerTrackDTO partnerTrackDTO = new PartnerTrackDTO();
-                partnerTrackDTO.setName(track.getName());
+            List<PartnerExpertiseDTO> partnerExpertiseDTOs = getAllPartnerExpertise(partner);
 
-                partnerTrackDTOs.add(partnerTrackDTO);
-            }
+            partnerTrackDTO.setExpertises(partnerExpertiseDTOs);
+
+            partnerTrackDTOs.add(partnerTrackDTO);
         }
-        
+
         return partnerTrackDTOs;
     }
 
-    public List<PartnerExpertiseDTO> getPartnerExpertise(Partner partner) {
+    public List<PartnerExpertiseDTO> getAllPartnerExpertise(Partner partner) {
         List<PartnerExpertise> partnerExpertises = partnerExpertiseRepository.findByPartnerId(partner);
         List<PartnerExpertiseDTO> partnerExpertiseDTOs = new ArrayList<>();
 
         for (PartnerExpertise partnerExpertise : partnerExpertises) {
-            Long expertiseId = partnerExpertise.getExpertiseId().getId();
-            Optional<Expertise> optionalExpertise = expertiseRepository.findById(expertiseId);
+            PartnerExpertiseDTO partnerExpertiseDTO = new PartnerExpertiseDTO();
 
-            if (optionalExpertise.isPresent()) {
-                Expertise expertise = optionalExpertise.get();
+            partnerExpertiseDTO.setName(partnerExpertise.getExpertiseId().getName());
 
-                PartnerExpertiseDTO partnerExpertiseDTO = new PartnerExpertiseDTO();
-                partnerExpertiseDTO.setName(expertise.getName());
+            partnerExpertiseDTO.setQualifiers(null);
 
-                partnerExpertiseDTOs.add(partnerExpertiseDTO);
-            }
+            partnerExpertiseDTOs.add(partnerExpertiseDTO);
         }
-        
+
         return partnerExpertiseDTOs;
     }
 
-    public List<PartnerQualifierDTO> getPartnerQuaifier(Partner partner) {
+    
+    
+    public List<PartnerQualifierDTO> getPartnerQualifier(Partner partner) {
         List<PartnerQualifier> partnerQualifiers = partnerQualifierRepository.findByPartnerId(partner);
         List<PartnerQualifierDTO> partnerQualifierDTOs = new ArrayList<>();
 
@@ -148,8 +150,8 @@ public class PartnerService implements IPartnerService{
                 partnerQualifierDTOs.add(partnerQualifierDTO);
             }
         }
-        
+
         return partnerQualifierDTOs;
     }
-    
+
 }
