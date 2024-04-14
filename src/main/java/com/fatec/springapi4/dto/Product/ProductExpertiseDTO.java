@@ -18,19 +18,19 @@ import lombok.Setter;
 @Getter @Setter @NoArgsConstructor
 public class ProductExpertiseDTO {
     private String name;
-    private List<String> qualifiersName;
+    private List<String> qualifiers;
     
     public ProductExpertiseDTO(String name, List<String> qualifiersName) {
         this.name = name;
-        this.qualifiersName = qualifiersName;
+        this.qualifiers = qualifiersName;
     }
     
     public ProductExpertiseDTO(Expertise expertise, QualifierRepository qualifierRepository) {
         name = expertise.getName();
-        List<Qualifier> qualifiers = qualifierRepository.getByExpertiseId(expertise.getId());
-        List<String> qualifiersName = new ArrayList<String>();
-        for(Qualifier qualifier : qualifiers) {
-            qualifiersName.add(qualifier.getName());
+        List<Qualifier> qualifiersList = qualifierRepository.getByExpertiseId(expertise.getId());
+        qualifiers = new ArrayList<String>();
+        for(Qualifier qualifier : qualifiersList) {
+            qualifiers.add(qualifier.getName());
         }
     }
 
