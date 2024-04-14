@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -36,6 +37,11 @@ public class Expertise {
     private Track track;
 
     @ManyToMany
-    @JsonIgnore
-    private List<Qualifier> qualifiers;
+    @JoinTable(
+        name = "ex_qualifiers",
+        joinColumns = @JoinColumn(name = "ex_id"),
+        inverseJoinColumns = @JoinColumn(name = "ql_id")
+    )
+    private Set<Qualifier> qualifiers;
+
 }
