@@ -2,10 +2,10 @@ package com.fatec.springapi4.service;
 
 import java.util.List;
 
-import com.fatec.springapi4.dto.PartnerExpertiseDTO;
-import com.fatec.springapi4.dto.PartnerQualifierDTO;
-import com.fatec.springapi4.dto.PartnerSimpleDTO;
-import com.fatec.springapi4.dto.PartnerTrackDTO;
+import com.fatec.springapi4.dto.DetailsPartner.PartnerExpertiseDTO;
+import com.fatec.springapi4.dto.DetailsPartner.PartnerQualifierDTO;
+import com.fatec.springapi4.dto.DetailsPartner.PartnerSimpleDTO;
+import com.fatec.springapi4.dto.DetailsPartner.PartnerTrackDTO;
 import com.fatec.springapi4.entity.Partner;
 
 public interface IPartnerService {
@@ -18,9 +18,10 @@ public interface IPartnerService {
 
     public void delPartnerById (Long id);
 
-    public PartnerSimpleDTO getPartnerSimple(Long partnerId);
+    
+    public PartnerSimpleDTO getPartnerWithDetails(Long partnerId);
 
-    public List<PartnerTrackDTO> getAllPartnerTrack(Partner partner);
+    public List<PartnerTrackDTO> getAllPartnerTrackWithDetails(Partner partner);
 
     public List<PartnerExpertiseDTO> getAllPartnerExpertise(Partner partner);
 

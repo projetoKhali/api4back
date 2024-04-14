@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fatec.springapi4.dto.PartnerExpertiseAssociateDTO;
+import com.fatec.springapi4.dto.AssociatePartner.PartnerExpertiseAssociateDTO;
 import com.fatec.springapi4.entity.Expertise;
 import com.fatec.springapi4.entity.Partner;
 import com.fatec.springapi4.entity.PartnerExpertise;

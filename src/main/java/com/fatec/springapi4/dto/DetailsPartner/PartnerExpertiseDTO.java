@@ -1,4 +1,4 @@
-package com.fatec.springapi4.dto;
+package com.fatec.springapi4.dto.DetailsPartner;
 
 import java.time.LocalDate;
 import java.util.List;

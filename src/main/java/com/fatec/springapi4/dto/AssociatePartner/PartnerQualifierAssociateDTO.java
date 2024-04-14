@@ -1,4 +1,4 @@
-package com.fatec.springapi4.dto;
+package com.fatec.springapi4.dto.AssociatePartner;
 
 import java.time.LocalDate;
 
@@ -15,3 +15,4 @@ public class PartnerQualifierAssociateDTO {
     private LocalDate completeDate;
     
 }
+    

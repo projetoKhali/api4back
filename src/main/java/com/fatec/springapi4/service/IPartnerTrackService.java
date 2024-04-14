@@ -1,6 +1,6 @@
 package com.fatec.springapi4.service;
 
-import com.fatec.springapi4.dto.PartnerTrackAssociateDTO;
+import com.fatec.springapi4.dto.AssociatePartner.PartnerTrackAssociateDTO;
 
 public interface IPartnerTrackService {
 

@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fatec.springapi4.dto.PartnerExpertiseAssociateDTO;
-import com.fatec.springapi4.dto.PartnerExpertiseDTO;
-import com.fatec.springapi4.dto.PartnerQualifierAssociateDTO;
-import com.fatec.springapi4.dto.PartnerQualifierDTO;
-import com.fatec.springapi4.dto.PartnerSimpleDTO;
-import com.fatec.springapi4.dto.PartnerTrackDTO;
-import com.fatec.springapi4.dto.PartnerTrackAssociateDTO;
+import com.fatec.springapi4.dto.AssociatePartner.PartnerExpertiseAssociateDTO;
+import com.fatec.springapi4.dto.AssociatePartner.PartnerQualifierAssociateDTO;
+import com.fatec.springapi4.dto.AssociatePartner.PartnerTrackAssociateDTO;
+import com.fatec.springapi4.dto.DetailsPartner.PartnerExpertiseDTO;
+import com.fatec.springapi4.dto.DetailsPartner.PartnerQualifierDTO;
+import com.fatec.springapi4.dto.DetailsPartner.PartnerSimpleDTO;
+import com.fatec.springapi4.dto.DetailsPartner.PartnerTrackDTO;
 import com.fatec.springapi4.entity.Partner;
 import com.fatec.springapi4.repository.PartnerRepository;
 import com.fatec.springapi4.service.IPartnerExpertiseService;
@@ -73,16 +73,16 @@ public class PartnerController {
     }
 
     @GetMapping("/{partnerId}")
-    public ResponseEntity<PartnerSimpleDTO> getPartnerDetails(@PathVariable Long partnerId) {
-        PartnerSimpleDTO partnerSimpleDTO = partnerService.getPartnerSimple(partnerId);
+    public ResponseEntity<PartnerSimpleDTO> getPartnerWithDetails(@PathVariable Long partnerId) {
+        PartnerSimpleDTO partnerSimpleDTO = partnerService.getPartnerWithDetails(partnerId);
         return new ResponseEntity<>(partnerSimpleDTO, HttpStatus.OK);
     }
 
     @GetMapping("/{partnerId}/tracks")
-    public List<PartnerTrackDTO> getAllPartnerTrack(@PathVariable Long partnerId) {
+    public List<PartnerTrackDTO> getAllPartnerTrackWithDetails(@PathVariable Long partnerId) {
         Partner partner = new Partner();
         partner.setId(partnerId);
-        return partnerService.getAllPartnerTrack(partner);
+        return partnerService.getAllPartnerTrackWithDetails(partner);
     }
 
     @GetMapping("/{partnerId}/expertises")
