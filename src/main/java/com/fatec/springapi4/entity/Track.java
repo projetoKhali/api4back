@@ -16,16 +16,18 @@ import java.time.LocalDate;
 
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 @Entity
-@Table
 public class Track {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tk_id")
     private Long id;
 
-    @Column(name = "tk_name")
+    @Column(name = "tk_name", unique = true)
     private String name;
     
-    @Column(name = "tk_start_date")
-    private LocalDate startDate;
+    @Column(name = "tk_complete_date")
+    private LocalDate completeDate;
+
+    @Column(name = "tk_association_date")
+    private LocalDate associationDate;
 }

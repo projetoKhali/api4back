@@ -28,11 +28,11 @@ public class PartnerExpertise {
     
     @ManyToOne
     @JoinColumn(name = "pt_id", referencedColumnName = "pt_id")
-    private Partner partnerId;
+    private Partner partner;
     
     @ManyToOne
     @JoinColumn(name = "ex_id", referencedColumnName = "ex_id")
-    private Expertise expertiseId;
+    private Expertise expertise;
     
     @Column(name = "pt_ex_insert_date")
     private LocalDate insertDate;   

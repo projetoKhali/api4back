@@ -26,13 +26,16 @@ public class PartnerTrack {
     private Long id;
     
     @ManyToOne
-    @JoinColumn(unique=true, name = "pt_id", referencedColumnName = "pt_id")
-    private Partner partnerId;
+    @JoinColumn(name = "pt_id", referencedColumnName = "pt_id")
+    private Partner partner;
     
     @ManyToOne
     @JoinColumn(name = "tk_id", referencedColumnName = "tk_id")
-    private Track trackId;
+    private Track track;
     
     @Column(name = "pt_tk_insert_date")
     private LocalDate insertDate;   
+    
+    @Column(name = "pt_tk_complete_date")
+    private LocalDate completeDate;   
 }

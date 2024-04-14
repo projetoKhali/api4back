@@ -6,6 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fatec.springapi4.dto.Product.ProductExpertiseDTO;
+import com.fatec.springapi4.dto.Product.ProductPartnerDTO;
+import com.fatec.springapi4.dto.Product.ProductTrackDTO;
 import com.fatec.springapi4.entity.Track;
 import com.fatec.springapi4.repository.TrackRepository;
 
@@ -14,6 +17,12 @@ public class TrackService implements ITrackService {
 
     @Autowired
     TrackRepository trackRepository;
+    
+    @Autowired
+    ExpertiseService expertiseService;
+    
+    @Autowired
+    PartnerService partnerService;
 
     public Track findTrackById(Long id) {
         Optional<Track> trackOptional = trackRepository.findById(id);
@@ -39,4 +48,16 @@ public class TrackService implements ITrackService {
         trackRepository.deleteById(id);
     }
 
+    public ProductTrackDTO findTrackDTOByName(String nameTrack) {
+        List<ProductExpertiseDTO> expertises = expertiseService.findExpertisesDTOByTrackName(nameTrack);
+        List<ProductPartnerDTO> partners = partnerService.findPartnersByTrack(nameTrack);
+        ProductTrackDTO trackDTO = new ProductTrackDTO(
+                nameTrack, 
+                expertises,
+                partners);
+        System.out.println(String.format("Track DTO: %s", trackDTO));
+        // System.out.println(String.format("Expertise DTO: %s", expertises.size()));
+        // System.out.println(String.format("Partner DTO: %s", partners.size()));
+        return trackDTO;
+    }
 }

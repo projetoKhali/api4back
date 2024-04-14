@@ -2,6 +2,7 @@ package com.fatec.springapi4.service;
 
 import java.util.List;
 
+import com.fatec.springapi4.dto.Product.ProductPartnerDTO;
 import com.fatec.springapi4.entity.Partner;
 
 public interface IPartnerService {
@@ -14,4 +15,5 @@ public interface IPartnerService {
 
     public void delPartnerById (Long id);
     
+    public List<ProductPartnerDTO> findPartnersByTrack (String nameTrack);
 }

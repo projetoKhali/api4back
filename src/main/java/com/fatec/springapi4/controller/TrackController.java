@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fatec.springapi4.dto.Product.ProductTrackDTO;
 import com.fatec.springapi4.entity.Track;
 import com.fatec.springapi4.service.ITrackService;
 
@@ -41,6 +42,11 @@ public class TrackController {
     @DeleteMapping(value = "/{trackId}")
     public void deleteById(@PathVariable("trackId") Long id) {
         trackService.delTrackById(id);
+    }
+
+    @GetMapping(value = "/product/{nameTrack}")
+    public ProductTrackDTO findTrackDTOByTrackName(@PathVariable("nameTrack") String name) {
+        return trackService.findTrackDTOByName(name);
     }
 
     
