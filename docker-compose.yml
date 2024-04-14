@@ -1,0 +1,16 @@
+---
+version: "3.4"
+services:
+  khali:
+    image: postgres:16.1-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
+    ports:
+      - 15432:5432
+    volumes:
+      - db:/var/lib/postgresql:data
+volumes:
+  db:
+    driver: local
