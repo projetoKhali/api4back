@@ -62,7 +62,7 @@ public class QualifierService implements IQualifierService{
         Set<Long> idsUnicos = new HashSet<>();
 
         for(Expertise expertise : expertisesInTrack) {
-            List<Qualifier> qualifiersInExp = expertise.getQualifiers();
+            List<Qualifier> qualifiersInExp = qualifierRepository.getByExpertiseId(expertise.getId());
             for(Qualifier qualifier: qualifiersInExp){
                 Optional<PartnerQualifier> partQual = partQualRepository.findByQualifierAndPartner(qualifier, partner);
                 if (partQual.isEmpty()) {continue;}

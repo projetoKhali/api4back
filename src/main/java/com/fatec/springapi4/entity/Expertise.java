@@ -36,7 +36,6 @@ public class Expertise {
     private Track track;
 
     @ManyToMany
-    @Column(name = "ex_qualifiers")
     @JsonIgnore
     private List<Qualifier> qualifiers;
 }

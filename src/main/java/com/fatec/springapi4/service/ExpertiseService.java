@@ -66,7 +66,7 @@ public class ExpertiseService implements IExpertiseService {
         List<Expertise> expertises = expertiseRepository.findByTrack(trackOptional.get());
         List<ProductExpertiseDTO> expertisesDTO = new ArrayList<ProductExpertiseDTO>();   
         for (Expertise expertise : expertises){
-            ProductExpertiseDTO expertiseDTO = new ProductExpertiseDTO(expertise);
+            ProductExpertiseDTO expertiseDTO = new ProductExpertiseDTO(expertise, qualifierRepository);
             expertisesDTO.add(expertiseDTO);
         }
         return expertisesDTO;
