@@ -6,6 +6,11 @@ import java.util.Set;
 import com.fatec.springapi4.entity.Expertise;
 import com.fatec.springapi4.entity.Partner;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter @Setter @NoArgsConstructor
 public class ProductTrackDTO {
     private String nameTrack;
     private List<ProductExpertiseDTO> expertises;
