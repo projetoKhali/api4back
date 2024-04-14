@@ -1,4 +1,4 @@
-package com.fatec.springapi4.dto;
+package com.fatec.springapi4.dto.DetailsPartner;
 
 import java.util.List;
 
@@ -8,9 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
-public class PartnerDTO {
+public class PartnerTrackDTO {
     private String name;
-    private String location;
-    private List<TrackDTO> tracks;
+    private List<PartnerExpertiseDTO> expertises;
     
 }

@@ -1,5 +1,7 @@
 package com.fatec.springapi4.repository;
 
+import java.util.Optional;
+
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -11,6 +13,7 @@ import com.fatec.springapi4.entity.Qualifier;
 
 @Repository
 public interface QualifierRepository extends JpaRepository<Qualifier, Long> {
+    Optional<Qualifier> findByName(String name);
     
     @Query(value =
         "SELECT q.ql_id AS ql_id, q.name AS name " +
