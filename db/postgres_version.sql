@@ -35,6 +35,13 @@ CREATE TABLE Qualifier (
     CONSTRAINT Qualifier_pk PRIMARY KEY (ql_id)
 ) ;
 
+-- Table: Expertise_Qualifier
+CREATE TABLE Expertise_Qualifier (
+    ex_ql_id SERIAL UNIQUE,
+    ex_id integer  NOT NULL,
+    ql_id integer  NOT NULL,
+    CONSTRAINT ex_ql_unique UNIQUE (ex_id, ql_id),
+    CONSTRAINT Expertise_Qualifier_pk PRIMARY KEY (ex_ql_id)
 ) ;
 
 -- Table: Partner_Expertise
