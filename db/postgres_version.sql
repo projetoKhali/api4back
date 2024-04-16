@@ -21,14 +21,6 @@ CREATE TABLE Partner (
     CONSTRAINT Partner_pk PRIMARY KEY (pt_id)
 ) ;
 
--- Table: Track
-CREATE TABLE Track (
-    tk_id SERIAL UNIQUE,
-    tk_name varchar  NOT NULL,
-    tk_insert_date date  NOT NULL,
-    CONSTRAINT Track_pk PRIMARY KEY (tk_id)
-) ;
-
 -- Table: Expertise
 CREATE TABLE Expertise (
     ex_id SERIAL UNIQUE,
@@ -43,14 +35,6 @@ CREATE TABLE Qualifier (
     CONSTRAINT Qualifier_pk PRIMARY KEY (ql_id)
 ) ;
 
--- Table: Partner_Track
-CREATE TABLE Partner_Track (
-    pt_tk_id SERIAL UNIQUE,
-    pt_id integer  NOT NULL,
-    tk_id integer  NOT NULL,
-    pt_tk_insert_date date DEFAULT CURRENT_DATE NOT NULL,
-    CONSTRAINT pt_tk_unique UNIQUE (pt_id, tk_id),
-    CONSTRAINT Partner_Track_pk PRIMARY KEY (pt_tk_id)
 ) ;
 
 -- Table: Partner_Expertise
@@ -83,13 +67,6 @@ CREATE TABLE Partner_Track (
     pt_tk_insert_date date  DEFAULT now() NOT NULL,
     CONSTRAINT pt_tk_unique UNIQUE (pt_id, tk_id),
     CONSTRAINT Partner_Track_pk PRIMARY KEY (pt_tk_id)
-) ;
-
--- Table: Qualifier
-CREATE TABLE Qualifier (
-    ql_id SERIAL UNIQUE,
-    name varchar  NOT NULL,
-    CONSTRAINT Qualifier_pk PRIMARY KEY (ql_id)
 ) ;
 
 -- Table: Track
