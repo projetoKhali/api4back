@@ -20,6 +20,6 @@ public class Qualifier {
     @Column(name = "ql_id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "ql_name")
     private String name;
 }

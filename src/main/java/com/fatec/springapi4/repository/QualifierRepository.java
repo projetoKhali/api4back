@@ -16,7 +16,7 @@ public interface QualifierRepository extends JpaRepository<Qualifier, Long> {
     Optional<Qualifier> findByName(String name);
     
     @Query(value =
-        "SELECT q.ql_id AS ql_id, q.name AS name " +
+        "SELECT q.ql_id AS ql_id, q.ql_name AS ql_name " +
         "FROM Qualifier q " +
         "JOIN Expertise_Qualifier eq ON q.ql_id = eq.ql_id " +
         "WHERE eq.ex_id = :ex_id",

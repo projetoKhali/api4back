@@ -18,7 +18,7 @@ import jakarta.persistence.UniqueConstraint;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "Parter_Qualifier", uniqueConstraints = { @UniqueConstraint(columnNames = { "pt_id", "ql_id" }) })
+@Table(name = "Partner_Qualifier", uniqueConstraints = { @UniqueConstraint(columnNames = { "pt_id", "ql_id" }) })
 @Getter
 @Setter
 @AllArgsConstructor
