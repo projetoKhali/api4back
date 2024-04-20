@@ -1,19 +1,13 @@
 package com.fatec.springapi4.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.fatec.springapi4.dto.AssociatePartner.PartnerExpertiseAssociateDTO;
 import com.fatec.springapi4.dto.AssociatePartner.PartnerQualifierAssociateDTO;
@@ -60,6 +54,17 @@ public class PartnerController {
     @GetMapping
     public List<Partner> listPartners() {
         return partnerService.listPartners();
+    }
+
+    @GetMapping(value = "/filter")
+    public List<Partner> filterPartner(@RequestParam(value = "country", required = false)String country,
+                                       @RequestParam(value = "companyId", required = false)String companyId,
+                                       @RequestParam(value = "status", required = false)boolean status){
+        if(country==null&&companyId==null&&status){
+            return partnerService.listPartners();
+        }else{
+            return partnerService.filterPartner(country, companyId, status);
+        }
     }
 
     @PostMapping

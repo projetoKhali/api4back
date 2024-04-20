@@ -1,5 +1,6 @@
 package com.fatec.springapi4.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.fatec.springapi4.dto.Product.ProductPartnerDTO;
@@ -28,5 +29,7 @@ public interface IPartnerService {
     public List<PartnerExpertiseDTO> getAllPartnerExpertise(Partner partner);
 
     public List<PartnerQualifierDTO> getAllPartnerQualifier(Partner partner);
+
+    public List<Partner> filterPartner(String coutry, String companyId, boolean status);
 
 }

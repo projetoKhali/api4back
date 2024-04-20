@@ -1,10 +1,12 @@
 package com.fatec.springapi4.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.repository.query.parser.Part;
 import org.springframework.stereotype.Service;
 
@@ -217,5 +219,15 @@ public class PartnerService implements IPartnerService {
             partnersDTO.add(partnerDTO);
         }
         return partnersDTO;
+    }
+
+    public List<Partner> filterPartner(String country, String companyId, boolean status){
+            Partner p = new Partner();
+            p.setCountry(country);
+            p.setCompanyId(companyId);
+            p.setStatus(status);
+
+            return partnerRepository.findAll(Example.of(p));
+
     }
 }
