@@ -30,6 +30,6 @@ public interface IPartnerService {
 
     public List<PartnerQualifierDTO> getAllPartnerQualifier(Partner partner);
 
-    public List<Partner> filterPartner(String coutry, String companyId, boolean status);
+    public List<Partner> filterPartner(String coutry, Boolean status);
 
 }

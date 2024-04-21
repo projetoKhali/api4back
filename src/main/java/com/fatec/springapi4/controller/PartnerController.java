@@ -58,12 +58,11 @@ public class PartnerController {
 
     @GetMapping(value = "/filter")
     public List<Partner> filterPartner(@RequestParam(value = "country", required = false)String country,
-                                       @RequestParam(value = "companyId", required = false)String companyId,
-                                       @RequestParam(value = "status", required = false)boolean status){
-        if(country==null&&companyId==null&&status){
+                                       @RequestParam(value = "status", required = false)Boolean status){
+        if(country==null&&status==null){
             return partnerService.listPartners();
         }else{
-            return partnerService.filterPartner(country, companyId, status);
+            return partnerService.filterPartner(country, status);
         }
     }
 

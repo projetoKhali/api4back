@@ -221,10 +221,9 @@ public class PartnerService implements IPartnerService {
         return partnersDTO;
     }
 
-    public List<Partner> filterPartner(String country, String companyId, boolean status){
+    public List<Partner> filterPartner(String country, Boolean status){
             Partner p = new Partner();
             p.setCountry(country);
-            p.setCompanyId(companyId);
             p.setStatus(status);
 
             return partnerRepository.findAll(Example.of(p));
