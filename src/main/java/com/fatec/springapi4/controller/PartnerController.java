@@ -67,7 +67,7 @@ public class PartnerController {
         }
     }
 
-    @PostMapping
+    @PostMapping(value = "register")
     public Partner saveAndUpdatePartner(@RequestBody Partner partner) {
         return partnerService.saveAndUpdatePartner(partner);
     }

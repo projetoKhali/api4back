@@ -15,6 +15,7 @@ import jakarta.persistence.Table;
 
 @Getter @Setter @AllArgsConstructor
 @Entity
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +31,11 @@ public class User {
     @Column(name = "usr_password")
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "profile_type")
+    @Column(name = "usr_profile_type")
     private ProfileType profileType;
+
+
+    public User() {
+
+    }
 }
