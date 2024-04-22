@@ -30,6 +30,12 @@ import com.fatec.springapi4.repository.PartnerTrackRepository;
 import com.fatec.springapi4.repository.QualifierRepository;
 import com.fatec.springapi4.repository.TrackRepository;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
+
+import java.beans.PropertyDescriptor;
+
 
 @Service
 public class PartnerService implements IPartnerService {
@@ -83,6 +89,17 @@ public class PartnerService implements IPartnerService {
             throw new IllegalArgumentException("Error!");
         }
         return partnerRepository.save(partner);
+    }
+
+    @Override
+    public Partner updatePartnerField(Long id, String fieldName, String value) {
+        Partner existingPartner = partnerRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Partner not found with id: " + id));
+
+        BeanWrapper wrapper = new BeanWrapperImpl(existingPartner);
+        wrapper.setPropertyValue(fieldName, value);
+
+        return partnerRepository.save(existingPartner);
     }
 
     public void delPartnerById(Long id) {
