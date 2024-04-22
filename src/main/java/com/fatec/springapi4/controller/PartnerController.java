@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -55,8 +57,9 @@ public class PartnerController {
     IPartnerQualifierService iPartnerQualifierService;
 
     @GetMapping
-    public List<Partner> listPartners() {
-        return iPartnerService.listPartners();
+    public Page<Partner> listPartners(@RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return partnerRepository.findAll(PageRequest.of(page, size));
     }
 
     @GetMapping(value = "/find/{partner}")
