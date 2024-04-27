@@ -17,6 +17,8 @@ public interface IPartnerService {
 
     public Partner saveAndUpdatePartner(Partner partner);
 
+    public Partner updatePartnerField(Long id, String fieldName, String value);
+
     public void delPartnerById (Long id);
 
     public List<ProductPartnerDTO> findPartnersByTrack (String nameTrack);
