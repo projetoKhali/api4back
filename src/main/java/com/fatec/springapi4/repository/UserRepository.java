@@ -9,7 +9,5 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query(value = "SELECT u FROM User u WHERE u.name like %:name%")
-    List<User> findByName(@Param("name") String name);
 
 }

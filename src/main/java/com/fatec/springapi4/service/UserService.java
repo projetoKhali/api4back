@@ -1,5 +1,6 @@
 package com.fatec.springapi4.service;
 
+import com.fatec.springapi4.entity.user.ProfileType;
 import com.fatec.springapi4.entity.user.User;
 import com.fatec.springapi4.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,11 @@ public class UserService implements IUserService{
         return userRepository.findAll();
     }
 
-    public List<User> getByName(String name){
+    public List<User> filterUser(String name, String login, ProfileType profileType){
         User user = new User();
         user.setName(name);
+        user.setLogin(login);
+        user.setProfileType(profileType);
 
         return userRepository.findAll(Example.of(user));
     }
