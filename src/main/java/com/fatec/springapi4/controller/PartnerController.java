@@ -77,6 +77,7 @@ public class PartnerController {
         }else{
             return iPartnerService.filterPartner(country,compliance,credit, status, memberType);
         }
+
     }
 
     @PostMapping
@@ -150,18 +151,6 @@ public class PartnerController {
         }
     }
 
-    @PostMapping("/associatePartnerQualifier")
-    public ResponseEntity<String> associatePartnerWithQualifier(@RequestBody PartnerQualifierAssociateDTO dto) {
-        try {
-            iPartnerQualifierService.associatePartnerWithQualifier(dto);
-            ;
-            return ResponseEntity.ok("Associação de parceiro com qualifier realizada com sucesso.");
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao associar parceiro com qualifier.");
-        }
-    }
+    
 
 }

@@ -3,6 +3,7 @@ package com.fatec.springapi4.service;
 import java.util.List;
 
 import com.fatec.springapi4.entity.user.ProfileType;
+
 import com.fatec.springapi4.entity.user.Usr;
 
 public interface IUsrService {

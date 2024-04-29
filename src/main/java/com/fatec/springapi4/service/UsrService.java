@@ -8,6 +8,8 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.fatec.springapi4.entity.user.ProfileType;
+
+
 import com.fatec.springapi4.entity.user.Usr;
 import com.fatec.springapi4.repository.UsrRepository;
 
@@ -64,5 +66,6 @@ public class UsrService implements IUsrService {
 
         return usrRepository.findAll(Example.of(user));
     }
+
     
 }
