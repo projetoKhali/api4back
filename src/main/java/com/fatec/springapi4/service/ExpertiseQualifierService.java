@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fatec.springapi4.dto.ExpertiseQualifierAssociateDTO;
-import com.fatec.springapi4.dto.DetailsPartner.ExpertiseQualifierDTO;
-import com.fatec.springapi4.dto.DetailsPartner.PartnerQualifierDTO;
 import com.fatec.springapi4.entity.Expertise;
 import com.fatec.springapi4.entity.ExpertiseQualifier;
 import com.fatec.springapi4.entity.Qualifier;

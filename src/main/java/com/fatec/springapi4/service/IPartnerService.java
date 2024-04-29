@@ -1,6 +1,5 @@
 package com.fatec.springapi4.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import com.fatec.springapi4.dto.Product.ProductPartnerDTO;
@@ -17,6 +16,8 @@ public interface IPartnerService {
     public List<Partner> listPartners ();
 
     public Partner saveAndUpdatePartner(Partner partner);
+
+    public Partner updatePartnerField(Long id, String fieldName, String value);
 
     public void delPartnerById (Long id);
 

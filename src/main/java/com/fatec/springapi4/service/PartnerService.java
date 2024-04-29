@@ -1,16 +1,13 @@
 package com.fatec.springapi4.service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.data.repository.query.parser.Part;
 import org.springframework.stereotype.Service;
 
-import com.fatec.springapi4.dto.AssociatePartner.PartnerTrackAssociateDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerExpertiseDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerQualifierDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerSimpleDTO;
@@ -31,6 +28,9 @@ import com.fatec.springapi4.repository.PartnerRepository;
 import com.fatec.springapi4.repository.PartnerTrackRepository;
 import com.fatec.springapi4.repository.QualifierRepository;
 import com.fatec.springapi4.repository.TrackRepository;
+
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 
 
 @Service
@@ -85,6 +85,17 @@ public class PartnerService implements IPartnerService {
             throw new IllegalArgumentException("Error!");
         }
         return partnerRepository.save(partner);
+    }
+
+    @Override
+    public Partner updatePartnerField(Long id, String fieldName, String value) {
+        Partner existingPartner = partnerRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Partner not found with id: " + id));
+
+        BeanWrapper wrapper = new BeanWrapperImpl(existingPartner);
+        wrapper.setPropertyValue(fieldName, value);
+
+        return partnerRepository.save(existingPartner);
     }
 
     public void delPartnerById(Long id) {

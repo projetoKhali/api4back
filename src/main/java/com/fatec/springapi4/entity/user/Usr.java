@@ -12,12 +12,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 @Entity
-@Table(name = "Users")
-public class User {
+public class Usr {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "usr_id")
@@ -32,8 +30,7 @@ public class User {
     @Column(name = "usr_password")
     private String password;
 
-    @Column(name = "usr_profile_type")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "profile_type")
     private ProfileType profileType;
-
-
 }
