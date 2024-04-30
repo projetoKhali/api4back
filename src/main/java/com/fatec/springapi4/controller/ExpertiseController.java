@@ -16,15 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fatec.springapi4.dto.ExpertiseQualifierAssociateDTO;
-import com.fatec.springapi4.dto.DetailsPartner.ExpertiseQualifierDTO;
 import com.fatec.springapi4.entity.Expertise;
-import com.fatec.springapi4.entity.ExpertiseQualifier;
 import com.fatec.springapi4.repository.ExpertiseQualifierRepository;
 import com.fatec.springapi4.service.ExpertiseQualifierService;
 import com.fatec.springapi4.service.IExpertiseQualifier;
 import com.fatec.springapi4.service.IExpertiseService;
 
-import io.swagger.annotations.ApiOperation;
 import jakarta.persistence.EntityNotFoundException;
 
 @RestController
@@ -44,7 +41,6 @@ public class ExpertiseController {
     @Autowired
     ExpertiseQualifierService expertiseQualifierService;
 
-    @ApiOperation(value = "Encontrar uma expertise pelo ID")
     @GetMapping(value = "/{expertise}")
     public Expertise findById(@PathVariable("expertise") Long id) {
         return iExpertiseService.findExpertiseById(id);
