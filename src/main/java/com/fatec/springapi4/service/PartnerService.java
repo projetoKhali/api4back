@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+
 import org.springframework.stereotype.Service;
 
 import com.fatec.springapi4.dto.DetailsPartner.PartnerExpertiseDTO;
@@ -229,5 +231,18 @@ public class PartnerService implements IPartnerService {
             partnersDTO.add(partnerDTO);
         }
         return partnersDTO;
+    }
+
+    public List<Partner> filterPartner(String country,Boolean compliance,Boolean credit, Boolean status,
+                                       Boolean memberType){
+            Partner p = new Partner();
+            p.setCountry(country);
+            p.setCompliance(compliance);
+            p.setCredit(credit);
+            p.setStatus(status);
+            p.setMemberType(memberType);
+
+            return partnerRepository.findAll(Example.of(p));
+
     }
 }

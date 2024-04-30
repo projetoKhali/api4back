@@ -1,5 +1,6 @@
 package com.fatec.springapi4.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fatec.springapi4.entity.user.ProfileType;
 import com.fatec.springapi4.entity.user.Usr;
 import com.fatec.springapi4.repository.UsrRepository;
 import com.fatec.springapi4.service.IUsrService;
@@ -41,6 +43,17 @@ public class UsrController {
     @GetMapping(value = "/find/{usr}")
     public Usr findById(@PathVariable("usr") Long id) {
         return iUsrService.findUsrById(id);
+    }
+
+    @GetMapping(value = "/filter")
+    public List<Usr> filterUsr(@RequestParam(value = "name", required = false)String name,
+                                 @RequestParam(value = "login", required = false)String login,
+                                 @RequestParam(value = "profileType", required = false) ProfileType profileType){
+        if(name == null&&login == null&&profileType == null){
+            return iUsrService.listUsrs();
+        }else {
+            return iUsrService.filterUsr(name,login,profileType);
+        }
     }
 
     @PostMapping

@@ -31,4 +31,7 @@ public interface IPartnerService {
 
     public List<PartnerQualifierDTO> getAllPartnerQualifier(Partner partner);
 
+    public List<Partner> filterPartner(String country,Boolean compliance,Boolean credit, Boolean status,
+                                       Boolean memberType);
+
 }

@@ -2,8 +2,6 @@ package com.fatec.springapi4.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -66,6 +64,20 @@ public class PartnerController {
     @GetMapping(value = "/find/{partner}")
     public Partner findById(@PathVariable("partner") Long id) {
         return iPartnerService.findPartnerById(id);
+    }
+
+    @GetMapping(value = "/filter")
+    public List<Partner> filterPartner(@RequestParam(value = "country", required = false)String country,
+                                       @RequestParam(value = "compliance", required = false)Boolean compliance,
+                                       @RequestParam(value = "credit", required = false)Boolean credit,
+                                       @RequestParam(value = "status", required = false)Boolean status,
+                                       @RequestParam(value = "memberType", required = false)Boolean memberType){
+        if(country==null&&status==null&&compliance==null&&credit==null&&memberType==null){
+            return iPartnerService.listPartners();
+        }else{
+            return iPartnerService.filterPartner(country,compliance,credit, status, memberType);
+        }
+
     }
 
     @PostMapping
@@ -139,18 +151,6 @@ public class PartnerController {
         }
     }
 
-    @PostMapping("/associatePartnerQualifier")
-    public ResponseEntity<String> associatePartnerWithQualifier(@RequestBody PartnerQualifierAssociateDTO dto) {
-        try {
-            iPartnerQualifierService.associatePartnerWithQualifier(dto);
-            ;
-            return ResponseEntity.ok("Associação de parceiro com qualifier realizada com sucesso.");
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao associar parceiro com qualifier.");
-        }
-    }
+    
 
 }

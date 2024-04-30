@@ -33,4 +33,5 @@ public class Usr {
     @Enumerated(EnumType.STRING)
     @Column(name = "profile_type")
     private ProfileType profileType;
+
 }

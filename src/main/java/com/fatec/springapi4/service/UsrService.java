@@ -4,7 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+
+import com.fatec.springapi4.entity.user.ProfileType;
+
 
 import com.fatec.springapi4.entity.user.Usr;
 import com.fatec.springapi4.repository.UsrRepository;
@@ -53,5 +57,15 @@ public class UsrService implements IUsrService {
 
         return usrRepository.save(existingUsr);
     }
+
+    public List<Usr> filterUsr(String name, String login, ProfileType profileType){
+        Usr user = new Usr();
+        user.setName(name);
+        user.setLogin(login);
+        user.setProfileType(profileType);
+
+        return usrRepository.findAll(Example.of(user));
+    }
+
     
 }

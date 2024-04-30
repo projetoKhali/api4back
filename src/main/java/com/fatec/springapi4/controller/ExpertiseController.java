@@ -1,6 +1,5 @@
 package com.fatec.springapi4.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fatec.springapi4.dto.ExpertiseQualifierAssociateDTO;
-import com.fatec.springapi4.dto.DetailsPartner.ExpertiseQualifierDTO;
 import com.fatec.springapi4.entity.Expertise;
-import com.fatec.springapi4.entity.ExpertiseQualifier;
 import com.fatec.springapi4.repository.ExpertiseQualifierRepository;
 import com.fatec.springapi4.service.ExpertiseQualifierService;
 import com.fatec.springapi4.service.IExpertiseQualifier;
