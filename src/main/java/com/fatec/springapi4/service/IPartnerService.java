@@ -17,6 +17,8 @@ public interface IPartnerService {
 
     public Partner saveAndUpdatePartner(Partner partner);
 
+    public Partner updatePartnerField(Long id, String fieldName, String value);
+
     public void delPartnerById (Long id);
 
     public List<ProductPartnerDTO> findPartnersByTrack (String nameTrack);
@@ -28,5 +30,8 @@ public interface IPartnerService {
     public List<PartnerExpertiseDTO> getAllPartnerExpertise(Partner partner);
 
     public List<PartnerQualifierDTO> getAllPartnerQualifier(Partner partner);
+
+    public List<Partner> filterPartner(String country,Boolean compliance,Boolean credit, Boolean status,
+                                       Boolean memberType);
 
 }
