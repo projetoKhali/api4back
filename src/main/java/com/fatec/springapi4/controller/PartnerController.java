@@ -74,13 +74,8 @@ public class PartnerController {
                                        @RequestParam(value = "status", required = false)Boolean status,
                                        @RequestParam(value = "memberType", required = false)Boolean memberType,
                                        Pageable pageable){
-        if(country==null&&status==null&&compliance==null&&credit==null&&memberType==null){
-            return iPartnerService.listPartners(0, 10);
-        }else{
-            return iPartnerService.filterPartner(country, compliance, credit, status, memberType, pageable);
-        }
-
-    }
+                                        return iPartnerService.filterPartner(country, compliance, credit, status, memberType, pageable);
+                                    }
 
     @PostMapping
     public Partner saveAndUpdatePartner(@RequestBody Partner partner) {

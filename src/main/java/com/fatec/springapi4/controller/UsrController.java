@@ -51,12 +51,8 @@ public class UsrController {
                                  @RequestParam(value = "login", required = false)String login,
                                  @RequestParam(value = "profileType", required = false) ProfileType profileType,
                                  Pageable pageable){
-        if(name == null&&login == null&&profileType == null){
-            return iUsrService.listUsrs(0, 10);
-        }else {
-            return iUsrService.filterUsr(name, login, profileType, pageable);
-        }
-    }
+                                    return iUsrService.filterUsr(name, login, profileType, pageable);
+                                }
 
     @PostMapping
     public Usr saveAndUpdateUsr(@RequestBody Usr usr) {
