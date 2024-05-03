@@ -69,7 +69,7 @@ public class UsrController {
     }
 
     @DeleteMapping(value = "/{usrId}")
-    public void deleteById(@PathVariable("usrId") Long id) {
+    public void delUsrById(@PathVariable("usrId") Long id) {
         iUsrService.delUsrById(id);
     }
     

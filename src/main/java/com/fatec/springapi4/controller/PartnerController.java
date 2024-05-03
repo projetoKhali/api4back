@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fatec.springapi4.dto.AssociatePartner.PartnerExpertiseAssociateDTO;
-import com.fatec.springapi4.dto.AssociatePartner.PartnerQualifierAssociateDTO;
 import com.fatec.springapi4.dto.AssociatePartner.PartnerTrackAssociateDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerExpertiseDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerQualifierDTO;
@@ -56,7 +55,7 @@ public class PartnerController {
     IPartnerQualifierService iPartnerQualifierService;
 
     
-    @GetMapping
+    @GetMapping(value = "/{}")
     public Page<Partner> listPartners(@RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         return partnerRepository.findAll(PageRequest.of(page, size));
@@ -135,7 +134,7 @@ public class PartnerController {
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao associar parceiro com faixa.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao associar parceiro com track.");
         }
     }
 

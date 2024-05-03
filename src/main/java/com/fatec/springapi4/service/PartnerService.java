@@ -6,7 +6,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fatec.springapi4.dto.DetailsPartner.PartnerExpertiseDTO;
@@ -74,6 +75,14 @@ public class PartnerService implements IPartnerService {
             return partnerOptional.get();
         }
         throw new IllegalArgumentException("Id inválido!");
+    }
+
+    public Partner findPartnerByName(String name) {
+        Optional<Partner> partnerOptional = partnerRepository.findByName(name);
+        if (partnerOptional.isPresent()) {
+            return partnerOptional.get();
+        }
+        throw new IllegalArgumentException("Nome inválido!");
     }
 
     public List<Partner> listPartners() {
@@ -233,8 +242,8 @@ public class PartnerService implements IPartnerService {
         return partnersDTO;
     }
 
-    public List<Partner> filterPartner(String country,Boolean compliance,Boolean credit, Boolean status,
-                                       Boolean memberType){
+    public Page<Partner> filterPartner(String country,Boolean compliance,Boolean credit, Boolean status,
+                                       Boolean memberType, Pageable pageable){
             Partner p = new Partner();
             p.setCountry(country);
             p.setCompliance(compliance);
@@ -242,7 +251,7 @@ public class PartnerService implements IPartnerService {
             p.setStatus(status);
             p.setMemberType(memberType);
 
-            return partnerRepository.findAll(Example.of(p));
+            return partnerRepository.findAll(Example.of(p), pageable);
 
     }
 }
