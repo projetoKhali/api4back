@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -55,7 +56,7 @@ public class PartnerController {
     IPartnerQualifierService iPartnerQualifierService;
 
     
-    @GetMapping(value = "/{}")
+    @GetMapping(value = "/list")
     public Page<Partner> listPartners(@RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         return partnerRepository.findAll(PageRequest.of(page, size));
@@ -67,15 +68,16 @@ public class PartnerController {
     }
 
     @GetMapping(value = "/filter")
-    public List<Partner> filterPartner(@RequestParam(value = "country", required = false)String country,
+    public Page<Partner> filterPartner(@RequestParam(value = "country", required = false)String country,
                                        @RequestParam(value = "compliance", required = false)Boolean compliance,
                                        @RequestParam(value = "credit", required = false)Boolean credit,
                                        @RequestParam(value = "status", required = false)Boolean status,
-                                       @RequestParam(value = "memberType", required = false)Boolean memberType){
+                                       @RequestParam(value = "memberType", required = false)Boolean memberType,
+                                       Pageable pageable){
         if(country==null&&status==null&&compliance==null&&credit==null&&memberType==null){
-            return iPartnerService.listPartners();
+            return iPartnerService.listPartners(0, 10);
         }else{
-            return iPartnerService.filterPartner(country,compliance,credit, status, memberType);
+            return iPartnerService.filterPartner(country, compliance, credit, status, memberType, pageable);
         }
 
     }

@@ -18,7 +18,7 @@ public interface IPartnerService {
 
     public Partner findPartnerByName(String name); 
 
-    public List<Partner> listPartners ();
+    public Page<Partner> listPartners(int pageNumber, int pageSize);
 
     public Partner saveAndUpdatePartner(Partner partner);
 

@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -85,8 +86,9 @@ public class PartnerService implements IPartnerService {
         throw new IllegalArgumentException("Nome inválido!");
     }
 
-    public List<Partner> listPartners() {
-        return partnerRepository.findAll();
+    public Page<Partner> listPartners(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return partnerRepository.findAll(pageable);
     }
 
     public Partner saveAndUpdatePartner(Partner partner) {

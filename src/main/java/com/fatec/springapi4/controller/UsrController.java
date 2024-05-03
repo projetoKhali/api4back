@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,7 @@ public class UsrController {
     @Autowired
     UsrRepository usrRepository;
 
-    @GetMapping
+    @GetMapping(value = "/list")
     public Page<Usr> listUsrs(@RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         return usrRepository.findAll(PageRequest.of(page, size));
@@ -46,13 +47,14 @@ public class UsrController {
     }
 
     @GetMapping(value = "/filter")
-    public List<Usr> filterUsr(@RequestParam(value = "name", required = false)String name,
+    public Page<Usr> filterUsr(@RequestParam(value = "name", required = false)String name,
                                  @RequestParam(value = "login", required = false)String login,
-                                 @RequestParam(value = "profileType", required = false) ProfileType profileType){
+                                 @RequestParam(value = "profileType", required = false) ProfileType profileType,
+                                 Pageable pageable){
         if(name == null&&login == null&&profileType == null){
-            return iUsrService.listUsrs();
+            return iUsrService.listUsrs(0, 10);
         }else {
-            return iUsrService.filterUsr(name,login,profileType);
+            return iUsrService.filterUsr(name, login, profileType, pageable);
         }
     }
 
