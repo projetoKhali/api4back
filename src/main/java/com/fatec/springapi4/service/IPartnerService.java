@@ -2,6 +2,9 @@ package com.fatec.springapi4.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.fatec.springapi4.dto.Product.ProductPartnerDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerExpertiseDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerQualifierDTO;
@@ -13,7 +16,9 @@ public interface IPartnerService {
     
     public Partner findPartnerById(Long id);
 
-    public List<Partner> listPartners ();
+    public Partner findPartnerByName(String name); 
+
+    public Page<Partner> listPartners(int pageNumber, int pageSize);
 
     public Partner saveAndUpdatePartner(Partner partner);
 
@@ -31,7 +36,7 @@ public interface IPartnerService {
 
     public List<PartnerQualifierDTO> getAllPartnerQualifier(Partner partner);
 
-    public List<Partner> filterPartner(String country,Boolean compliance,Boolean credit, Boolean status,
-                                       Boolean memberType);
+    public Page<Partner> filterPartner(String country,Boolean compliance,Boolean credit, Boolean status,
+                                       Boolean memberType, Pageable pageable);
 
 }

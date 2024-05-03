@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fatec.springapi4.dto.AssociatePartner.PartnerExpertiseAssociateDTO;
-import com.fatec.springapi4.dto.AssociatePartner.PartnerQualifierAssociateDTO;
 import com.fatec.springapi4.dto.AssociatePartner.PartnerTrackAssociateDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerExpertiseDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerQualifierDTO;
@@ -56,7 +56,7 @@ public class PartnerController {
     IPartnerQualifierService iPartnerQualifierService;
 
     
-    @GetMapping
+    @GetMapping(value = "/list")
     public Page<Partner> listPartners(@RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         return partnerRepository.findAll(PageRequest.of(page, size));
@@ -68,18 +68,14 @@ public class PartnerController {
     }
 
     @GetMapping(value = "/filter")
-    public List<Partner> filterPartner(@RequestParam(value = "country", required = false)String country,
+    public Page<Partner> filterPartner(@RequestParam(value = "country", required = false)String country,
                                        @RequestParam(value = "compliance", required = false)Boolean compliance,
                                        @RequestParam(value = "credit", required = false)Boolean credit,
                                        @RequestParam(value = "status", required = false)Boolean status,
-                                       @RequestParam(value = "memberType", required = false)Boolean memberType){
-        if(country==null&&status==null&&compliance==null&&credit==null&&memberType==null){
-            return iPartnerService.listPartners();
-        }else{
-            return iPartnerService.filterPartner(country,compliance,credit, status, memberType);
-        }
-
-    }
+                                       @RequestParam(value = "memberType", required = false)Boolean memberType,
+                                       Pageable pageable){
+                                        return iPartnerService.filterPartner(country, compliance, credit, status, memberType, pageable);
+                                    }
 
     @PostMapping
     public Partner saveAndUpdatePartner(@RequestBody Partner partner) {
@@ -135,7 +131,7 @@ public class PartnerController {
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao associar parceiro com faixa.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao associar parceiro com track.");
         }
     }
 

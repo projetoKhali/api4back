@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fatec.springapi4.entity.user.ProfileType;
@@ -31,8 +34,9 @@ public class UsrService implements IUsrService {
         throw new IllegalArgumentException("Id inválido!");
     }
 
-    public List<Usr> listUsrs() {
-        return usrRepository.findAll();
+    public Page<Usr> listUsrs(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return usrRepository.findAll(pageable);
     }
 
     public Usr saveAndUpdateUsr(Usr usr) {
@@ -58,13 +62,14 @@ public class UsrService implements IUsrService {
         return usrRepository.save(existingUsr);
     }
 
-    public List<Usr> filterUsr(String name, String login, ProfileType profileType){
+    
+    public Page<Usr> filterUsr(String name, String login, ProfileType profileType, Pageable pageable){
         Usr user = new Usr();
         user.setName(name);
         user.setLogin(login);
         user.setProfileType(profileType);
 
-        return usrRepository.findAll(Example.of(user));
+        return usrRepository.findAll(Example.of(user), pageable);
     }
 
     
