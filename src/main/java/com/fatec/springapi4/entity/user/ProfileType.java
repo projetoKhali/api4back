@@ -1,20 +1,20 @@
 package com.fatec.springapi4.entity.user;
 
 public enum ProfileType {
-    Oracle(0),
-    PartnerAdmin(1);
+    Oracle(false),
+    PartnerAdmin(true);
 
-    private final int value;
+    private final Boolean value;
 
-    private ProfileType(int value) {
+    private ProfileType(Boolean value) {
         this.value = value;
     }
     
-    public int getValue() {
+    public Boolean getValue() {
         return value;
     }
 
-    public static ProfileType fromValue(int value) {
+    public static ProfileType fromValue(Boolean value) {
         for (ProfileType profile : ProfileType.values()) {
             if (profile.value == value) {
                 return profile;

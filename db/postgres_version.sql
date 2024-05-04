@@ -87,11 +87,11 @@ CREATE TABLE Track (
 ) ;
 
 -- Table: User
-CREATE TABLE "User" (
+CREATE TABLE Users (
     usr_id SERIAL UNIQUE,
     usr_login varchar  NOT NULL,
     usr_name varchar  NOT NULL,
-    usr_profile_type integer  NOT NULL CHECK (usr_profile_type in (0, 1)),
+    usr_profile_type boolean  NOT NULL,
     usr_password varchar  NOT NULL,
     CONSTRAINT User_pk PRIMARY KEY (usr_id)
 ) ;
