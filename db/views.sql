@@ -56,5 +56,3 @@ select tk.tk_id,
         from Partner_Qualifier as pt_ql
     ) as avg_qualifier_completion_percentage
 FROM Track AS tk;
-select *
-from partner_expertise pe;
