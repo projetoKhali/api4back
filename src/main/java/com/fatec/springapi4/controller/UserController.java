@@ -19,56 +19,56 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fatec.springapi4.entity.user.ProfileType;
-import com.fatec.springapi4.entity.user.Usr;
-import com.fatec.springapi4.repository.UsrRepository;
-import com.fatec.springapi4.service.IUsrService;
+import com.fatec.springapi4.entity.user.User;
+import com.fatec.springapi4.repository.UserRepository;
+import com.fatec.springapi4.service.IUserService;
 
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/usr")
-public class UsrController {
+@RequestMapping(value = "/user")
+public class UserController {
 
     @Autowired
-    IUsrService iUsrService;
+    IUserService iUserService;
 
     @Autowired
-    UsrRepository usrRepository;
+    UserRepository usrRepository;
 
     @GetMapping(value = "/list")
-    public Page<Usr> listUsrs(@RequestParam(defaultValue = "0") int page,
+    public Page<User> listUsers(@RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         return usrRepository.findAll(PageRequest.of(page, size));
     }
     
-    @GetMapping(value = "/find/{usr}")
-    public Usr findById(@PathVariable("usr") Long id) {
-        return iUsrService.findUsrById(id);
+    @GetMapping(value = "/find/{user}")
+    public User findById(@PathVariable("user") Long id) {
+        return iUserService.findUserById(id);
     }
 
     @GetMapping(value = "/filter")
-    public Page<Usr> filterUsr(@RequestParam(value = "name", required = false)String name,
+    public Page<User> filterUser(@RequestParam(value = "name", required = false)String name,
                                  @RequestParam(value = "login", required = false)String login,
                                  @RequestParam(value = "profileType", required = false) ProfileType profileType,
                                  Pageable pageable){
-                                    return iUsrService.filterUsr(name, login, profileType, pageable);
+                                    return iUserService.filterUser(name, login, profileType, pageable);
                                 }
 
     @PostMapping
-    public Usr saveAndUpdateUsr(@RequestBody Usr usr) {
-        return iUsrService.saveAndUpdateUsr(usr);
+    public User saveAndUpdateUser(@RequestBody User usr) {
+        return iUserService.saveAndUpdateUser(usr);
     }
 
     @PatchMapping("/{id}")
-    public Usr updateUsrField(@PathVariable Long id, @RequestBody Map<String, String> requestBody) {
+    public User updateUserField(@PathVariable Long id, @RequestBody Map<String, String> requestBody) {
         String fieldName = requestBody.get("fieldName");
         String value = requestBody.get("value");
-        return iUsrService.updateUsrField(id, fieldName, value);
+        return iUserService.updateUserField(id, fieldName, value);
     }
 
-    @DeleteMapping(value = "/{usrId}")
-    public void delUsrById(@PathVariable("usrId") Long id) {
-        iUsrService.delUsrById(id);
+    @DeleteMapping(value = "/{userId}")
+    public void delUserById(@PathVariable("userId") Long id) {
+        iUserService.delUserById(id);
     }
     
 }
