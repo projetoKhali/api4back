@@ -57,3 +57,22 @@ VALUES
 (1, 1, '2024-03-01'),
 (2, 2, '2024-03-15')
 ON CONFLICT DO NOTHING;
+
+-- Inserting data into the Users table, insert like 10 users and break line when possible
+INSERT INTO Users (
+    usr_login,
+    usr_name,
+    usr_profile_type,
+    usr_password
+) values
+    ('user1', 'User 1', TRUE, 'password1'),
+    ('user2', 'User 2', TRUE, 'password2'),
+    ('user3', 'User 3', TRUE, 'password3'),
+    ('user4', 'User 4', TRUE, 'password4'),
+    ('user5', 'User 5', TRUE, 'password5'),
+    ('user6', 'User 6', TRUE, 'password6'),
+    ('user7', 'User 7', TRUE, 'password7'),
+    ('user8', 'User 8', TRUE, 'password8'),
+    ('user9', 'User 9', TRUE, 'password9'),
+    ('user10', 'User 10', TRUE, 'password10')
+ON CONFLICT DO NOTHING;
