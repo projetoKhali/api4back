@@ -27,11 +27,11 @@ public class TrackMetrics {
     private Long partnerCount;
     
     @Column (name = "avg_expertise_completion_time")
-    private Double ExpertiseCompletionTime;
+    private Double avgExpertiseCompletionTime;
     
     @Column (name = "avg_qualifier_completion_time")
-    private Double QualifierCompletionTime;
+    private Double avgQualifierCompletionTime;
     
     @Column (name = "avg_qualifier_completion_percentage")
-    private Integer QualifierCompletionPercentage;
+    private Integer avgQualifierCompletionPercentage;
 }
