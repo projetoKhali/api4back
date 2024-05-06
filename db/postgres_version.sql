@@ -17,7 +17,7 @@ CREATE TABLE Partner (
     pt_credit boolean  NOT NULL,
     pt_status boolean  NOT NULL,
     pt_member_type boolean NOT NULL,
-    pt_insert_date date DEFAULT CURRENT_DATE NOT NULL,
+    pt_insert_date date DEFAULT NOW() NOT NULL,
     CONSTRAINT Partner_pk PRIMARY KEY (pt_id)
 ) ;
 
