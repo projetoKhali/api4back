@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.parser.Part;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.fatec.springapi4.dto.AssociatePartner.PartnerTrackAssociateDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerExpertiseDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerQualifierDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerSimpleDTO;
@@ -29,6 +31,9 @@ import com.fatec.springapi4.repository.PartnerRepository;
 import com.fatec.springapi4.repository.PartnerTrackRepository;
 import com.fatec.springapi4.repository.QualifierRepository;
 import com.fatec.springapi4.repository.TrackRepository;
+
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 
 
 @Service
@@ -73,8 +78,17 @@ public class PartnerService implements IPartnerService {
         throw new IllegalArgumentException("Id inválido!");
     }
 
-    public List<Partner> listPartners() {
-        return partnerRepository.findAll();
+    public Partner findPartnerByName(String name) {
+        Optional<Partner> partnerOptional = partnerRepository.findByName(name);
+        if (partnerOptional.isPresent()) {
+            return partnerOptional.get();
+        }
+        throw new IllegalArgumentException("Nome inválido!");
+    }
+
+    public Page<Partner> listPartners(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return partnerRepository.findAll(pageable);
     }
 
     public Partner saveAndUpdatePartner(Partner partner) {
@@ -83,6 +97,17 @@ public class PartnerService implements IPartnerService {
             throw new IllegalArgumentException("Error!");
         }
         return partnerRepository.save(partner);
+    }
+
+    @Override
+    public Partner updatePartnerField(Long id, String fieldName, String value) {
+        Partner existingPartner = partnerRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Partner not found with id: " + id));
+
+        BeanWrapper wrapper = new BeanWrapperImpl(existingPartner);
+        wrapper.setPropertyValue(fieldName, value);
+
+        return partnerRepository.save(existingPartner);
     }
 
     public void delPartnerById(Long id) {
@@ -217,5 +242,18 @@ public class PartnerService implements IPartnerService {
             partnersDTO.add(partnerDTO);
         }
         return partnersDTO;
+    }
+
+    public Page<Partner> filterPartner(String country,Boolean compliance,Boolean credit, Boolean status,
+                                       Boolean memberType, Pageable pageable){
+            Partner p = new Partner();
+            p.setCountry(country);
+            p.setCompliance(compliance);
+            p.setCredit(credit);
+            p.setStatus(status);
+            p.setMemberType(memberType);
+
+            return partnerRepository.findAll(Example.of(p), pageable);
+
     }
 }

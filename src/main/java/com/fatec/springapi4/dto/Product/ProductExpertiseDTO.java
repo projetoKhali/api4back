@@ -3,10 +3,6 @@ package com.fatec.springapi4.dto.Product;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.fatec.springapi4.entity.Expertise;
 import com.fatec.springapi4.entity.Qualifier;
 import com.fatec.springapi4.repository.QualifierRepository;
