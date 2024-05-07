@@ -55,9 +55,6 @@ public class TrackService implements ITrackService {
                 nameTrack, 
                 expertises,
                 partners);
-        System.out.println(String.format("Track DTO: %s", trackDTO));
-        // System.out.println(String.format("Expertise DTO: %s", expertises.size()));
-        // System.out.println(String.format("Partner DTO: %s", partners.size()));
         return trackDTO;
     }
 }
