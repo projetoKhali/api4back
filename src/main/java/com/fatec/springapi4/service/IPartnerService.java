@@ -26,7 +26,7 @@ public interface IPartnerService {
 
     public void delPartnerById (Long id);
 
-    public List<ProductPartnerDTO> findPartnersByTrack (String nameTrack);
+    public List<ProductPartnerDTO> findPartnersByTrack (Long trackId);
     
     public PartnerSimpleDTO getPartnerWithDetails(Long partnerId);
 
