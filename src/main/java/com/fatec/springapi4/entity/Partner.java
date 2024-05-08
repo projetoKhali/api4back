@@ -56,6 +56,6 @@ public class Partner {
     @Column(name = "pt_member_type")
     private Boolean memberType;
 
-    @Column(name = "pt_insert_date")
+    @Column(name = "pt_insert_date", insertable = false, updatable = false)
     private LocalDate firstDateMembership;
 }
