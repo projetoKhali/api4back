@@ -18,7 +18,7 @@ public interface IExpertiseService {
 
     public void delExpertiseById (Long id);
 
-    public List<ProductExpertiseDTO> findExpertisesDTOByTrackName(String trackName);
+    public List<ProductExpertiseDTO> findExpertisesDTOByTrackId(Long trackId);
 
     public List<ProductExpertisePartnerDTO> findExpertisesDTOByPartnerAndTrack (Track track, Partner partner);
 }

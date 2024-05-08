@@ -89,7 +89,7 @@ CREATE TABLE Track (
 -- Table: User
 CREATE TABLE Users (
     usr_id SERIAL UNIQUE,
-    usr_login varchar  NOT NULL,
+    usr_login varchar  NOT NULL UNIQUE,
     usr_name varchar  NOT NULL,
     usr_profile_type boolean  NOT NULL,
     usr_password varchar  NOT NULL,
