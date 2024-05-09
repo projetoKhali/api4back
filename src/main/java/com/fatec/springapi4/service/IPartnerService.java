@@ -1,6 +1,7 @@
 package com.fatec.springapi4.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,5 +39,8 @@ public interface IPartnerService {
 
     public Page<Partner> filterPartner(String country,Boolean compliance,Boolean credit, Boolean status,
                                        Boolean memberType, Pageable pageable);
+                                       
+    public Partner updatePartner(Long id, Map<String, Object> fields);
+
 
 }

@@ -1,6 +1,8 @@
 package com.fatec.springapi4.service;
 
 
+import java.util.Map;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -21,5 +23,7 @@ public interface IUserService {
     public User updateUserField(Long id, String fieldName, String value);
 
     public Page<User> filterUser(String name, String login, ProfileType profileType, Pageable pageable);
+
+    public User updateUser(Long id, Map<String, Object> fields);
 
 }
