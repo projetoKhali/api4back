@@ -1,12 +1,12 @@
 package com.fatec.springapi4.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,6 +64,12 @@ public class UserController {
         String fieldName = requestBody.get("fieldName");
         String value = requestBody.get("value");
         return iUserService.updateUserField(id, fieldName, value);
+    }
+
+    @PatchMapping("/edit/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody Map<String, Object> fields) {
+        User user = iUserService.updateUser(id, fields);
+        return ResponseEntity.ok().body(user);
     }
 
     @DeleteMapping(value = "/{userId}")

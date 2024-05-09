@@ -2,6 +2,7 @@ package com.fatec.springapi4.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ import com.fatec.springapi4.repository.PartnerRepository;
 import com.fatec.springapi4.repository.PartnerTrackRepository;
 import com.fatec.springapi4.repository.QualifierRepository;
 import com.fatec.springapi4.repository.TrackRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -114,7 +117,58 @@ public class PartnerService implements IPartnerService {
         partnerRepository.deleteById(id);
     }
 
-    
+    public Partner updatePartner(Long id, Map<String, Object> fields) {
+        
+        Partner partner = partnerRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Entity not found: " + id));
+
+            fields.forEach((field, value) ->{
+                switch (field) {
+                    case "name":
+                        partner.setName((String) value);
+                        break;
+                    case "companyId":
+                        partner.setCompanyId((String) value);
+                        break;
+                    case "adminName":
+                        partner.setAdminName((String) value);
+                        break;
+                    case "adminEmail":
+                        partner.setAdminEmail((String) value);
+                        break;
+                    case "slogan":
+                        partner.setSlogan((String) value);
+                        break;
+                    case "country":
+                        partner.setCountry((String) value);
+                        break;
+                    case "city":
+                        partner.setCity((String) value);
+                        break;
+                    case "address":
+                        partner.setAddress((String) value);
+                        break;
+                    case "compliance":
+                        partner.setCompliance((Boolean) value);
+                        break;
+                    case "credit":
+                        partner.setCredit((Boolean) value);
+                        break;
+                    case "status":
+                        partner.setStatus((Boolean) value);
+                        break;
+                    case "memberType":
+                        partner.setMemberType((Boolean) value);
+                        break;
+                    default:
+                        System.out.println("Undeffinid field: " + field);
+                        break;
+                }
+            });
+
+        return partnerRepository.save(partner);
+    }
+
     public PartnerSimpleDTO getPartnerWithDetails(Long partnerId) {
         Optional<Partner> partnerOptional = partnerRepository.findById(partnerId);
 

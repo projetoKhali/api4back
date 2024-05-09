@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface TrackRepository  extends JpaRepository<Track, Long>{
+    @SuppressWarnings("null")
     Optional<Track> findById(Long id);
     Optional<Track> findByName(String nameTrack);
     
