@@ -89,6 +89,12 @@ public class PartnerController {
         return iPartnerService.updatePartnerField(id, fieldName, value);
     }
 
+    @PatchMapping("/edit/{id}")
+    public ResponseEntity<Partner> updatePartner(@PathVariable Long id, @RequestBody Map<String, Object> fields) {
+        Partner partner = iPartnerService.updatePartner(id, fields);
+        return ResponseEntity.ok().body(partner);
+    }
+
     @DeleteMapping(value = "/{partnerId}")
     public void deleteById(@PathVariable("partnerId") Long id) {
         iPartnerService.delPartnerById(id);
