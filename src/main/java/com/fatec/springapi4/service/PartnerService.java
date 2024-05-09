@@ -146,6 +146,8 @@ public class PartnerService implements IPartnerService {
             PartnerTrackDTO partnerTrackDTO = new PartnerTrackDTO();
 
             partnerTrackDTO.setName(partnerTrack.getTrack().getName());
+            partnerTrackDTO.setInsertDate(partnerTrack.getInsertDate());
+            partnerTrackDTO.setCompleteDate(partnerTrack.getCompleteDate());
 
             List<PartnerExpertiseDTO> partnerExpertiseByTrackDTO = new ArrayList<>();
 
@@ -156,6 +158,8 @@ public class PartnerService implements IPartnerService {
                     PartnerExpertiseDTO partnerExpertiseDTO = new PartnerExpertiseDTO();
 
                     partnerExpertiseDTO.setName(partnerExpertise.getExpertise().getName());
+                    partnerExpertiseDTO.setInsertDate(partnerExpertise.getInsertDate());
+                    partnerExpertiseDTO.setCompleteDate(partnerExpertise.getCompleteDate());
 
                     List<PartnerQualifier> partnerQualifiers = partnerQualifierRepository.findByPartner(partner);
                     List<PartnerQualifierDTO> partnerQualifierByExpertiseDTOs = new ArrayList<>();
@@ -169,6 +173,8 @@ public class PartnerService implements IPartnerService {
                             PartnerQualifierDTO partnerQualifierDTO = new PartnerQualifierDTO();
 
                             partnerQualifierDTO.setName(partnerQualifier.getQualifier().getName());
+                            partnerQualifierDTO.setInsertDate(partnerQualifier.getInsertDate());
+                            partnerQualifierDTO.setCompleteDate(partnerQualifier.getCompleteDate());
 
                             partnerQualifierByExpertiseDTOs.add(partnerQualifierDTO);
                             
