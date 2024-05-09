@@ -33,7 +33,7 @@ public class User {
     private String name;
 
     @JsonProperty(access = Access.WRITE_ONLY)
-    @Column(name = "usr_password", insertable = false, updatable = false)
+    @Column(name = "usr_password", insertable = true, updatable = true)
     private String password;
 
     @Convert(converter = ProfileTypeConverter.class)
