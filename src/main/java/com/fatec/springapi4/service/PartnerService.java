@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -16,6 +18,8 @@ import com.fatec.springapi4.dto.DetailsPartner.PartnerExpertiseDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerQualifierDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerSimpleDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerTrackDTO;
+import com.fatec.springapi4.dto.DetailsPartner.TrackExpertiseProgressDTO;
+import com.fatec.springapi4.dto.DetailsPartner.TrackProgressDTO;
 import com.fatec.springapi4.entity.Expertise;
 import com.fatec.springapi4.dto.Product.ProductPartnerDTO;
 import com.fatec.springapi4.entity.Partner;
@@ -251,6 +255,45 @@ public class PartnerService implements IPartnerService {
         return partnerTrackDTOs;
     
     }
+
+    public List<TrackExpertiseProgressDTO> getTrackExpertiseProgress() {
+        List<Partner> partners = partnerRepository.findAll();
+
+        return partners.stream().map(partner -> {
+            TrackExpertiseProgressDTO trackExpertiseProgressDTO = new TrackExpertiseProgressDTO();
+            trackExpertiseProgressDTO.setPartner(partner.getName());
+            trackExpertiseProgressDTO.setLocation(partner.getCity());
+
+            List<PartnerTrack> partnerTracks = partnerTrackRepository.findByPartner(partner);
+
+            List<TrackProgressDTO> trackProgressDTOS = partnerTracks.stream().map(partnerTrack -> {
+                Track track = partnerTrack.getTrack();
+
+                List<PartnerExpertise> partnerExpertises = partnerExpertiseRepository.findByPartner(partner);
+
+                long totalExpertises = 0; //onde buscar(associação trackexpertise)????
+                long associatedExpertise = partnerExpertises.stream()
+                .filter(pe -> pe.getExpertise().getTrack().getId().equals(track.getId()))
+                .count();
+                long completedExpertises = partnerExpertises.stream()
+                .filter(pe -> pe.getExpertise().getTrack().getId().equals(track.getId()) && pe.getCompleteDate() != null)
+                .count();
+
+                TrackProgressDTO trackProgressDTO = new TrackProgressDTO();
+                trackProgressDTO.setTrackName(track.getName());
+                trackProgressDTO.setExpertisesTrack(totalExpertises);
+                trackProgressDTO.setProgressExpertises(associatedExpertise);
+                trackProgressDTO.setFinalizedExpertises(completedExpertises);
+                
+                return trackProgressDTO;
+            }).collect(Collectors.toList());
+
+            trackExpertiseProgressDTO.setTracks(trackProgressDTOS);
+
+            return trackExpertiseProgressDTO;
+        }).collect(Collectors.toList());
+
+}
 
     public List<PartnerExpertiseDTO> getAllPartnerExpertise(Partner partner) {
         List<PartnerExpertise> partnerExpertises = partnerExpertiseRepository.findByPartner(partner);

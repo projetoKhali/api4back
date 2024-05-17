@@ -26,6 +26,7 @@ import com.fatec.springapi4.dto.DetailsPartner.PartnerExpertiseDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerQualifierDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerSimpleDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerTrackDTO;
+import com.fatec.springapi4.dto.DetailsPartner.TrackExpertiseProgressDTO;
 import com.fatec.springapi4.entity.Partner;
 import com.fatec.springapi4.repository.PartnerRepository;
 import com.fatec.springapi4.service.IPartnerExpertiseService;
@@ -125,6 +126,11 @@ public class PartnerController {
         Partner partner = new Partner();
         partner.setId(partnerId);
         return iPartnerService.getAllPartnerQualifier(partner);
+    }
+
+    @GetMapping("/trackExpertiseProgress")
+    public List<TrackExpertiseProgressDTO> getTrackExpertiseProgress() {
+        return iPartnerService.getTrackExpertiseProgress();
     }
 
     // ASSOCIAÇÕES PARTNER
