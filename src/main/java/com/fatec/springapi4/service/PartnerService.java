@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -237,7 +236,6 @@ public class PartnerService implements IPartnerService {
                             partnerQualifierByExpertiseDTOs.add(partnerQualifierDTO);
                             
                         }
-
                         
                     }
 
@@ -271,7 +269,11 @@ public class PartnerService implements IPartnerService {
 
                 List<PartnerExpertise> partnerExpertises = partnerExpertiseRepository.findByPartner(partner);
 
-                long totalExpertises = 0; //onde buscar(associação trackexpertise)????
+                List<Expertise> expertisesInTrack = expertiseRepository.findAll().stream()
+                .filter(pe -> pe.getTrack().getId().equals(track.getId()))
+                .collect(Collectors.toList());
+
+                long totalExpertises = expertisesInTrack.size();
                 long associatedExpertise = partnerExpertises.stream()
                 .filter(pe -> pe.getExpertise().getTrack().getId().equals(track.getId()))
                 .count();
