@@ -32,7 +32,7 @@ public interface IPartnerService {
     
     public PartnerSimpleDTO getPartnerWithDetails(Long partnerId);
 
-    public List<TrackExpertiseProgressDTO> getTrackExpertiseProgress();
+    public List<TrackExpertiseProgressDTO> getTrackExpertiseProgress(List<String> partnerNames);
 
     public List<PartnerTrackDTO> getAllPartnerTrackWithDetails(Partner partner);
 

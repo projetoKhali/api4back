@@ -129,8 +129,8 @@ public class PartnerController {
     }
 
     @GetMapping("/trackExpertiseProgress")
-    public List<TrackExpertiseProgressDTO> getTrackExpertiseProgress() {
-        return iPartnerService.getTrackExpertiseProgress();
+    public List<TrackExpertiseProgressDTO> getTrackExpertiseProgress(@RequestParam List<String> partnerNames) {
+        return iPartnerService.getTrackExpertiseProgress(partnerNames);
     }
 
     // ASSOCIAÇÕES PARTNER

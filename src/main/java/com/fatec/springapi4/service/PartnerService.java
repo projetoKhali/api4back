@@ -254,8 +254,8 @@ public class PartnerService implements IPartnerService {
     
     }
 
-    public List<TrackExpertiseProgressDTO> getTrackExpertiseProgress() {
-        List<Partner> partners = partnerRepository.findAll();
+    public List<TrackExpertiseProgressDTO> getTrackExpertiseProgress(List<String> partnerNames) {
+        List<Partner> partners = partnerRepository.findByNameIn(partnerNames);
 
         return partners.stream().map(partner -> {
             TrackExpertiseProgressDTO trackExpertiseProgressDTO = new TrackExpertiseProgressDTO();
