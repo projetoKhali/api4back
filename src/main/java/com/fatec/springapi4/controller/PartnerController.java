@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fatec.springapi4.dto.AssociatePartner.PartnerExpertiseAssociateDTO;
 import com.fatec.springapi4.dto.AssociatePartner.PartnerTrackAssociateDTO;
+import com.fatec.springapi4.dto.DetailsPartner.ExpertiseProgressDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerExpertiseDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerQualifierDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerSimpleDTO;
@@ -131,6 +132,11 @@ public class PartnerController {
     @GetMapping("/trackExpertiseProgress")
     public List<TrackExpertiseProgressDTO> getTrackExpertiseProgress(@RequestParam List<String> partnerNames) {
         return iPartnerService.getTrackExpertiseProgress(partnerNames);
+    }
+
+    @GetMapping("/expertiseQualifierProgress")
+    public List<ExpertiseProgressDTO> getExpertiseQualifierProgress(@RequestParam List<String> partnerNames) {
+        return iPartnerService.getExpertiseQualifierProgress(partnerNames);
     }
 
     // ASSOCIAÇÕES PARTNER

@@ -13,6 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.fatec.springapi4.dto.DetailsPartner.ExpertiseProgressDTO;
+import com.fatec.springapi4.dto.DetailsPartner.ExpertiseQualifierProgressDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerExpertiseDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerQualifierDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerSimpleDTO;
@@ -20,6 +22,7 @@ import com.fatec.springapi4.dto.DetailsPartner.PartnerTrackDTO;
 import com.fatec.springapi4.dto.DetailsPartner.TrackExpertiseProgressDTO;
 import com.fatec.springapi4.dto.DetailsPartner.TrackProgressDTO;
 import com.fatec.springapi4.entity.Expertise;
+import com.fatec.springapi4.entity.ExpertiseQualifier;
 import com.fatec.springapi4.dto.Product.ProductPartnerDTO;
 import com.fatec.springapi4.entity.Partner;
 import com.fatec.springapi4.entity.PartnerExpertise;
@@ -296,6 +299,44 @@ public class PartnerService implements IPartnerService {
         }).collect(Collectors.toList());
 
 }
+
+    public List<ExpertiseProgressDTO> getExpertiseQualifierProgress(List<String> partnerNames) {
+
+        List<Partner> partners = partnerRepository.findByNameIn(partnerNames);
+        List<PartnerExpertise> partnerExpertises = partnerExpertiseRepository.findByPartnerIn(partners);
+        List<Expertise> allExpertises = partnerExpertises.stream().map(PartnerExpertise::getExpertise).distinct().collect(Collectors.toList());
+
+        return allExpertises.stream().map(expertise -> {
+            ExpertiseProgressDTO expertiseProgressDTO = new ExpertiseProgressDTO();
+            expertiseProgressDTO.setExpertise(expertise.getName());
+
+            List<ExpertiseQualifierProgressDTO> expertiseQualifierProgressDTOs = partnerExpertises.stream()
+            .filter(pe -> pe.getExpertise().equals(expertise))
+            .map(pe -> {
+                Partner partner = pe.getPartner();
+                ExpertiseQualifierProgressDTO expertiseQualifierProgressDTO = new ExpertiseQualifierProgressDTO();
+                expertiseQualifierProgressDTO.setPartnerName(partner.getName());
+                expertiseQualifierProgressDTO.setLocation(partner.getCity());
+
+                List<ExpertiseQualifier> expertiseQualifiers = expertiseQualifierRepository.findByExpertise(expertise);
+                long totalQualifiers = expertiseQualifiers.size();
+
+                List<PartnerQualifier> partnerQualifiers = partnerQualifierRepository.findByPartner(partner);
+                long finalizedQualifiers = partnerQualifiers.stream().filter(pq -> expertiseQualifiers.stream()
+                .anyMatch(eq -> eq.getQualifier().equals(pq.getQualifier()) && pq.getCompleteDate() != null)).count();
+
+                expertiseQualifierProgressDTO.setQualifiersExpertise(totalQualifiers);
+                expertiseQualifierProgressDTO.setFinalizedQualifiers(finalizedQualifiers);
+
+                return expertiseQualifierProgressDTO;
+            }).collect(Collectors.toList());
+
+            expertiseProgressDTO.setPartners(expertiseQualifierProgressDTOs);
+
+            return expertiseProgressDTO;
+        }).collect(Collectors.toList());
+    
+    }
 
     public List<PartnerExpertiseDTO> getAllPartnerExpertise(Partner partner) {
         List<PartnerExpertise> partnerExpertises = partnerExpertiseRepository.findByPartner(partner);
