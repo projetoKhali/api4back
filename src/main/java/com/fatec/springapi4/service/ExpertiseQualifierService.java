@@ -47,8 +47,8 @@ public class ExpertiseQualifierService implements IExpertiseQualifier {
         Qualifier qualifier = qualifierOptional.get();
 
         ExpertiseQualifier expertiseQualifier = new ExpertiseQualifier();
-        expertiseQualifier.setExpertise(expertise);
-        expertiseQualifier.setQualifier(qualifier);
+        expertiseQualifier.setExpertiseId(expertise);
+        expertiseQualifier.setQualifierId(qualifier);
         expertiseQualifierRepository.save(expertiseQualifier);
     }
  
@@ -59,8 +59,8 @@ public class ExpertiseQualifierService implements IExpertiseQualifier {
         for (ExpertiseQualifier expertiseQualifier : expertiseQualifiers) {
             ExpertiseQualifierAssociateDTO dto = new ExpertiseQualifierAssociateDTO();
 
-            dto.setExpertiseId(expertiseQualifier.getExpertise().getId());
-            dto.setQualifierId(expertiseQualifier.getQualifier().getId());
+            dto.setExpertiseId(expertiseQualifier.getExpertiseId().getId());
+            dto.setQualifierId(expertiseQualifier.getQualifierId().getId());
 
             expertiseQualifierAssociateDTOs.add(dto);
         }

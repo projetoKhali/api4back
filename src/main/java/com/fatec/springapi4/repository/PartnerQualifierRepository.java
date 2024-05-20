@@ -15,5 +15,5 @@ public interface PartnerQualifierRepository extends JpaRepository<PartnerQualifi
     List<PartnerQualifier> findByPartner(Partner partner);
 
     Optional<PartnerQualifier> findByQualifierAndPartner(Qualifier qualifier, Partner partner);
-
+    
 }

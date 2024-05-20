@@ -25,10 +25,10 @@ public class ExpertiseQualifier {
     
     @ManyToOne
     @JoinColumn(name = "ex_id", referencedColumnName = "ex_id")
-    private Expertise expertise;
+    private Expertise expertiseId;
     
     @ManyToOne
     @JoinColumn(name = "ql_id", referencedColumnName = "ql_id")
-    private Qualifier qualifier;
+    private Qualifier qualifierId;
 
 }

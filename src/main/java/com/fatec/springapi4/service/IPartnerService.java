@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.fatec.springapi4.dto.Product.ProductPartnerDTO;
-import com.fatec.springapi4.dto.DetailsPartner.ExpertiseProgressDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerExpertiseDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerQualifierDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerSimpleDTO;
@@ -34,8 +33,6 @@ public interface IPartnerService {
     public PartnerSimpleDTO getPartnerWithDetails(Long partnerId);
 
     public List<TrackExpertiseProgressDTO> getTrackExpertiseProgress(List<String> partnerNames);
-    
-    public List<ExpertiseProgressDTO> getExpertiseQualifierProgress(List<String> partnerNames);
 
     public List<PartnerTrackDTO> getAllPartnerTrackWithDetails(Partner partner);
 
