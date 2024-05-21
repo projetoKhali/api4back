@@ -9,7 +9,6 @@ import lombok.Setter;
 public class ExpertiseQualifierProgressDTO {
     private String partnerName;
     private String location;
-    private Long qualifiersExpertise;
     private Long finalizedQualifiers;
 
 }

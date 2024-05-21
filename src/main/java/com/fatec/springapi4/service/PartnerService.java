@@ -310,6 +310,10 @@ public class PartnerService implements IPartnerService {
             ExpertiseProgressDTO expertiseProgressDTO = new ExpertiseProgressDTO();
             expertiseProgressDTO.setExpertise(expertise.getName());
 
+            List<ExpertiseQualifier> expertiseQualifiers = expertiseQualifierRepository.findByExpertise(expertise);
+                long totalQualifiers = expertiseQualifiers.size();
+                expertiseProgressDTO.setQualifiersExpertise(totalQualifiers);
+
             List<ExpertiseQualifierProgressDTO> expertiseQualifierProgressDTOs = partnerExpertises.stream()
             .filter(pe -> pe.getExpertise().equals(expertise))
             .map(pe -> {
@@ -318,14 +322,10 @@ public class PartnerService implements IPartnerService {
                 expertiseQualifierProgressDTO.setPartnerName(partner.getName());
                 expertiseQualifierProgressDTO.setLocation(partner.getCity());
 
-                List<ExpertiseQualifier> expertiseQualifiers = expertiseQualifierRepository.findByExpertise(expertise);
-                long totalQualifiers = expertiseQualifiers.size();
-
                 List<PartnerQualifier> partnerQualifiers = partnerQualifierRepository.findByPartner(partner);
                 long finalizedQualifiers = partnerQualifiers.stream().filter(pq -> expertiseQualifiers.stream()
                 .anyMatch(eq -> eq.getQualifier().equals(pq.getQualifier()) && pq.getCompleteDate() != null)).count();
 
-                expertiseQualifierProgressDTO.setQualifiersExpertise(totalQualifiers);
                 expertiseQualifierProgressDTO.setFinalizedQualifiers(finalizedQualifiers);
 
                 return expertiseQualifierProgressDTO;

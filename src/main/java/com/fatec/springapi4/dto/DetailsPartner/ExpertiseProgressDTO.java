@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class ExpertiseProgressDTO {
     private String expertise;
+    private Long qualifiersExpertise;
     private List<ExpertiseQualifierProgressDTO> partners;
     
 }
