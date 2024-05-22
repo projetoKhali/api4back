@@ -57,3 +57,30 @@ CREATE OR REPLACE VIEW track_metrics
 
 FROM 
     Track AS tk;
+
+
+CREATE OR REPLACE VIEW partner_metrics AS
+SELECT pt_id,pt_name,pt_city,count(DISTINCT tracks) tracks,sum(completed_tracks) completed_tracks,
+		COUNT(DISTINCT qualifiers) qualifiers, SUM(completed_qualifiers) completed_qualifiers FROM
+(
+	SELECT prt.pt_id,prt.pt_name,pac.tk_id as tracks,
+			CASE WHEN pac.pt_tk_complete_date IS NOT NULL THEN 1
+			 ELSE 0 END completed_tracks,
+		pqu.ql_id qualifiers,
+		CASE WHEN pqu.pt_ql_complete_date IS NOT NULL THEN 1
+		 ELSE 0 END completed_qualifiers,prt.pt_city
+
+	FROM partner prt
+	LEFT JOIN partner_track pac
+		ON pac.pt_id = prt.pt_id
+	LEFT JOIN partner_qualifier pqu
+		ON pqu.pt_id = prt.pt_id
+	ORDER BY prt.pt_id
+)
+GROUP BY pt_id,pt_name,pt_city
+ORDER BY pt_id;
+        SELECT count(pt_ql.pt_ql_complete_date) * 100 / count(ql.ql_id)
+        FROM partner_qualifier pt_ql,
+            qualifier ql
+    ) AS avg_qualifier_completion_percentage
+FROM track tk;
