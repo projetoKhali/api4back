@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class PartnerQualifierDTO {
     private String name;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDate insertDate;
+    private LocalDate completeDate;
     
 }

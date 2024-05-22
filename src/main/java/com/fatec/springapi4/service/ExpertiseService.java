@@ -60,8 +60,8 @@ public class ExpertiseService implements IExpertiseService {
         expertiseRepository.deleteById(id);
     }
 
-    public List<ProductExpertiseDTO> findExpertisesDTOByTrackName(String trackName){
-        Optional<Track> trackOptional = trackRepository.findByName(trackName);
+    public List<ProductExpertiseDTO> findExpertisesDTOByTrackId(Long trackId){
+        Optional<Track> trackOptional = trackRepository.findById(trackId);
         if (trackOptional.isEmpty()) {return new ArrayList<ProductExpertiseDTO>();}
         List<Expertise> expertises = expertiseRepository.findByTrack(trackOptional.get());
         List<ProductExpertiseDTO> expertisesDTO = new ArrayList<ProductExpertiseDTO>();   

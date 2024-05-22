@@ -17,7 +17,7 @@ CREATE TABLE Partner (
     pt_credit boolean  NOT NULL,
     pt_status boolean  NOT NULL,
     pt_member_type boolean NOT NULL,
-    pt_insert_date date DEFAULT CURRENT_DATE NOT NULL,
+    pt_insert_date date DEFAULT NOW() NOT NULL,
     CONSTRAINT Partner_pk PRIMARY KEY (pt_id)
 ) ;
 
@@ -89,7 +89,7 @@ CREATE TABLE Track (
 -- Table: User
 CREATE TABLE Users (
     usr_id SERIAL UNIQUE,
-    usr_login varchar  NOT NULL,
+    usr_login varchar  NOT NULL UNIQUE,
     usr_name varchar  NOT NULL,
     usr_profile_type boolean  NOT NULL,
     usr_password varchar  NOT NULL,

@@ -48,16 +48,15 @@ public class TrackService implements ITrackService {
         trackRepository.deleteById(id);
     }
 
-    public ProductTrackDTO findTrackDTOByName(String nameTrack) {
-        List<ProductExpertiseDTO> expertises = expertiseService.findExpertisesDTOByTrackName(nameTrack);
-        List<ProductPartnerDTO> partners = partnerService.findPartnersByTrack(nameTrack);
+    public ProductTrackDTO findTrackDTOById(Long trackId) {
+        List<ProductExpertiseDTO> expertises = expertiseService.findExpertisesDTOByTrackId(trackId);
+        List<ProductPartnerDTO> partners = partnerService.findPartnersByTrack(trackId);
+        Optional<Track> track = trackRepository.findById(trackId);
+        String nameTrack = (track.get()).getName();
         ProductTrackDTO trackDTO = new ProductTrackDTO(
                 nameTrack, 
                 expertises,
                 partners);
-        System.out.println(String.format("Track DTO: %s", trackDTO));
-        // System.out.println(String.format("Expertise DTO: %s", expertises.size()));
-        // System.out.println(String.format("Partner DTO: %s", partners.size()));
         return trackDTO;
     }
 }

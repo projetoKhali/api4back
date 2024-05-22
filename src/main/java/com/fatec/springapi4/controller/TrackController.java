@@ -44,9 +44,9 @@ public class TrackController {
         trackService.delTrackById(id);
     }
 
-    @GetMapping(value = "/product/{nameTrack}")
-    public ProductTrackDTO findTrackDTOByTrackName(@PathVariable("nameTrack") String name) {
-        return trackService.findTrackDTOByName(name);
+    @GetMapping(value = "/product/{trackId}")
+    public ProductTrackDTO findTrackDTOByTrackId(@PathVariable("trackId") Long trackId) {
+        return trackService.findTrackDTOById(trackId);
     }
 
     

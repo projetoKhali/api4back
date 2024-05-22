@@ -15,7 +15,7 @@ public interface ITrackService {
 
     public void delTrackById (Long id);
 
-    public ProductTrackDTO findTrackDTOByName(String nameTrack);
+    public ProductTrackDTO findTrackDTOById(Long trackId);
 
     
 }

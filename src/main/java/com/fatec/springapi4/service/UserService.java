@@ -1,6 +1,6 @@
 package com.fatec.springapi4.service;
 
-import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,8 @@ import com.fatec.springapi4.entity.user.ProfileType;
 
 import com.fatec.springapi4.entity.user.User;
 import com.fatec.springapi4.repository.UserRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -62,7 +64,33 @@ public class UserService implements IUserService {
         return usrRepository.save(existingUser);
     }
 
-    
+    public User updateUser(Long id, Map<String, Object> fields) {
+        
+        User user = usrRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Entity not found: " + id));
+
+        fields.forEach((field,value) ->{
+            switch (field) {
+                case "login":
+                    user.setLogin((String)value);
+                    break;
+                case "name":
+                    user.setName((String)value);
+                    break;
+                case "profileType":
+                    user.setProfileType((ProfileType)value);
+                    break;
+                default:
+                    // Caso você queira lidar com campos desconhecidos ou ignorá-los
+                    System.out.println("Undeffined field: " + field);
+                    break;
+            }
+        });
+
+
+        return usrRepository.save(user);
+    }
+
     public Page<User> filterUser(String name, String login, ProfileType profileType, Pageable pageable){
         User user = new User();
         user.setName(name);
