@@ -53,7 +53,19 @@ CREATE OR REPLACE VIEW track_metrics
         FROM Partner_Expertise AS pt_ex, Expertise ex
         WHERE ex.ex_id = pt_ex.ex_id
         AND ex.tk_id = tk.tk_id
-        AND pt_ex.pt_ex_complete_date IS NOT NULL) AS avg_expertise_completion_percentage
+        AND pt_ex.pt_ex_complete_date IS NOT NULL) AS avg_expertise_completion_percentage,
+
+    -- porcentagem de abandono (validade de um ano)
+    (SELECT count(pt_ql.*)
+        FROM partner_qualifier as pt_ql
+        JOIN Expertise_Qualifier ex_ql on pt_ql.ql_id = ex_ql.ql_id
+        WHERE pt_ql.pt_ql_complete_date is not NULL
+        AND pt_ql.pt_ql_complete_date + interval '1 year' < now()
+        AND ex_ql.ex_id IN (
+            SELECT ex_id 
+            FROM Expertise ex 
+            WHERE ex.tk_id = tk.tk_id)
+    )AS expired_qualifiers
 
 FROM 
     Track AS tk;
