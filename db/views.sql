@@ -46,13 +46,15 @@ SELECT tk_id,
             )
     ) AS avg_qualifier_completion_time,
     (
-        select (
-                (count(pt_ql.pt_ql_complete_date) * 100) / count(ql.ql_id)
-            )
-        from Partner_Qualifier as pt_ql
-    ) as avg_qualifier_completion_percentage
-FROM Track AS tk;
+        SELECT count(pt_ql.pt_ql_complete_date) * 100 / count(ql.ql_id)
+        FROM partner_qualifier pt_ql,
+            qualifier ql
+    ) AS avg_qualifier_completion_percentage
+FROM track tk;
 
+
+
+--CREATE PARTNER METRICS
 CREATE OR REPLACE VIEW partner_metrics AS
 SELECT pt_id,pt_name,pt_city,count(DISTINCT tracks) tracks,sum(completed_tracks) completed_tracks,
 		COUNT(DISTINCT qualifiers) qualifiers, SUM(completed_qualifiers) completed_qualifiers FROM
@@ -73,8 +75,3 @@ SELECT pt_id,pt_name,pt_city,count(DISTINCT tracks) tracks,sum(completed_tracks)
 )
 GROUP BY pt_id,pt_name,pt_city
 ORDER BY pt_id;
-        SELECT count(pt_ql.pt_ql_complete_date) * 100 / count(ql.ql_id)
-        FROM partner_qualifier pt_ql,
-            qualifier ql
-    ) AS avg_qualifier_completion_percentage
-FROM track tk;
