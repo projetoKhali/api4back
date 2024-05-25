@@ -19,24 +19,23 @@ public class PartnerMetrics {
     
     @Id
     @Column(name = "pt_id")
-    private Long pt_id;
+    private Long id;
 
     @Column(name = "pt_name")
-    private String pt_name;
+    private String name;
 
     @Column(name = "pt_city")
-    private String pt_city;
+    private String city;
 
     @Column(name = "tracks")
     private BigInteger tracks;
 
     @Column(name = "completed_tracks")
-    private BigInteger completed_tracks;
+    private BigInteger completedTracks;
 
     @Column(name = "qualifiers")
     private BigInteger qualifiers;
 
     @Column(name = "completed_qualifiers")
-    private BigInteger completed_qualifiers;
-    
+    private BigInteger completedQualifiers;
 }

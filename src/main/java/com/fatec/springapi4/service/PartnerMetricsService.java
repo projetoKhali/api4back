@@ -2,7 +2,8 @@ package com.fatec.springapi4.service;
 
 import com.fatec.springapi4.entity.PartnerMetrics;
 import com.fatec.springapi4.repository.PartnerMetricsRepository;
-import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +19,7 @@ public class PartnerMetricsService implements IPartnerMetricsService {
         return partnerMetricsRepository.findByPartialName(partialName, pageable);
     }
 
-    public List<PartnerMetrics> listPartnerMetricById(Long id) {
-        return partnerMetricsRepository.findByPartnerId(id);
+    public Optional<PartnerMetrics> listPartnerMetricById(Long id) {
+        return partnerMetricsRepository.findById(id);
     }
 }

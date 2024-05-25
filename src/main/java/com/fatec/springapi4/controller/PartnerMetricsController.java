@@ -2,7 +2,8 @@ package com.fatec.springapi4.controller;
 
 import com.fatec.springapi4.entity.PartnerMetrics;
 import com.fatec.springapi4.service.IPartnerMetricsService;
-import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,21 +28,20 @@ public class PartnerMetricsController {
     @GetMapping
     public Page<PartnerMetrics> allPartnerMetrics(
             @RequestParam(value = "partialName", required = false) String partialName,
-            @PageableDefault(sort = { "pt_name" }, value = 10) Pageable pageable) {
+            @PageableDefault(sort = { "name" }, value = 10) Pageable pageable) {
 
         Sort sort = pageable.getSort();
 
         if (sort == null || sort.isEmpty() || sort.toString().contains("string")) {
-            sort = Sort.by("pt_name");
+            sort = Sort.by("name");
         }
 
         return iPartnerMetricsService.listPartnerMetrics(
                 partialName, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort));
     }
 
-    @GetMapping
-    @RequestMapping(value = "/{id}")
-    public List<PartnerMetrics> partnerMetricsById(@PathVariable("id") Long id) {
+    @GetMapping(value = "/{id}")
+    public Optional<PartnerMetrics> partnerMetricsById(@PathVariable("id") Long id) {
         return iPartnerMetricsService.listPartnerMetricById(id);
     }
 }
