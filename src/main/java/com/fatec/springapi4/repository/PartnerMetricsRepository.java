@@ -12,12 +12,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PartnerMetricsRepository extends JpaRepository<PartnerMetrics, Long> {
 
-  @Query("select p from PartnerMetrics p where p.pt_id = :id")
-  List<PartnerMetrics> findByPartnerId(@Param("id") Long id);
+    @Query("select p from PartnerMetrics p where p.pt_id = :id")
+    List<PartnerMetrics> findByPartnerId(@Param("id") Long id);
 
-  @Query(
-      "select p from PartnerMetrics p where"
-          + " :partialName is null or :partialName = '' or"
-          + " p.pt_name like %:partialName%")
-  Page<PartnerMetrics> findByPartialName(String partialName, Pageable pageable);
+    @Query("select p from PartnerMetrics p where"
+            + " :partialName is null or :partialName = '' or"
+            + " p.pt_name like %:partialName%")
+    Page<PartnerMetrics> findByPartialName(String partialName, Pageable pageable);
 }

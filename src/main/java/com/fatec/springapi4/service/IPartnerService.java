@@ -13,35 +13,35 @@ import org.springframework.data.domain.Pageable;
 
 public interface IPartnerService {
 
-  public Partner findPartnerById(Long id);
+    public Partner findPartnerById(Long id);
 
-  public Partner findPartnerByName(String name);
+    public Partner findPartnerByName(String name);
 
-  public Page<Partner> listPartners(int pageNumber, int pageSize);
+    public Page<Partner> listPartners(int pageNumber, int pageSize);
 
-  public Partner saveAndUpdatePartner(Partner partner);
+    public Partner saveAndUpdatePartner(Partner partner);
 
-  public Partner updatePartnerField(Long id, String fieldName, String value);
+    public Partner updatePartnerField(Long id, String fieldName, String value);
 
-  public void delPartnerById(Long id);
+    public void delPartnerById(Long id);
 
-  public List<ProductPartnerDTO> findPartnersByTrack(Long trackId);
+    public List<ProductPartnerDTO> findPartnersByTrack(Long trackId);
 
-  public PartnerSimpleDTO getPartnerWithDetails(Long partnerId);
+    public PartnerSimpleDTO getPartnerWithDetails(Long partnerId);
 
-  public List<PartnerTrackDTO> getAllPartnerTrackWithDetails(Partner partner);
+    public List<PartnerTrackDTO> getAllPartnerTrackWithDetails(Partner partner);
 
-  public List<PartnerExpertiseDTO> getAllPartnerExpertise(Partner partner);
+    public List<PartnerExpertiseDTO> getAllPartnerExpertise(Partner partner);
 
-  public List<PartnerQualifierDTO> getAllPartnerQualifier(Partner partner);
+    public List<PartnerQualifierDTO> getAllPartnerQualifier(Partner partner);
 
-  public Page<Partner> filterPartner(
-      String country,
-      Boolean compliance,
-      Boolean credit,
-      Boolean status,
-      Boolean memberType,
-      Pageable pageable);
+    public Page<Partner> filterPartner(
+            String country,
+            Boolean compliance,
+            Boolean credit,
+            Boolean status,
+            Boolean memberType,
+            Pageable pageable);
 
-  public Partner updatePartner(Long id, Map<String, Object> fields);
+    public Partner updatePartner(Long id, Map<String, Object> fields);
 }

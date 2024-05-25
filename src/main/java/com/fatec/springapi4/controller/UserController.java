@@ -26,51 +26,53 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/user")
 public class UserController {
 
-  @Autowired IUserService iUserService;
+    @Autowired
+    IUserService iUserService;
 
-  @Autowired UserRepository usrRepository;
+    @Autowired
+    UserRepository usrRepository;
 
-  @GetMapping(value = "/list")
-  public Page<User> listUsers(
-      @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-    return usrRepository.findAll(PageRequest.of(page, size));
-  }
+    @GetMapping(value = "/list")
+    public Page<User> listUsers(
+            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return usrRepository.findAll(PageRequest.of(page, size));
+    }
 
-  @GetMapping(value = "/find/{user}")
-  public User findById(@PathVariable("user") Long id) {
-    return iUserService.findUserById(id);
-  }
+    @GetMapping(value = "/find/{user}")
+    public User findById(@PathVariable("user") Long id) {
+        return iUserService.findUserById(id);
+    }
 
-  @GetMapping(value = "/filter")
-  public Page<User> filterUser(
-      @RequestParam(value = "name", required = false) String name,
-      @RequestParam(value = "login", required = false) String login,
-      @RequestParam(value = "profileType", required = false) ProfileType profileType,
-      Pageable pageable) {
-    return iUserService.filterUser(name, login, profileType, pageable);
-  }
+    @GetMapping(value = "/filter")
+    public Page<User> filterUser(
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "login", required = false) String login,
+            @RequestParam(value = "profileType", required = false) ProfileType profileType,
+            Pageable pageable) {
+        return iUserService.filterUser(name, login, profileType, pageable);
+    }
 
-  @PostMapping
-  public User saveAndUpdateUser(@RequestBody User usr) {
-    return iUserService.saveAndUpdateUser(usr);
-  }
+    @PostMapping
+    public User saveAndUpdateUser(@RequestBody User usr) {
+        return iUserService.saveAndUpdateUser(usr);
+    }
 
-  @PatchMapping("/{id}")
-  public User updateUserField(@PathVariable Long id, @RequestBody Map<String, String> requestBody) {
-    String fieldName = requestBody.get("fieldName");
-    String value = requestBody.get("value");
-    return iUserService.updateUserField(id, fieldName, value);
-  }
+    @PatchMapping("/{id}")
+    public User updateUserField(@PathVariable Long id, @RequestBody Map<String, String> requestBody) {
+        String fieldName = requestBody.get("fieldName");
+        String value = requestBody.get("value");
+        return iUserService.updateUserField(id, fieldName, value);
+    }
 
-  @PatchMapping("/edit/{id}")
-  public ResponseEntity<User> updateUser(
-      @PathVariable Long id, @RequestBody Map<String, Object> fields) {
-    User user = iUserService.updateUser(id, fields);
-    return ResponseEntity.ok().body(user);
-  }
+    @PatchMapping("/edit/{id}")
+    public ResponseEntity<User> updateUser(
+            @PathVariable Long id, @RequestBody Map<String, Object> fields) {
+        User user = iUserService.updateUser(id, fields);
+        return ResponseEntity.ok().body(user);
+    }
 
-  @DeleteMapping(value = "/{userId}")
-  public void delUserById(@PathVariable("userId") Long id) {
-    iUserService.delUserById(id);
-  }
+    @DeleteMapping(value = "/{userId}")
+    public void delUserById(@PathVariable("userId") Long id) {
+        iUserService.delUserById(id);
+    }
 }

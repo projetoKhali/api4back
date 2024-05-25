@@ -11,13 +11,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class PartnerMetricsService implements IPartnerMetricsService {
 
-  @Autowired private PartnerMetricsRepository partnerMetricsRepository;
+    @Autowired
+    private PartnerMetricsRepository partnerMetricsRepository;
 
-  public Page<PartnerMetrics> listPartnerMetrics(String partialName, Pageable pageable) {
-    return partnerMetricsRepository.findByPartialName(partialName, pageable);
-  }
+    public Page<PartnerMetrics> listPartnerMetrics(String partialName, Pageable pageable) {
+        return partnerMetricsRepository.findByPartialName(partialName, pageable);
+    }
 
-  public List<PartnerMetrics> listPartnerMetricById(Long id) {
-    return partnerMetricsRepository.findByPartnerId(id);
-  }
+    public List<PartnerMetrics> listPartnerMetricById(Long id) {
+        return partnerMetricsRepository.findByPartnerId(id);
+    }
 }

@@ -21,29 +21,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/partnerMetrics")
 public class PartnerMetricsController {
 
-  @Autowired private IPartnerMetricsService iPartnerMetricsService;
+    @Autowired
+    private IPartnerMetricsService iPartnerMetricsService;
 
-  @GetMapping
-  public Page<PartnerMetrics> allPartnerMetrics(
-      @RequestParam(value = "partialName", required = false) String partialName,
-      @PageableDefault(
-              sort = {"pt_name"},
-              value = 10)
-          Pageable pageable) {
+    @GetMapping
+    public Page<PartnerMetrics> allPartnerMetrics(
+            @RequestParam(value = "partialName", required = false) String partialName,
+            @PageableDefault(sort = { "pt_name" }, value = 10) Pageable pageable) {
 
-    Sort sort = pageable.getSort();
+        Sort sort = pageable.getSort();
 
-    if (sort == null || sort.isEmpty() || sort.toString().contains("string")) {
-      sort = Sort.by("pt_name");
+        if (sort == null || sort.isEmpty() || sort.toString().contains("string")) {
+            sort = Sort.by("pt_name");
+        }
+
+        return iPartnerMetricsService.listPartnerMetrics(
+                partialName, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort));
     }
 
-    return iPartnerMetricsService.listPartnerMetrics(
-        partialName, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort));
-  }
-
-  @GetMapping
-  @RequestMapping(value = "/{id}")
-  public List<PartnerMetrics> partnerMetricsById(@PathVariable("id") Long id) {
-    return iPartnerMetricsService.listPartnerMetricById(id);
-  }
+    @GetMapping
+    @RequestMapping(value = "/{id}")
+    public List<PartnerMetrics> partnerMetricsById(@PathVariable("id") Long id) {
+        return iPartnerMetricsService.listPartnerMetricById(id);
+    }
 }

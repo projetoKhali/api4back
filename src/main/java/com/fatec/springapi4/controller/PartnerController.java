@@ -37,117 +37,122 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/partner")
 public class PartnerController {
 
-  @Autowired PartnerRepository partnerRepository;
+    @Autowired
+    PartnerRepository partnerRepository;
 
-  @Autowired IPartnerService iPartnerService;
+    @Autowired
+    IPartnerService iPartnerService;
 
-  @Autowired IPartnerTrackService iPartnerTrackService;
+    @Autowired
+    IPartnerTrackService iPartnerTrackService;
 
-  @Autowired IPartnerExpertiseService iPartnerExpertiseService;
+    @Autowired
+    IPartnerExpertiseService iPartnerExpertiseService;
 
-  @Autowired IPartnerQualifierService iPartnerQualifierService;
+    @Autowired
+    IPartnerQualifierService iPartnerQualifierService;
 
-  @GetMapping(value = "/list")
-  public Page<Partner> listPartners(
-      @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-    return partnerRepository.findAll(PageRequest.of(page, size));
-  }
-
-  @GetMapping(value = "/find/{partner}")
-  public Partner findById(@PathVariable("partner") Long id) {
-    return iPartnerService.findPartnerById(id);
-  }
-
-  @GetMapping(value = "/filter")
-  public Page<Partner> filterPartner(
-      @RequestParam(value = "country", required = false) String country,
-      @RequestParam(value = "compliance", required = false) Boolean compliance,
-      @RequestParam(value = "credit", required = false) Boolean credit,
-      @RequestParam(value = "status", required = false) Boolean status,
-      @RequestParam(value = "memberType", required = false) Boolean memberType,
-      Pageable pageable) {
-    return iPartnerService.filterPartner(country, compliance, credit, status, memberType, pageable);
-  }
-
-  @PostMapping
-  public Partner saveAndUpdatePartner(@RequestBody Partner partner) {
-    return iPartnerService.saveAndUpdatePartner(partner);
-  }
-
-  @PatchMapping("/{id}")
-  public Partner updatePartnerField(
-      @PathVariable Long id, @RequestBody Map<String, String> requestBody) {
-    String fieldName = requestBody.get("fieldName");
-    String value = requestBody.get("value");
-    return iPartnerService.updatePartnerField(id, fieldName, value);
-  }
-
-  @PatchMapping("/edit/{id}")
-  public ResponseEntity<Partner> updatePartner(
-      @PathVariable Long id, @RequestBody Map<String, Object> fields) {
-    Partner partner = iPartnerService.updatePartner(id, fields);
-    return ResponseEntity.ok().body(partner);
-  }
-
-  @DeleteMapping(value = "/{partnerId}")
-  public void deleteById(@PathVariable("partnerId") Long id) {
-    iPartnerService.delPartnerById(id);
-  }
-
-  @GetMapping("/{partnerId}")
-  public ResponseEntity<PartnerSimpleDTO> getPartnerWithDetails(@PathVariable Long partnerId) {
-    PartnerSimpleDTO partnerSimpleDTO = iPartnerService.getPartnerWithDetails(partnerId);
-    return new ResponseEntity<>(partnerSimpleDTO, HttpStatus.OK);
-  }
-
-  @GetMapping("/{partnerId}/tracks")
-  public List<PartnerTrackDTO> getAllPartnerTrackWithDetails(@PathVariable Long partnerId) {
-    Partner partner = new Partner();
-    partner.setId(partnerId);
-    return iPartnerService.getAllPartnerTrackWithDetails(partner);
-  }
-
-  @GetMapping("/{partnerId}/expertises")
-  public List<PartnerExpertiseDTO> getAllPartnerExpertise(@PathVariable Long partnerId) {
-    Partner partner = new Partner();
-    partner.setId(partnerId);
-    return iPartnerService.getAllPartnerExpertise(partner);
-  }
-
-  @GetMapping("/{partnerId}/qualifiers")
-  public List<PartnerQualifierDTO> getAllPartnerQualifier(@PathVariable Long partnerId) {
-    Partner partner = new Partner();
-    partner.setId(partnerId);
-    return iPartnerService.getAllPartnerQualifier(partner);
-  }
-
-  // ASSOCIAÇÕES PARTNER
-
-  @PostMapping("/associatePartnerTrack")
-  public ResponseEntity<String> associatePartnerWithTrack(
-      @RequestBody PartnerTrackAssociateDTO dto) {
-    try {
-      iPartnerTrackService.associatePartnerWithTrack(dto);
-      return ResponseEntity.ok("Associação de parceiro com track realizada com sucesso.");
-    } catch (EntityNotFoundException e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body("Erro ao associar parceiro com track.");
+    @GetMapping(value = "/list")
+    public Page<Partner> listPartners(
+            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return partnerRepository.findAll(PageRequest.of(page, size));
     }
-  }
 
-  @PostMapping("/associatePartnerExpertise")
-  public ResponseEntity<String> associatePartnerWithExpertise(
-      @RequestBody PartnerExpertiseAssociateDTO dto) {
-    try {
-      iPartnerExpertiseService.associatePartnerWithExpertise(dto);
-      return ResponseEntity.ok("Associação de parceiro com expertise realizada com sucesso.");
-    } catch (EntityNotFoundException e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body("Erro ao associar parceiro com expertise.");
+    @GetMapping(value = "/find/{partner}")
+    public Partner findById(@PathVariable("partner") Long id) {
+        return iPartnerService.findPartnerById(id);
     }
-  }
+
+    @GetMapping(value = "/filter")
+    public Page<Partner> filterPartner(
+            @RequestParam(value = "country", required = false) String country,
+            @RequestParam(value = "compliance", required = false) Boolean compliance,
+            @RequestParam(value = "credit", required = false) Boolean credit,
+            @RequestParam(value = "status", required = false) Boolean status,
+            @RequestParam(value = "memberType", required = false) Boolean memberType,
+            Pageable pageable) {
+        return iPartnerService.filterPartner(country, compliance, credit, status, memberType, pageable);
+    }
+
+    @PostMapping
+    public Partner saveAndUpdatePartner(@RequestBody Partner partner) {
+        return iPartnerService.saveAndUpdatePartner(partner);
+    }
+
+    @PatchMapping("/{id}")
+    public Partner updatePartnerField(
+            @PathVariable Long id, @RequestBody Map<String, String> requestBody) {
+        String fieldName = requestBody.get("fieldName");
+        String value = requestBody.get("value");
+        return iPartnerService.updatePartnerField(id, fieldName, value);
+    }
+
+    @PatchMapping("/edit/{id}")
+    public ResponseEntity<Partner> updatePartner(
+            @PathVariable Long id, @RequestBody Map<String, Object> fields) {
+        Partner partner = iPartnerService.updatePartner(id, fields);
+        return ResponseEntity.ok().body(partner);
+    }
+
+    @DeleteMapping(value = "/{partnerId}")
+    public void deleteById(@PathVariable("partnerId") Long id) {
+        iPartnerService.delPartnerById(id);
+    }
+
+    @GetMapping("/{partnerId}")
+    public ResponseEntity<PartnerSimpleDTO> getPartnerWithDetails(@PathVariable Long partnerId) {
+        PartnerSimpleDTO partnerSimpleDTO = iPartnerService.getPartnerWithDetails(partnerId);
+        return new ResponseEntity<>(partnerSimpleDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/{partnerId}/tracks")
+    public List<PartnerTrackDTO> getAllPartnerTrackWithDetails(@PathVariable Long partnerId) {
+        Partner partner = new Partner();
+        partner.setId(partnerId);
+        return iPartnerService.getAllPartnerTrackWithDetails(partner);
+    }
+
+    @GetMapping("/{partnerId}/expertises")
+    public List<PartnerExpertiseDTO> getAllPartnerExpertise(@PathVariable Long partnerId) {
+        Partner partner = new Partner();
+        partner.setId(partnerId);
+        return iPartnerService.getAllPartnerExpertise(partner);
+    }
+
+    @GetMapping("/{partnerId}/qualifiers")
+    public List<PartnerQualifierDTO> getAllPartnerQualifier(@PathVariable Long partnerId) {
+        Partner partner = new Partner();
+        partner.setId(partnerId);
+        return iPartnerService.getAllPartnerQualifier(partner);
+    }
+
+    // ASSOCIAÇÕES PARTNER
+
+    @PostMapping("/associatePartnerTrack")
+    public ResponseEntity<String> associatePartnerWithTrack(
+            @RequestBody PartnerTrackAssociateDTO dto) {
+        try {
+            iPartnerTrackService.associatePartnerWithTrack(dto);
+            return ResponseEntity.ok("Associação de parceiro com track realizada com sucesso.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao associar parceiro com track.");
+        }
+    }
+
+    @PostMapping("/associatePartnerExpertise")
+    public ResponseEntity<String> associatePartnerWithExpertise(
+            @RequestBody PartnerExpertiseAssociateDTO dto) {
+        try {
+            iPartnerExpertiseService.associatePartnerWithExpertise(dto);
+            return ResponseEntity.ok("Associação de parceiro com expertise realizada com sucesso.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao associar parceiro com expertise.");
+        }
+    }
 }
