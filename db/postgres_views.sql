@@ -41,7 +41,7 @@ CREATE OR REPLACE VIEW track_metrics
             FROM Expertise 
             WHERE tk_id = tk.tk_id))
         FROM Partner_Qualifier AS pt_ql
-        JOIN Expertise_Qualifier ex_ql on pt_ql.ql_id = ex_ql.ql_id
+        JOIN Expertise_Qualifier ex_ql ON pt_ql.ql_id = ex_ql.ql_id
         WHERE ex_ql.ex_id IN (
             SELECT ex_id 
             FROM Expertise ex 
@@ -56,16 +56,72 @@ CREATE OR REPLACE VIEW track_metrics
         AND pt_ex.pt_ex_complete_date IS NOT NULL) AS avg_expertise_completion_percentage,
 
     -- porcentagem de abandono (validade de um ano)
-    (SELECT count(pt_ql.*)
-        FROM partner_qualifier as pt_ql
-        JOIN Expertise_Qualifier ex_ql on pt_ql.ql_id = ex_ql.ql_id
+    (SELECT 
+        ((select count(pt_ql.*) 
         WHERE pt_ql.pt_ql_complete_date is not NULL
         AND pt_ql.pt_ql_complete_date + interval '1 year' < now()
-        AND ex_ql.ex_id IN (
+        from Partner_Qualifier pt_ql
+        JOIN Expertise_Qualifier AS ex_ql ON ql.ql_id = ex_ql.ql_id
+        WHERE ex_ql.ex_id IN (
             SELECT ex_id 
             FROM Expertise ex 
-            WHERE ex.tk_id = tk.tk_id)
-    )AS expired_qualifiers
+            WHERE ex.tk_id = tk.tk_id))
+         * 100)
+
+        /
+
+        (SELECT COUNT(ql.ql_id)
+        FROM Qualifier AS ql
+        JOIN Expertise_Qualifier AS ex_ql ON ql.ql_id = ex_ql.ql_id
+        WHERE ex_ql.ex_id IN (
+            SELECT ex_id 
+            FROM Expertise ex 
+            WHERE ex.tk_id = tk.tk_id))
+    )AS expired_qualifiers,
+
+    -- porcentagem da conlusão da track
+    -- porcentagem de conclusão das expertises + porcentagem de conclusão dos qualificadores / numero de qualificadores + numero de expertises (finalizados)
+    (SELECT count(pt_ex.pt_ex_complete_date) + count(pt_ql.pt_ql_complete_date) * 100 / (count(ex.ex_id) + count(ql.ql_id))
+        FROM Partner_Qualifier AS pt_ql
+        JOIN Qualifier ql ON pt_ql.ql_id = ql.ql_id
+        JOIN Expertise_Qualifier ex_ql ON pt_ql.ql_id = ex_ql.ql_id
+        JOIN Partner_Expertise AS pt_ex ON pt_ql.ql_id = ex_ql.ql_id
+        JOIN Expertise AS ex ON pt_ex.ex_id = ex.ex_id
+        -- JOIN Partner_Qualifier AS pt_ql ON pt_ex.ex_id = ex.ex_id
+        -- JOIN Qualifier AS ql ON pt_ql.ql_id = ql.ql_id
+        WHERE ex.ex_id = pt_ex.ex_id
+        AND ex.tk_id = tk.tk_id
+        AND pt_ex.pt_ex_complete_date IS NOT NULL
+        AND ql.ql_id = pt_ql.ql_id
+        AND ql.ql_id IN (
+            SELECT ql_id 
+            FROM Expertise_Qualifier ex_ql
+            WHERE ex_ql.ex_id IN (
+                SELECT ex_id 
+                FROM Expertise ex 
+                WHERE ex.tk_id = tk.tk_id)
+    )) AS track_completion_percentage,
+
+    -- tempo médio de conclusão da track
+    -- média de tempo de conclusão das expertises + média de tempo de conclusão dos qualificadores / numero de qualificadores e expertises finalizados
+    (SELECT AVG((pt_ex.pt_ex_complete_date - pt_ex.pt_ex_insert_date)) + AVG((pt_ql.pt_ql_complete_date - pt_ql.pt_ql_insert_date)) / (count(ex.ex_id) + count(ql.ql_id))
+        FROM Partner_Qualifier AS pt_ql
+        JOIN Qualifier ql ON pt_ql.ql_id = ql.ql_id
+        JOIN Expertise_Qualifier ex_ql ON pt_ql.ql_id = ex_ql.ql_id
+        JOIN Partner_Expertise AS pt_ex ON pt_ql.ql_id = ex_ql.ql_id
+        JOIN Expertise AS ex ON pt_ex.ex_id = ex.ex_id
+        WHERE ex.ex_id = pt_ex.ex_id
+        AND ex.tk_id = tk.tk_id
+        AND pt_ex.pt_ex_complete_date IS NOT NULL
+        AND ql.ql_id = pt_ql.ql_id
+        AND ql.ql_id IN (
+            SELECT ql_id 
+            FROM Expertise_Qualifier ex_ql
+            WHERE ex_ql.ex_id IN (
+                SELECT ex_id
+                FROM Expertise ex 
+                WHERE ex.tk_id = tk.tk_id)
+    )) AS avg_track_completion_time
 
 FROM 
     Track AS tk;
@@ -91,8 +147,3 @@ SELECT pt_id,pt_name,pt_city,count(DISTINCT tracks) tracks,sum(completed_tracks)
 )
 GROUP BY pt_id,pt_name,pt_city
 ORDER BY pt_id;
-        SELECT count(pt_ql.pt_ql_complete_date) * 100 / count(ql.ql_id)
-        FROM partner_qualifier pt_ql,
-            qualifier ql
-    ) AS avg_qualifier_completion_percentage
-FROM track tk;

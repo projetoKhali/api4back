@@ -81,8 +81,7 @@ CREATE TABLE Partner_Track (
 CREATE TABLE Track (
     tk_id SERIAL UNIQUE,
     tk_name varchar  NOT NULL UNIQUE,
-    tk_insert_date date  NOT NULL,
-    tk_complete_date date  NULL,
+    tk_insert_date date  NOT NULL
     CONSTRAINT Track_pk PRIMARY KEY (tk_id)
 ) ;
 

@@ -12,3 +12,7 @@ create-db:
 start: start-db
 	sleep 3 # wait for db to start
 	make create-db
+
+restart:
+	make stop-db
+	make start
