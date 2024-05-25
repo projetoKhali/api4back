@@ -1,12 +1,14 @@
 package com.fatec.springapi4.service;
 
-import java.util.List;
-
 import com.fatec.springapi4.entity.PartnerMetrics;
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface IPartnerMetricsService {
-    
-    public List<PartnerMetrics> listPartnerMetrics();
-    public List<PartnerMetrics> listPartnerMetricById(Long id);
 
+  public Page<PartnerMetrics> listPartnerMetrics(String partialName, Pageable pageable);
+
+  public Optional<PartnerMetrics> listPartnerMetricById(Long id);
 }
