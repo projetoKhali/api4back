@@ -46,6 +46,8 @@ SELECT tk_id,
             )
     ) AS avg_qualifier_completion_time,
     (
+<<<<<<< PartnerMetric
+=======
         select (
                 (count(pt_ql.pt_ql_complete_date) * 100) / count(ql.ql_id)
             )
@@ -73,8 +75,30 @@ SELECT pt_id,pt_name,pt_city,count(DISTINCT tracks) tracks,sum(completed_tracks)
 )
 GROUP BY pt_id,pt_name,pt_city
 ORDER BY pt_id;
+>>>>>>> dev
         SELECT count(pt_ql.pt_ql_complete_date) * 100 / count(ql.ql_id)
         FROM partner_qualifier pt_ql,
             qualifier ql
     ) AS avg_qualifier_completion_percentage
 FROM track tk;
+<<<<<<< PartnerMetric
+
+
+
+--CREATE PARTNER METRICS
+CREATE OR REPLACE VIEW partner_metrics AS
+SELECT prt.pt_id,prt.pt_name,prt.pt_city,COUNT(DISTINCT pac.tk_id) as tracks,
+		COUNT(DISTINCT pac.pt_tk_complete_date) completed_tracks,
+	COUNT(DISTINCT pqu.ql_id) qualifiers,
+		COUNT(DISTINCT pqu.pt_ql_complete_date) completed_qualifiers
+
+FROM partner prt
+INNER JOIN partner_track pac
+	ON pac.pt_id = prt.pt_id
+INNER JOIN partner_qualifier pqu
+	ON pqu.pt_id = pac.pt_id
+GROUP BY prt.pt_id,prt.pt_name,prt.pt_city
+ORDER BY prt.pt_id
+
+=======
+>>>>>>> dev
