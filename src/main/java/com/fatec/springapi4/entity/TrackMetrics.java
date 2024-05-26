@@ -17,6 +17,9 @@ public class TrackMetrics {
     @Column (name = "tk_id")
     private Long tkId;
 
+    @Column (name = "tk_name")
+    private String tkName;
+
     @Column (name = "expertise_count")
     private Long expertiseCount;
 
@@ -34,4 +37,16 @@ public class TrackMetrics {
     
     @Column (name = "avg_qualifier_completion_percentage")
     private Integer avgQualifierCompletionPercentage;
+
+    @Column (name = "avg_expertise_completion_percentage")
+    private Integer avgExpertiseCompletionPercentage;
+
+    @Column (name = "expired_qualifiers")
+    private Integer avgExpiredQualifiers;
+
+    @Column (name = "track_completion_percentage")
+    private Integer avgTrackCompletionPercentage;
+
+    @Column (name = "avg_track_completion_time")
+    private Integer avgTrackCompletionTime;
 }
