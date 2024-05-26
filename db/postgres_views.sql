@@ -58,11 +58,11 @@ CREATE OR REPLACE VIEW track_metrics
     -- porcentagem de abandono (validade de um ano)
     (SELECT 
         ((select count(pt_ql.*) 
+        from Partner_Qualifier pt_ql
+        JOIN Expertise_Qualifier AS ex_ql ON pt_ql.ql_id = ex_ql.ql_id
         WHERE pt_ql.pt_ql_complete_date is not NULL
         AND pt_ql.pt_ql_complete_date + interval '1 year' < now()
-        from Partner_Qualifier pt_ql
-        JOIN Expertise_Qualifier AS ex_ql ON ql.ql_id = ex_ql.ql_id
-        WHERE ex_ql.ex_id IN (
+        AND ex_ql.ex_id IN (
             SELECT ex_id 
             FROM Expertise ex 
             WHERE ex.tk_id = tk.tk_id))
