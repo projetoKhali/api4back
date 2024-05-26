@@ -1,15 +1,14 @@
 --TRACK
-INSERT INTO Track (tk_name, tk_insert_date, tk_complete_date) VALUES 
-('Initial Planning', '2024-01-10', '2024-02-15'),
-('Requirement Analysis', '2024-02-16', '2024-03-10'),
-('Design Phase', '2024-03-11', '2024-04-20'),
-('Development Sprint 1', '2024-04-21', '2024-06-01'),
-('Development Sprint 2', '2024-06-02', '2024-07-15'),
-('Testing Phase', '2024-07-16', NULL),
-('User Acceptance Testing', '2024-08-01', NULL),
-('Deployment Preparation', '2024-08-20', NULL),
-('Go Live', '2024-09-01', NULL),
-('Post-launch Support', '2024-09-15', NULL);
+INSERT INTO Track (tk_name, tk_insert_date) VALUES
+('Cloud Build', CURRENT_DATE),
+('Cloud Sell', CURRENT_DATE),
+('Cloud Service', CURRENT_DATE),
+('Cloud License & Hardware', CURRENT_DATE),
+('License and Hardware', CURRENT_DATE),
+('Implementation', CURRENT_DATE),
+('Services', CURRENT_DATE),
+('Training and Education', CURRENT_DATE);
+
 
 --EXPERTISE
 INSERT INTO Expertise (ex_name, tk_id) VALUES 
