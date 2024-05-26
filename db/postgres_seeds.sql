@@ -9,19 +9,47 @@ INSERT INTO Track (tk_name, tk_insert_date) VALUES
 ('Services', CURRENT_DATE),
 ('Training and Education', CURRENT_DATE);
 
-
 --EXPERTISE
-INSERT INTO Expertise (ex_name, tk_id) VALUES 
-('Data Analysis', 1),
-('Software Development', 2),
-('Project Management', 3),
-('Cyber Security', 4),
-('Machine Learning', 5),
-('Cloud Computing', 6),
-('Digital Marketing', 7),
-('UI/UX Design', 8),
-('Financial Analysis', 9),
-('Blockchain Technology', 10);
+INSERT INTO Expertise (ex_name, tk_id) VALUES
+-- Expertises for Cloud Build (tk_id = 1)
+('Application Development', 1),
+('DevOps', 1),
+('Cloud Native', 1),
+
+-- Expertises for Cloud Sell (tk_id = 2)
+('Cloud Sales', 2),
+('Customer Acquisition', 2),
+('Solution Selling', 2),
+
+-- Expertises for Cloud Service (tk_id = 3)
+('Cloud Implementation', 3),
+('Cloud Migration', 3),
+('Managed Services', 3),
+
+-- Expertises for Cloud License & Hardware (tk_id = 4)
+('License Management', 4),
+('Hardware Integration', 4),
+('Cloud Licensing', 4),
+
+-- Expertises for License and Hardware (tk_id = 5)
+('On-premises Solutions', 5),
+('Software Licensing', 5),
+('Hardware Sales', 5),
+
+-- Expertises for Implementation (tk_id = 6)
+('System Integration', 6),
+('Business Process Automation', 6),
+('ERP Implementation', 6),
+
+-- Expertises for Services (tk_id = 7)
+('Consulting', 7),
+('Technical Support', 7),
+('Managed IT Services', 7),
+
+-- Expertises for Training and Education (tk_id = 8)
+('Oracle Training', 8),
+('Certification Programs', 8),
+('Educational Services', 8);
 
 --PARTNER
 INSERT INTO Partner (
