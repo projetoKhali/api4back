@@ -25,7 +25,8 @@ CREATE TABLE Partner (
 CREATE TABLE Expertise (
     ex_id SERIAL UNIQUE,
     ex_name varchar  NOT NULL,
-    tk_id integer  NOT NULL
+    tk_id integer  NOT NULL,
+    CONSTRAINT Expertise_pk PRIMARY KEY (ex_id)
 ) ;
 
 -- Table: Qualifier
