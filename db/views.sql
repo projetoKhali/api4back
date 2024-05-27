@@ -67,5 +67,6 @@ INNER JOIN partner_track pac
 INNER JOIN partner_qualifier pqu
 	ON pqu.pt_id = pac.pt_id
 GROUP BY prt.pt_id,prt.pt_name,prt.pt_city
-ORDER BY prt.pt_id
+ORDER BY prt.pt_id;
+
 
