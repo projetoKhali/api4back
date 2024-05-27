@@ -33,7 +33,7 @@ CREATE OR REPLACE VIEW track_metrics
             WHERE ex.tk_id = tk.tk_id)) AS avg_qualifier_completion_time,
 
     -- porcentagem de qualificadores completados na track
-        (SELECT (count(pt_ql.pt_ql_complete_date) * 100) / (SELECT COUNT(ql.ql_id) 
+    (SELECT (count(pt_ql.pt_ql_complete_date) * 100) / (SELECT (COUNT(ql.ql_id) + 1)
         FROM Qualifier AS ql 
         JOIN Expertise_Qualifier AS ex_ql ON ql.ql_id = ex_ql.ql_id 
         WHERE ex_ql.ex_id IN 
@@ -49,7 +49,7 @@ CREATE OR REPLACE VIEW track_metrics
         )AS avg_qualifier_completion_percentage,
 
     -- porcentagem de expertise completadas na track
-    (SELECT ((count(pt_ex.pt_ex_complete_date) * 100) / count(ex.ex_id))
+    (SELECT ((count(pt_ex.pt_ex_complete_date) * 100) / (count(ex.ex_id) + 1))
         FROM Partner_Expertise AS pt_ex, Expertise ex
         WHERE ex.ex_id = pt_ex.ex_id
         AND ex.tk_id = tk.tk_id
@@ -70,7 +70,7 @@ CREATE OR REPLACE VIEW track_metrics
 
         /
 
-        (SELECT COUNT(ql.ql_id)
+        (SELECT (COUNT(ql.ql_id) + 1)
         FROM Qualifier AS ql
         JOIN Expertise_Qualifier AS ex_ql ON ql.ql_id = ex_ql.ql_id
         WHERE ex_ql.ex_id IN (
@@ -81,7 +81,7 @@ CREATE OR REPLACE VIEW track_metrics
 
     -- porcentagem da conlusão da track
     -- porcentagem de conclusão das expertises + porcentagem de conclusão dos qualificadores / numero de qualificadores + numero de expertises (finalizados)
-    (SELECT count(pt_ex.pt_ex_complete_date) + count(pt_ql.pt_ql_complete_date) * 100 / (count(ex.ex_id) + count(ql.ql_id))
+    (SELECT count(pt_ex.pt_ex_complete_date) + count(pt_ql.pt_ql_complete_date) * 100 / (count(ex.ex_id) + count(ql.ql_id) + 1)
         FROM Partner_Qualifier AS pt_ql
         JOIN Qualifier ql ON pt_ql.ql_id = ql.ql_id
         JOIN Expertise_Qualifier ex_ql ON pt_ql.ql_id = ex_ql.ql_id
@@ -104,7 +104,7 @@ CREATE OR REPLACE VIEW track_metrics
 
     -- tempo médio de conclusão da track
     -- média de tempo de conclusão das expertises + média de tempo de conclusão dos qualificadores / numero de qualificadores e expertises finalizados
-    (SELECT AVG((pt_ex.pt_ex_complete_date - pt_ex.pt_ex_insert_date)) + AVG((pt_ql.pt_ql_complete_date - pt_ql.pt_ql_insert_date)) / (count(ex.ex_id) + count(ql.ql_id))
+    (SELECT AVG((pt_ex.pt_ex_complete_date - pt_ex.pt_ex_insert_date)) + AVG((pt_ql.pt_ql_complete_date - pt_ql.pt_ql_insert_date)) / (count(ex.ex_id) + count(ql.ql_id) + 1)
         FROM Partner_Qualifier AS pt_ql
         JOIN Qualifier ql ON pt_ql.ql_id = ql.ql_id
         JOIN Expertise_Qualifier ex_ql ON pt_ql.ql_id = ex_ql.ql_id
