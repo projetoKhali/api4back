@@ -55,16 +55,21 @@ FROM track tk;
 
 --CREATE PARTNER METRICS
 CREATE OR REPLACE VIEW partner_metrics AS
-SELECT prt.pt_id,prt.pt_name,prt.pt_city,COUNT(DISTINCT pac.tk_id) as tracks,
+SELECT prt.pt_id,prt.pt_name,prt.pt_city,
+	COUNT(DISTINCT pac.tk_id) as tracks,
 		COUNT(DISTINCT pac.pt_tk_complete_date) completed_tracks,
 	COUNT(DISTINCT pqu.ql_id) qualifiers,
-		COUNT(DISTINCT pqu.pt_ql_complete_date) completed_qualifiers
+		COUNT(DISTINCT pqu.pt_ql_complete_date) completed_qualifiers,
+	COUNT(DISTINCT xpe.ex_id) expertises,
+		COUNT(DISTINCT xpe.pt_ex_complete_date) completed_expertises
 
 FROM partner prt
 INNER JOIN partner_track pac
 	ON pac.pt_id = prt.pt_id
 INNER JOIN partner_qualifier pqu
 	ON pqu.pt_id = pac.pt_id
+INNER JOIN partner_expertise xpe
+	ON xpe.pt_id = prt.pt_id
 GROUP BY prt.pt_id,prt.pt_name,prt.pt_city
 ORDER BY prt.pt_id;
 
