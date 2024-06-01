@@ -227,7 +227,7 @@ public class PartnerService implements IPartnerService {
                     for (PartnerQualifier partnerQualifier : partnerQualifiers) {
                         Qualifier qualifier = partnerQualifier.getQualifier();
 
-                        boolean isRelated = expertiseQualifierRepository.existsByExpertiseIdAndQualifierId(expertise, qualifier);
+                        boolean isRelated = expertiseQualifierRepository.existsByExpertiseIdAndQualifierId(expertise.getId(), qualifier.getId());
 
                         if (isRelated) {
                             PartnerQualifierDTO partnerQualifierDTO = new PartnerQualifierDTO();
