@@ -19,13 +19,15 @@ CREATE OR REPLACE VIEW track_metrics
         WHERE ex.tk_id = tk.tk_id
     ) AS avg_expertise_completion_time,
 
-    (SELECT ROUND(AVG((pt_ql.pt_ql_complete_date - pt_ql.pt_ql_insert_date)::numeric), 2)
-         FROM Partner_Qualifier AS pt_ql 
-         JOIN Expertise_Qualifier AS ex_ql ON pt_ql.ql_id = ex_ql.ql_id
-         WHERE ex_ql.ex_id IN (
+    (
+        SELECT ROUND(AVG((pt_ql.pt_ql_complete_date - pt_ql.pt_ql_insert_date)::numeric), 2)
+        FROM Partner_Qualifier AS pt_ql 
+        JOIN Expertise_Qualifier AS ex_ql ON pt_ql.ql_id = ex_ql.ql_id
+        WHERE ex_ql.ex_id IN (
             SELECT ex_id 
             FROM Expertise ex 
-            WHERE ex.tk_id = tk.tk_id)
+            WHERE ex.tk_id = tk.tk_id
+        )
     ) AS avg_qualifier_completion_time,
 
     -- porcentagem de qualificadores completados na track
@@ -68,22 +70,28 @@ CREATE OR REPLACE VIEW track_metrics
     -- porcentagem da conlusão da track
     (
         -- porcentagem de conclusão dos qualificadores
-        (((qualifier_completed_count(tk.tk_id) * 100) /
-        NULLIF (qualifier_count(tk.tk_id), 0))
+        (
+            (
+                (qualifier_completed_count(tk.tk_id) * 100) /
+                NULLIF (qualifier_count(tk.tk_id), 0)
+            )
         +
         -- porcentagem de conclusão dos qualificadores
-        (expertise_completed_count(tk.tk_id) * 100) / 
-        NULLIF (expertise_count(tk.tk_id), 0))
-        /
-        2
+        (
+            expertise_completed_count(tk.tk_id) * 100) / 
+            NULLIF (expertise_count(tk.tk_id), 0)
+        )
+        / 2
     ) AS track_completion_percentage,
 
     -- tempo médio de conclusão da track
     -- média de tempo de conclusão das expertises + média de tempo de conclusão dos qualificadores / numero de qualificadores e expertises finalizados
     (SELECT ROUND(
-            (AVG((pt_ex.pt_ex_complete_date - pt_ex.pt_ex_insert_date)) + 
-            AVG((pt_ql.pt_ql_complete_date - pt_ql.pt_ql_insert_date)) / 
-            NULLIF ((expertise_count(tk.tk_id) + qualifier_count(tk.tk_id)), 0)::numeric)
+                (
+                    AVG(pt_ex.pt_ex_complete_date - pt_ex.pt_ex_insert_date) + 
+                    AVG(pt_ql.pt_ql_complete_date - pt_ql.pt_ql_insert_date) / 
+                    NULLIF ((expertise_completed_count(tk.tk_id) + qualifier_completed_count(tk.tk_id)), 0)
+                )::numeric
             ,2)
         FROM Partner_Qualifier AS pt_ql
         JOIN Expertise_Qualifier ex_ql ON pt_ql.ql_id = ex_ql.ql_id
