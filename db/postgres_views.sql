@@ -107,14 +107,15 @@ CREATE OR REPLACE VIEW track_metrics
                 ) / NULLIF ((expertise_completed_count(tk.tk_id) + qualifier_completed_count(tk.tk_id)), 0)
             ::numeric, 2),
             (
-                SELECT AVG(pt_ql.pt_ql_complete_date - pt_ql.pt_ql_insert_date)
-                FROM Partner_Qualifier AS pt_ql
-                JOIN Expertise_Qualifier AS ex_ql ON pt_ql.ql_id = ex_ql.ql_id
-                WHERE ex_ql.ex_id IN (
-                    SELECT ex_id
-                    FROM Expertise ex 
-                    WHERE ex.tk_id = tk.tk_id
-                )
+                ROUND(
+                    (SELECT AVG(pt_ql.pt_ql_complete_date - pt_ql.pt_ql_insert_date)
+                    FROM Partner_Qualifier AS pt_ql
+                    JOIN Expertise_Qualifier AS ex_ql ON pt_ql.ql_id = ex_ql.ql_id
+                    WHERE ex_ql.ex_id IN (
+                        SELECT ex_id
+                        FROM Expertise ex 
+                        WHERE ex.tk_id = tk.tk_id))
+                    ::numeric, 2)
             )
         ) AS avg_track_completion_time
     )
