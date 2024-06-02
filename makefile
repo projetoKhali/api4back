@@ -6,6 +6,7 @@ stop-db:
 
 create-db:
 	docker exec -it api4back-khali-1 psql -U postgres -d postgres -f db/postgres_version.sql
+	docker exec -it api4back-khali-1 psql -U postgres -d postgres -f db/postgres_functions.sql
 	docker exec -it api4back-khali-1 psql -U postgres -d postgres -f db/postgres_seeds.sql
 	docker exec -it api4back-khali-1 psql -U postgres -d postgres -f db/postgres_views.sql
 
