@@ -55,16 +55,19 @@ CREATE OR REPLACE VIEW track_metrics
         /
 
         NULLIF (qualifier_count(tk.tk_id), 0)
-    )AS expired_qualifiers,
+    )AS avg_expired_qualifiers,
 
     -- porcentagem da conlusão da track
-    -- porcentagem de conclusão das expertises + porcentagem de conclusão dos qualificadores / numero de qualificadores + numero de expertises (finalizados)
-    (SELECT 
-            qualifier_count(tk.tk_id) +
-            expertise_count(tk.tk_id) * 100
-             / 
-            NULLIF ((qualifier_completed_count(tk.tk_id) + 
-            expertise_completed_count(tk.tk_id)), 0)
+    (
+        -- porcentagem de conclusão dos qualificadores
+        (((qualifier_completed_count(tk.tk_id) * 100) /
+        NULLIF (qualifier_count(tk.tk_id), 0))
+        +
+        -- porcentagem de conclusão dos qualificadores
+        (expertise_completed_count(tk.tk_id) * 100) / 
+        NULLIF (expertise_count(tk.tk_id), 0))
+        /
+        2
     ) AS track_completion_percentage,
 
     -- tempo médio de conclusão da track
