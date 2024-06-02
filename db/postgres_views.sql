@@ -8,40 +8,47 @@ CREATE OR REPLACE VIEW track_metrics
 
     (SELECT COUNT(pt.pt_id) 
         FROM Partner_Track AS pt 
-        WHERE pt.tk_id = tk.tk_id) AS partner_count,
+        WHERE pt.tk_id = tk.tk_id
+    ) AS partner_count,
 
     -- tempo médio para completar uma expertise
     (
-        SELECT AVG((pt_ex.pt_ex_complete_date - pt_ex.pt_ex_insert_date))
+        SELECT ROUND(AVG((pt_ex.pt_ex_complete_date - pt_ex.pt_ex_insert_date)::numeric), 2)
         FROM Partner_Expertise AS pt_ex
         JOIN Expertise AS ex ON pt_ex.ex_id = ex.ex_id
         WHERE ex.tk_id = tk.tk_id
     ) AS avg_expertise_completion_time,
 
-    (SELECT AVG((pt_ql.pt_ql_complete_date - pt_ql.pt_ql_insert_date))
+    (SELECT ROUND(AVG((pt_ql.pt_ql_complete_date - pt_ql.pt_ql_insert_date)::numeric), 2)
          FROM Partner_Qualifier AS pt_ql 
          JOIN Expertise_Qualifier AS ex_ql ON pt_ql.ql_id = ex_ql.ql_id
          WHERE ex_ql.ex_id IN (
             SELECT ex_id 
             FROM Expertise ex 
-            WHERE ex.tk_id = tk.tk_id)) AS avg_qualifier_completion_time,
+            WHERE ex.tk_id = tk.tk_id)
+    ) AS avg_qualifier_completion_time,
 
     -- porcentagem de qualificadores completados na track
     (
-        (qualifier_completed_count(tk.tk_id) * 100) /
-        -- se o divisor for 0, retorna NULL
-        NULLIF (qualifier_count(tk.tk_id), 0)
+        ROUND(
+            ((qualifier_completed_count(tk.tk_id) * 100) /
+            -- se o divisor for 0, retorna NULL
+            NULLIF (qualifier_count(tk.tk_id), 0))::numeric
+        , 2)
     )AS avg_qualifier_completion_percentage,
 
     -- porcentagem de expertise completadas na track
     (
-        (expertise_completed_count(tk.tk_id) * 100) / 
-        NULLIF (expertise_count(tk.tk_id), 0)
+        ROUND(
+            ((expertise_completed_count(tk.tk_id) * 100) / 
+            NULLIF (expertise_count(tk.tk_id), 0))::numeric
+        , 2)
     ) AS avg_expertise_completion_percentage,
 
     -- porcentagem de abandono (validade de um ano)
-    (SELECT 
-        ((select count(pt_ql.*)
+    (
+        ROUND(
+        (((select count(pt_ql.*)
         from Partner_Qualifier pt_ql
         JOIN Expertise_Qualifier AS ex_ql ON pt_ql.ql_id = ex_ql.ql_id
         WHERE pt_ql.pt_ql_complete_date is not NULL
@@ -54,7 +61,8 @@ CREATE OR REPLACE VIEW track_metrics
 
         /
 
-        NULLIF (qualifier_count(tk.tk_id), 0)
+        NULLIF (qualifier_count(tk.tk_id), 0))::numeric
+        , 2)
     )AS avg_expired_qualifiers,
 
     -- porcentagem da conlusão da track
@@ -72,7 +80,11 @@ CREATE OR REPLACE VIEW track_metrics
 
     -- tempo médio de conclusão da track
     -- média de tempo de conclusão das expertises + média de tempo de conclusão dos qualificadores / numero de qualificadores e expertises finalizados
-    (SELECT AVG((pt_ex.pt_ex_complete_date - pt_ex.pt_ex_insert_date)) + AVG((pt_ql.pt_ql_complete_date - pt_ql.pt_ql_insert_date)) / NULLIF ((expertise_count(tk.tk_id) + qualifier_count(tk.tk_id)), 0)
+    (SELECT ROUND(
+            (AVG((pt_ex.pt_ex_complete_date - pt_ex.pt_ex_insert_date)) + 
+            AVG((pt_ql.pt_ql_complete_date - pt_ql.pt_ql_insert_date)) / 
+            NULLIF ((expertise_count(tk.tk_id) + qualifier_count(tk.tk_id)), 0)::numeric)
+            ,2)
         FROM Partner_Qualifier AS pt_ql
         JOIN Expertise_Qualifier ex_ql ON pt_ql.ql_id = ex_ql.ql_id
         JOIN Partner_Expertise AS pt_ex ON pt_ql.ql_id = ex_ql.ql_id
