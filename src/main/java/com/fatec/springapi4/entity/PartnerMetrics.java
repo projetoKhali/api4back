@@ -27,10 +27,10 @@ public class PartnerMetrics {
     @Column(name = "pt_city")
     private String pt_city;
 
-    @Column(name = "tracks")
+    @Column(name = "expertises")
     private BigInteger tracks;
 
-    @Column(name = "completed_tracks")
+    @Column(name = "completed_expertises")
     private BigInteger completed_tracks;
 
     @Column(name = "qualifiers")
