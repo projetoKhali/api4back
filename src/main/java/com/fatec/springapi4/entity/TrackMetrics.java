@@ -36,17 +36,17 @@ public class TrackMetrics {
     private Double avgQualifierCompletionTime;
     
     @Column (name = "avg_qualifier_completion_percentage")
-    private Integer avgQualifierCompletionPercentage;
+    private Double avgQualifierCompletionPercentage;
 
     @Column (name = "avg_expertise_completion_percentage")
-    private Integer avgExpertiseCompletionPercentage;
+    private Double avgExpertiseCompletionPercentage;
 
-    @Column (name = "expired_qualifiers")
-    private Integer avgExpiredQualifiers;
+    @Column (name = "avg_expired_qualifiers")
+    private Double avgExpiredQualifiers;
 
     @Column (name = "track_completion_percentage")
-    private Integer avgTrackCompletionPercentage;
+    private Double avgTrackCompletionPercentage;
 
     @Column (name = "avg_track_completion_time")
-    private Integer avgTrackCompletionTime;
+    private Double avgTrackCompletionTime;
 }
