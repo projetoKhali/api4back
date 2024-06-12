@@ -123,7 +123,7 @@ CREATE OR REPLACE VIEW track_metrics
 FROM 
     Track AS tk;
 
-
+--PARTNER METRICS============================================================================
 CREATE OR REPLACE VIEW partner_metrics AS
 SELECT pt_id,pt_name,pt_city,count(DISTINCT tracks) tracks,sum(completed_tracks) completed_tracks,
 		COUNT(DISTINCT qualifiers) qualifiers, SUM(completed_qualifiers) completed_qualifiers FROM
@@ -144,3 +144,31 @@ SELECT pt_id,pt_name,pt_city,count(DISTINCT tracks) tracks,sum(completed_tracks)
 )
 GROUP BY pt_id,pt_name,pt_city
 ORDER BY pt_id;
+
+--PARTNER REPORT
+
+SELECT * FROM partner_reports AS
+SELECT pt.pt_id,pt.pt_name,tr.tk_name,
+		pt_tr.pt_tk_insert_date as tk_start_date,
+		pt_tr.pt_tk_complete_date as tk_end_date,
+		ex.ex_name,
+		pt_ex.pt_ex_insert_date as ex_start_date,
+		pt_ex.pt_ex_complete_date as ex_end_date,
+		ql.ql_name,
+		pt_ql.pt_ql_insert_date as ql_start_date,
+		pt_ql.pt_ql_complete_date as ql_end_date,
+		pt_ql.pt_ql_insert_date + INTERVAL '2 years' as ql_due_date 
+FROM partner pt
+	LEFT JOIN partner_track pt_tr
+		ON pt_tr.pt_id = pt.pt_id
+	LEFT JOIN track tr
+		ON tr.tk_id = pt_tr.tk_id
+	LEFT JOIN partner_expertise pt_ex
+		ON pt_ex.pt_id = pt_tr.pt_id
+	LEFT JOIN expertise ex
+		ON ex.ex_id = pt_ex.ex_id
+	LEFT JOIN partner_qualifier pt_ql
+		ON pt_ql.pt_id = pt_tr.pt_id
+	LEFT JOIN qualifier ql
+		ON ql.ql_id = pt_ql.ql_id
+ORDER BY pt.pt_name;
