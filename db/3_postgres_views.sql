@@ -147,7 +147,7 @@ ORDER BY pt_id;
 
 --PARTNER REPORT
 
-SELECT * FROM partner_reports AS
+CREATE OR REPLACE VIEW partner_reports AS
 SELECT pt.pt_id,pt.pt_name,tr.tk_name,
 		pt_tr.pt_tk_insert_date as tk_start_date,
 		pt_tr.pt_tk_complete_date as tk_end_date,
