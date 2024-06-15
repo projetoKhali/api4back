@@ -23,7 +23,6 @@ import com.fatec.springapi4.entity.user.User;
 import com.fatec.springapi4.repository.UserRepository;
 import com.fatec.springapi4.service.IUserService;
 
-
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/user")
@@ -40,19 +39,19 @@ public class UserController {
             @RequestParam(defaultValue = "10") int size) {
         return usrRepository.findAll(PageRequest.of(page, size));
     }
-    
+
     @GetMapping(value = "/find/{user}")
     public User findById(@PathVariable("user") Long id) {
         return iUserService.findUserById(id);
     }
 
     @GetMapping(value = "/filter")
-    public Page<User> filterUser(@RequestParam(value = "name", required = false)String name,
-                                 @RequestParam(value = "login", required = false)String login,
-                                 @RequestParam(value = "profileType", required = false) ProfileType profileType,
-                                 Pageable pageable){
-                                    return iUserService.filterUser(name, login, profileType, pageable);
-                                }
+    public Page<User> filterUser(@RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "login", required = false) String login,
+            @RequestParam(value = "profileType", required = false) ProfileType profileType,
+            Pageable pageable) {
+        return iUserService.filterUser(name, login, profileType, pageable);
+    }
 
     @PostMapping
     public User saveAndUpdateUser(@RequestBody User usr) {
@@ -76,5 +75,5 @@ public class UserController {
     public void delUserById(@PathVariable("userId") Long id) {
         iUserService.delUserById(id);
     }
-    
+
 }

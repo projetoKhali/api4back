@@ -19,5 +19,5 @@ public interface PartnerReportsRepository extends JpaRepository<PartnerReports, 
 
     @Query("select p from PartnerReports p where p.pt_id = :id")
     List<PartnerReports> findByPartnerId(@Param("id") Long id);
-    
+
 }

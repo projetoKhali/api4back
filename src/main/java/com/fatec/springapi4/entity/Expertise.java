@@ -17,7 +17,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Expertise {
     @Id
@@ -27,17 +30,13 @@ public class Expertise {
 
     @Column(name = "ex_name")
     private String name;
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tk_id")
     private Track track;
 
     @ManyToMany
-    @JoinTable(
-        name = "ex_qualifiers",
-        joinColumns = @JoinColumn(name = "ex_id"),
-        inverseJoinColumns = @JoinColumn(name = "ql_id")
-    )
+    @JoinTable(name = "ex_qualifiers", joinColumns = @JoinColumn(name = "ex_id"), inverseJoinColumns = @JoinColumn(name = "ql_id"))
     private Set<Qualifier> qualifiers;
 
 }

@@ -17,34 +17,34 @@ public class TrackService implements ITrackService {
 
     @Autowired
     TrackRepository trackRepository;
-    
+
     @Autowired
     ExpertiseService expertiseService;
-    
+
     @Autowired
     PartnerService partnerService;
 
     public Track findTrackById(Long id) {
         Optional<Track> trackOptional = trackRepository.findById(id);
-        if(trackOptional.isPresent()) {
+        if (trackOptional.isPresent()) {
             return trackOptional.get();
         }
         throw new IllegalArgumentException("Id inválido!");
     }
 
-    public List<Track> listTracks () {
+    public List<Track> listTracks() {
         return trackRepository.findAll();
     }
 
     public Track saveAndUpdateTrack(Track track) {
-        if(track == null ||
-            track.getName() == null) {
-                throw new IllegalArgumentException("Error!");
-            }
-            return trackRepository.save(track);
+        if (track == null ||
+                track.getName() == null) {
+            throw new IllegalArgumentException("Error!");
         }
-    
-    public void delTrackById (Long id) {
+        return trackRepository.save(track);
+    }
+
+    public void delTrackById(Long id) {
         trackRepository.deleteById(id);
     }
 
@@ -54,7 +54,7 @@ public class TrackService implements ITrackService {
         Optional<Track> track = trackRepository.findById(trackId);
         String nameTrack = (track.get()).getName();
         ProductTrackDTO trackDTO = new ProductTrackDTO(
-                nameTrack, 
+                nameTrack,
                 expertises,
                 partners);
         return trackDTO;

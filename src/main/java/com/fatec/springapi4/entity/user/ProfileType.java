@@ -9,7 +9,7 @@ public enum ProfileType {
     private ProfileType(Boolean value) {
         this.value = value;
     }
-    
+
     public Boolean getValue() {
         return value;
     }

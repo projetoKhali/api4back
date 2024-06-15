@@ -44,7 +44,6 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
-
 @Service
 public class PartnerService implements IPartnerService {
 
@@ -74,10 +73,9 @@ public class PartnerService implements IPartnerService {
 
     @Autowired
     ExpertiseService expertiseService;
-    
+
     @Autowired
     QualifierService qualifierService;
-
 
     public Partner findPartnerById(Long id) {
         Optional<Partner> partnerOptional = partnerRepository.findById(id);
@@ -124,53 +122,53 @@ public class PartnerService implements IPartnerService {
     }
 
     public Partner updatePartner(Long id, Map<String, Object> fields) {
-        
-        Partner partner = partnerRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Entity not found: " + id));
 
-            fields.forEach((field, value) ->{
-                switch (field) {
-                    case "name":
-                        partner.setName((String) value);
-                        break;
-                    case "companyId":
-                        partner.setCompanyId((String) value);
-                        break;
-                    case "adminName":
-                        partner.setAdminName((String) value);
-                        break;
-                    case "adminEmail":
-                        partner.setAdminEmail((String) value);
-                        break;
-                    case "slogan":
-                        partner.setSlogan((String) value);
-                        break;
-                    case "country":
-                        partner.setCountry((String) value);
-                        break;
-                    case "city":
-                        partner.setCity((String) value);
-                        break;
-                    case "address":
-                        partner.setAddress((String) value);
-                        break;
-                    case "compliance":
-                        partner.setCompliance((Boolean) value);
-                        break;
-                    case "credit":
-                        partner.setCredit((Boolean) value);
-                        break;
-                    case "status":
-                        partner.setStatus((Boolean) value);
-                        break;
-                    case "memberType":
-                        partner.setMemberType((Boolean) value);
-                        break;
-                    default:
-                        System.out.println("Undeffinid field: " + field);
-                        break;
-                }
-            });
+        Partner partner = partnerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Entity not found: " + id));
+
+        fields.forEach((field, value) -> {
+            switch (field) {
+                case "name":
+                    partner.setName((String) value);
+                    break;
+                case "companyId":
+                    partner.setCompanyId((String) value);
+                    break;
+                case "adminName":
+                    partner.setAdminName((String) value);
+                    break;
+                case "adminEmail":
+                    partner.setAdminEmail((String) value);
+                    break;
+                case "slogan":
+                    partner.setSlogan((String) value);
+                    break;
+                case "country":
+                    partner.setCountry((String) value);
+                    break;
+                case "city":
+                    partner.setCity((String) value);
+                    break;
+                case "address":
+                    partner.setAddress((String) value);
+                    break;
+                case "compliance":
+                    partner.setCompliance((Boolean) value);
+                    break;
+                case "credit":
+                    partner.setCredit((Boolean) value);
+                    break;
+                case "status":
+                    partner.setStatus((Boolean) value);
+                    break;
+                case "memberType":
+                    partner.setMemberType((Boolean) value);
+                    break;
+                default:
+                    System.out.println("Undeffinid field: " + field);
+                    break;
+            }
+        });
 
         return partnerRepository.save(partner);
     }
@@ -227,7 +225,8 @@ public class PartnerService implements IPartnerService {
                     for (PartnerQualifier partnerQualifier : partnerQualifiers) {
                         Qualifier qualifier = partnerQualifier.getQualifier();
 
-                        boolean isRelated = expertiseQualifierRepository.existsByExpertiseIdAndQualifierId(expertise.getId(), qualifier.getId());
+                        boolean isRelated = expertiseQualifierRepository
+                                .existsByExpertiseIdAndQualifierId(expertise.getId(), qualifier.getId());
 
                         if (isRelated) {
                             PartnerQualifierDTO partnerQualifierDTO = new PartnerQualifierDTO();
@@ -237,24 +236,24 @@ public class PartnerService implements IPartnerService {
                             partnerQualifierDTO.setCompleteDate(partnerQualifier.getCompleteDate());
 
                             partnerQualifierByExpertiseDTOs.add(partnerQualifierDTO);
-                            
+
                         }
-                        
+
                     }
 
                     partnerExpertiseDTO.setQualifiers(partnerQualifierByExpertiseDTOs);
                     partnerExpertiseByTrackDTO.add(partnerExpertiseDTO);
                 }
-            
+
             }
-            
+
             partnerTrackDTO.setExpertises(partnerExpertiseByTrackDTO);
             partnerTrackDTOs.add(partnerTrackDTO);
-        
+
         }
-        
+
         return partnerTrackDTOs;
-    
+
     }
 
     public List<TrackExpertiseProgressDTO> getTrackExpertiseProgress(List<String> partnerNames) {
@@ -273,23 +272,24 @@ public class PartnerService implements IPartnerService {
                 List<PartnerExpertise> partnerExpertises = partnerExpertiseRepository.findByPartner(partner);
 
                 List<Expertise> expertisesInTrack = expertiseRepository.findAll().stream()
-                .filter(pe -> pe.getTrack().getId().equals(track.getId()))
-                .collect(Collectors.toList());
+                        .filter(pe -> pe.getTrack().getId().equals(track.getId()))
+                        .collect(Collectors.toList());
 
                 long totalExpertises = expertisesInTrack.size();
                 long associatedExpertise = partnerExpertises.stream()
-                .filter(pe -> pe.getExpertise().getTrack().getId().equals(track.getId()))
-                .count();
+                        .filter(pe -> pe.getExpertise().getTrack().getId().equals(track.getId()))
+                        .count();
                 long completedExpertises = partnerExpertises.stream()
-                .filter(pe -> pe.getExpertise().getTrack().getId().equals(track.getId()) && pe.getCompleteDate() != null)
-                .count();
+                        .filter(pe -> pe.getExpertise().getTrack().getId().equals(track.getId())
+                                && pe.getCompleteDate() != null)
+                        .count();
 
                 TrackProgressDTO trackProgressDTO = new TrackProgressDTO();
                 trackProgressDTO.setTrackName(track.getName());
                 trackProgressDTO.setExpertisesTrack(totalExpertises);
                 trackProgressDTO.setProgressExpertises(associatedExpertise);
                 trackProgressDTO.setFinalizedExpertises(completedExpertises);
-                
+
                 return trackProgressDTO;
             }).collect(Collectors.toList());
 
@@ -298,44 +298,47 @@ public class PartnerService implements IPartnerService {
             return trackExpertiseProgressDTO;
         }).collect(Collectors.toList());
 
-}
+    }
 
     public List<ExpertiseProgressDTO> getExpertiseQualifierProgress(List<String> partnerNames) {
 
         List<Partner> partners = partnerRepository.findByNameIn(partnerNames);
         List<PartnerExpertise> partnerExpertises = partnerExpertiseRepository.findByPartnerIn(partners);
-        List<Expertise> allExpertises = partnerExpertises.stream().map(PartnerExpertise::getExpertise).distinct().collect(Collectors.toList());
+        List<Expertise> allExpertises = partnerExpertises.stream().map(PartnerExpertise::getExpertise).distinct()
+                .collect(Collectors.toList());
 
         return allExpertises.stream().map(expertise -> {
             ExpertiseProgressDTO expertiseProgressDTO = new ExpertiseProgressDTO();
             expertiseProgressDTO.setExpertise(expertise.getName());
 
             List<ExpertiseQualifier> expertiseQualifiers = expertiseQualifierRepository.findByExpertise(expertise);
-                long totalQualifiers = expertiseQualifiers.size();
-                expertiseProgressDTO.setQualifiersExpertise(totalQualifiers);
+            long totalQualifiers = expertiseQualifiers.size();
+            expertiseProgressDTO.setQualifiersExpertise(totalQualifiers);
 
             List<ExpertiseQualifierProgressDTO> expertiseQualifierProgressDTOs = partnerExpertises.stream()
-            .filter(pe -> pe.getExpertise().equals(expertise))
-            .map(pe -> {
-                Partner partner = pe.getPartner();
-                ExpertiseQualifierProgressDTO expertiseQualifierProgressDTO = new ExpertiseQualifierProgressDTO();
-                expertiseQualifierProgressDTO.setPartnerName(partner.getName());
-                expertiseQualifierProgressDTO.setLocation(partner.getCity());
+                    .filter(pe -> pe.getExpertise().equals(expertise))
+                    .map(pe -> {
+                        Partner partner = pe.getPartner();
+                        ExpertiseQualifierProgressDTO expertiseQualifierProgressDTO = new ExpertiseQualifierProgressDTO();
+                        expertiseQualifierProgressDTO.setPartnerName(partner.getName());
+                        expertiseQualifierProgressDTO.setLocation(partner.getCity());
 
-                List<PartnerQualifier> partnerQualifiers = partnerQualifierRepository.findByPartner(partner);
-                long finalizedQualifiers = partnerQualifiers.stream().filter(pq -> expertiseQualifiers.stream()
-                .anyMatch(eq -> eq.getQualifier().equals(pq.getQualifier()) && pq.getCompleteDate() != null)).count();
+                        List<PartnerQualifier> partnerQualifiers = partnerQualifierRepository.findByPartner(partner);
+                        long finalizedQualifiers = partnerQualifiers.stream().filter(pq -> expertiseQualifiers.stream()
+                                .anyMatch(eq -> eq.getQualifier().equals(pq.getQualifier())
+                                        && pq.getCompleteDate() != null))
+                                .count();
 
-                expertiseQualifierProgressDTO.setFinalizedQualifiers(finalizedQualifiers);
+                        expertiseQualifierProgressDTO.setFinalizedQualifiers(finalizedQualifiers);
 
-                return expertiseQualifierProgressDTO;
-            }).collect(Collectors.toList());
+                        return expertiseQualifierProgressDTO;
+                    }).collect(Collectors.toList());
 
             expertiseProgressDTO.setPartners(expertiseQualifierProgressDTOs);
 
             return expertiseProgressDTO;
         }).collect(Collectors.toList());
-    
+
     }
 
     public List<PartnerExpertiseDTO> getAllPartnerExpertise(Partner partner) {
@@ -369,37 +372,41 @@ public class PartnerService implements IPartnerService {
 
     }
 
-
-    public List<ProductPartnerDTO> findPartnersByTrack (Long trackId) {
+    public List<ProductPartnerDTO> findPartnersByTrack(Long trackId) {
         Optional<Track> track = trackRepository.findById(trackId);
         List<ProductPartnerDTO> partnersDTO = new ArrayList<ProductPartnerDTO>();
-        if(track.isEmpty()) {return partnersDTO;}
+        if (track.isEmpty()) {
+            return partnersDTO;
+        }
         List<PartnerTrack> partnersTracks = partnerTrackRepository.findByTrack(track.get());
-        if (track.isEmpty()) {return partnersDTO;}
+        if (track.isEmpty()) {
+            return partnersDTO;
+        }
         for (PartnerTrack partnerTrack : partnersTracks) {
             Optional<Partner> partnerOptional = partnerRepository.findById(partnerTrack.getId());
-            if (partnerOptional.isEmpty()) {continue;}
-            ProductPartnerDTO partnerDTO = 
-                new ProductPartnerDTO(
-                    partnerOptional.get(), 
-                    partnerTrack, 
-                    expertiseService.findExpertisesDTOByPartnerAndTrack (track.get(), partnerOptional.get()),
-                    qualifierService.findQualifiersDTOByPartnerAndTrack (track.get(), partnerOptional.get()));
+            if (partnerOptional.isEmpty()) {
+                continue;
+            }
+            ProductPartnerDTO partnerDTO = new ProductPartnerDTO(
+                    partnerOptional.get(),
+                    partnerTrack,
+                    expertiseService.findExpertisesDTOByPartnerAndTrack(track.get(), partnerOptional.get()),
+                    qualifierService.findQualifiersDTOByPartnerAndTrack(track.get(), partnerOptional.get()));
             partnersDTO.add(partnerDTO);
         }
         return partnersDTO;
     }
 
-    public Page<Partner> filterPartner(String country,Boolean compliance,Boolean credit, Boolean status,
-                                       Boolean memberType, Pageable pageable){
-            Partner p = new Partner();
-            p.setCountry(country);
-            p.setCompliance(compliance);
-            p.setCredit(credit);
-            p.setStatus(status);
-            p.setMemberType(memberType);
+    public Page<Partner> filterPartner(String country, Boolean compliance, Boolean credit, Boolean status,
+            Boolean memberType, Pageable pageable) {
+        Partner p = new Partner();
+        p.setCountry(country);
+        p.setCompliance(compliance);
+        p.setCredit(credit);
+        p.setStatus(status);
+        p.setMemberType(memberType);
 
-            return partnerRepository.findAll(Example.of(p), pageable);
+        return partnerRepository.findAll(Example.of(p), pageable);
 
     }
 }

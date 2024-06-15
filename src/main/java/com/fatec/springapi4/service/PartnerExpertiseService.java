@@ -17,7 +17,7 @@ import com.fatec.springapi4.repository.PartnerRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
-public class PartnerExpertiseService implements IPartnerExpertiseService{
+public class PartnerExpertiseService implements IPartnerExpertiseService {
 
     @Autowired
     PartnerRepository partnerRepository;
@@ -31,7 +31,7 @@ public class PartnerExpertiseService implements IPartnerExpertiseService{
     public void associatePartnerWithExpertise(PartnerExpertiseAssociateDTO dto) {
         Long partnerId = dto.getPartnerId();
         Long expertiseId = dto.getExpertiseId();
-        
+
         Optional<Partner> partnerOptional = partnerRepository.findById(partnerId);
 
         if (!partnerOptional.isPresent()) {
