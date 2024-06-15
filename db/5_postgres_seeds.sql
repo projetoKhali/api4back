@@ -3,7 +3,7 @@ INSERT INTO Track (tk_name, tk_insert_date) VALUES
 ('Cloud Build', CURRENT_DATE),
 ('Cloud Sell', CURRENT_DATE),
 ('Cloud Service', CURRENT_DATE),
-('Cloud Industry Healthcare', CURRENT_DATE)
+('Cloud Industry Healthcare', CURRENT_DATE);
 
 
 -- EXPERTISE
@@ -25,7 +25,7 @@ INSERT INTO Expertise (ex_name, tk_id) VALUES
 ('License Management', 4),
 ('Hardware Integration', 4),
 ('Cloud Licensing', 4),
-('Hardware Sales', 4),
+('Hardware Sales', 4);
 
 -- QUALIFIER
 INSERT INTO Qualifier (ql_name) VALUES
@@ -157,7 +157,7 @@ INSERT INTO Qualifier (ql_name) VALUES
 ('Sales Techniques Certification'), -- ql_id = 96
 ('Product Knowledge'),              -- ql_id = 97
 ('Sales Performance Metrics'),      -- ql_id = 98
-('Advanced Hardware Sales'),        -- ql_id = 99
+('Advanced Hardware Sales');        -- ql_id = 99
 
 -- EXPERTISE_QUALIFIER
 INSERT INTO Expertise_Qualifier (ex_id, ql_id) VALUES
@@ -205,7 +205,7 @@ INSERT INTO Expertise_Qualifier (ex_id, ql_id) VALUES
 (14, 90), (14, 91), (14, 92), (14, 93), (14, 94),
 
 -- Hardware Sales Qualifiers (License and Hardware)
-(15, 95), (15, 96), (15, 97), (15, 98), (15, 99),
+(15, 95), (15, 96), (15, 97), (15, 98), (15, 99);
 
 
 -- PARTNER
@@ -228,7 +228,7 @@ INSERT INTO Partner (
 (1, 'COMP123456', 'Tech Solutions Inc.', 'Alice Johnson', 'alice.johnson@techsolutions.com', TRUE, TRUE, TRUE, TRUE, NOW(), 'Innovating the Future', 'Brazil', 'SP', '123 Tech Lane'),
 (2, 'COMP654321', 'Green Energy Ltd.', 'Bob Smith', 'bob.smith@greenenergy.com', TRUE, FALSE, TRUE, FALSE, NOW(), 'Powering a Sustainable World', 'Brazil', 'SP', '456 Green Blvd'),
 (3, 'COMP789012', 'HealthCare Partners', 'Catherine Lee', 'catherine.lee@healthcarepartners.com', FALSE, TRUE, FALSE, TRUE, NOW(), 'Your Health, Our Priority', 'Brazil', 'RJ', '789 Care St'),
-(4, 'COMP345678', 'Finance Solutions', 'David Brown', 'david.brown@financesolutions.com', TRUE, TRUE, TRUE, FALSE, NOW(), 'Financial Freedom for All', 'Brazil', 'SC', '101 Finance Ave'),
+(4, 'COMP345678', 'Finance Solutions', 'David Brown', 'david.brown@financesolutions.com', TRUE, TRUE, TRUE, FALSE, NOW(), 'Financial Freedom for All', 'Brazil', 'SC', '101 Finance Ave');
 
 INSERT INTO Partner_Expertise (pt_id, ex_id) VALUES
 (1, 1), (1, 2),
@@ -255,3 +255,36 @@ INSERT INTO Users (usr_login, usr_name, usr_profile_type, usr_password) VALUES
 ('oharris', 'Olivia Harris', TRUE, 'oliviah789'),
 ('pmartinez', 'Paul Martinez', FALSE, 'paulm123'),
 ('qscott', 'Quincy Scott', TRUE, 'quincys456');
+
+
+UPDATE Partner_Qualifier
+SET pt_ql_complete_date = '2024-06-01'
+WHERE pt_ql_id IN (1, 3, 5, 7, 9, 11, 12, 14, 16, 18, 20);
+
+UPDATE Partner_Qualifier
+SET pt_ql_complete_date = '2024-07-10'
+WHERE pt_ql_id IN (10, 13, 15, 17, 19, 21);
+
+UPDATE Partner_Qualifier
+SET pt_ql_complete_date = '2024-07-20'
+WHERE pt_ql_id IN (2, 8, 12, 16, 20, 36);
+
+UPDATE Partner_Qualifier
+SET pt_ql_complete_date = '2024-06-20'
+WHERE pt_ql_id IN (22, 33, 44, 55, 66, 45);
+
+UPDATE Partner_Qualifier
+SET pt_ql_complete_date = '2024-07-23'
+WHERE pt_ql_id IN (30, 31, 40, 41, 20, 56);
+
+UPDATE Partner_Qualifier
+SET pt_ql_complete_date = '2024-06-30'
+WHERE pt_ql_id IN (50, 52, 60, 67, 68, 69);
+
+UPDATE Partner_Qualifier
+SET pt_ql_complete_date = '2024-08-29'
+WHERE pt_ql_id IN (82, 83, 84, 85, 86, 87, 88);
+
+UPDATE Partner_Qualifier
+SET pt_ql_complete_date = '2024-08-30'
+WHERE pt_ql_id IN (70, 72, 80, 77, 61, 88);
