@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.fatec.springapi4.entity.user.ProfileType;
 
-
 import com.fatec.springapi4.entity.user.User;
 import com.fatec.springapi4.repository.UserRepository;
 
@@ -26,7 +25,6 @@ public class UserService implements IUserService {
 
     @Autowired
     UserRepository usrRepository;
-
 
     public User findUserById(Long id) {
         Optional<User> usrOptional = usrRepository.findById(id);
@@ -65,20 +63,20 @@ public class UserService implements IUserService {
     }
 
     public User updateUser(Long id, Map<String, Object> fields) {
-        
-        User user = usrRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Entity not found: " + id));
 
-        fields.forEach((field,value) ->{
+        User user = usrRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Entity not found: " + id));
+
+        fields.forEach((field, value) -> {
             switch (field) {
                 case "login":
-                    user.setLogin((String)value);
+                    user.setLogin((String) value);
                     break;
                 case "name":
-                    user.setName((String)value);
+                    user.setName((String) value);
                     break;
                 case "profileType":
-                    user.setProfileType((ProfileType)value);
+                    user.setProfileType((ProfileType) value);
                     break;
                 default:
                     // Caso você queira lidar com campos desconhecidos ou ignorá-los
@@ -87,11 +85,10 @@ public class UserService implements IUserService {
             }
         });
 
-
         return usrRepository.save(user);
     }
 
-    public Page<User> filterUser(String name, String login, ProfileType profileType, Pageable pageable){
+    public Page<User> filterUser(String name, String login, ProfileType profileType, Pageable pageable) {
         User user = new User();
         user.setName(name);
         user.setLogin(login);
@@ -100,5 +97,4 @@ public class UserService implements IUserService {
         return usrRepository.findAll(Example.of(user), pageable);
     }
 
-    
 }

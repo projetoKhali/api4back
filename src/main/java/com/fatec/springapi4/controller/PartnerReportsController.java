@@ -16,12 +16,11 @@ import com.fatec.springapi4.service.IPartnerReportsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/partnerReports")
 public class PartnerReportsController {
-    
+
     @Autowired
     private IPartnerReportsService iPartnerReportsService;
 
@@ -36,7 +35,7 @@ public class PartnerReportsController {
 
     @GetMapping
     @RequestMapping(value = "/{id}")
-    public List<PartnerReports> partnerReportsById(@PathVariable ("id") Long id) {
+    public List<PartnerReports> partnerReportsById(@PathVariable("id") Long id) {
         return iPartnerReportsService.listPartnerReportsById(id);
     }
 

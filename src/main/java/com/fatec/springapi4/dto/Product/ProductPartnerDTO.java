@@ -10,7 +10,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 public class ProductPartnerDTO {
     private String name;
     private LocalDate startDate;
@@ -18,14 +20,14 @@ public class ProductPartnerDTO {
     private List<ProductExpertisePartnerDTO> expertises;
     private List<ProductQualifierPartnerDTO> qualifiers;
 
-    public ProductPartnerDTO(Partner partner, 
-        PartnerTrack partnerTrack, 
-        List<ProductExpertisePartnerDTO> expertises,
-        List<ProductQualifierPartnerDTO> qualifiers) {
-            name = partner.getName();
-            startDate = partnerTrack.getInsertDate();
-            location = partner.getCity();
-            this.expertises = expertises; 
-            this.qualifiers = qualifiers; 
+    public ProductPartnerDTO(Partner partner,
+            PartnerTrack partnerTrack,
+            List<ProductExpertisePartnerDTO> expertises,
+            List<ProductQualifierPartnerDTO> qualifiers) {
+        name = partner.getName();
+        startDate = partnerTrack.getInsertDate();
+        location = partner.getCity();
+        this.expertises = expertises;
+        this.qualifiers = qualifiers;
     }
 }

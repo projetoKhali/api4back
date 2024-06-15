@@ -11,7 +11,7 @@ import com.fatec.springapi4.entity.PartnerReports;
 import com.fatec.springapi4.repository.PartnerReportsRepository;
 
 @Service
-public class PartnerReportsService implements IPartnerReportsService{
+public class PartnerReportsService implements IPartnerReportsService {
 
     @Autowired
     PartnerReportsRepository partnerReportsRepository;
@@ -21,7 +21,7 @@ public class PartnerReportsService implements IPartnerReportsService{
         return partnerReportsRepository.findAll(pageable);
     }
 
-    public List<PartnerReports> listPartnerReportsById(Long id){
+    public List<PartnerReports> listPartnerReportsById(Long id) {
         return partnerReportsRepository.findByPartnerId(id);
-    } 
+    }
 }

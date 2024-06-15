@@ -11,23 +11,22 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fatec.springapi4.entity.PartnerMetrics;
 import com.fatec.springapi4.service.IPartnerMetricsService;
 
-
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/partnerMetrics")
 public class PartnerMetricsController {
-    
+
     @Autowired
     private IPartnerMetricsService iPartnerMetricsService;
 
     @GetMapping
-    public List<PartnerMetrics> allPartnerMetrics(){
+    public List<PartnerMetrics> allPartnerMetrics() {
         return iPartnerMetricsService.listPartnerMetrics();
     }
 
     @GetMapping
     @RequestMapping(value = "/{id}")
-    public List<PartnerMetrics> partnerMetricsById(@PathVariable ("id") Long id){
+    public List<PartnerMetrics> partnerMetricsById(@PathVariable("id") Long id) {
         return iPartnerMetricsService.listPartnerMetricById(id);
     }
 }

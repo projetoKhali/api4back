@@ -12,7 +12,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Partner {
     @Id
@@ -22,7 +25,7 @@ public class Partner {
 
     @Column(name = "pt_company_id", unique = true)
     private String companyId;
-    
+
     @Column(name = "pt_name")
     private String name;
 

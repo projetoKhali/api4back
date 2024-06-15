@@ -28,18 +28,18 @@ public class PartnerQualifier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pt_ql_id")
     private Long id;
-    
+
     @ManyToOne
     @JoinColumn(name = "pt_id", referencedColumnName = "pt_id")
     private Partner partner;
-    
+
     @ManyToOne
     @JoinColumn(name = "ql_id", referencedColumnName = "ql_id")
     private Qualifier qualifier;
-    
+
     @Column(name = "pt_ql_insert_date")
-    private LocalDate insertDate;   
-    
+    private LocalDate insertDate;
+
     @Column(name = "pt_ql_complete_date")
-    private LocalDate completeDate;   
+    private LocalDate completeDate;
 }

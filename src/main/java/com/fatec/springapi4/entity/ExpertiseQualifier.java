@@ -14,7 +14,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "ExpertiseQualifier", uniqueConstraints = { @UniqueConstraint(columnNames = { "ex_id", "ql_id" }) })
 public class ExpertiseQualifier {
@@ -22,11 +25,11 @@ public class ExpertiseQualifier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ex_ql_id")
     private Long id;
-    
+
     @ManyToOne
     @JoinColumn(name = "ex_id", referencedColumnName = "ex_id")
     private Expertise expertise;
-    
+
     @ManyToOne
     @JoinColumn(name = "ql_id", referencedColumnName = "ql_id")
     private Qualifier qualifier;

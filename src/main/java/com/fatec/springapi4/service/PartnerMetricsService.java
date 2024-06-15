@@ -14,11 +14,11 @@ public class PartnerMetricsService implements IPartnerMetricsService {
     @Autowired
     private PartnerMetricsRepository partnerMetricsRepository;
 
-    public List<PartnerMetrics> listPartnerMetrics(){
+    public List<PartnerMetrics> listPartnerMetrics() {
         return partnerMetricsRepository.findAll();
     }
-    
-    public List<PartnerMetrics> listPartnerMetricById(Long id){
+
+    public List<PartnerMetrics> listPartnerMetricById(Long id) {
         return partnerMetricsRepository.findByPartnerId(id);
     }
 }

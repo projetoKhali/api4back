@@ -9,7 +9,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 public class ProductQualifierPartnerDTO {
     private String name;
     private LocalDate startDate;
@@ -20,5 +22,5 @@ public class ProductQualifierPartnerDTO {
         startDate = partnerQualifier.getInsertDate();
         endDate = partnerQualifier.getCompleteDate();
     }
-    
+
 }

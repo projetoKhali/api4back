@@ -10,12 +10,12 @@ import com.fatec.springapi4.entity.Expertise;
 import com.fatec.springapi4.entity.Partner;
 import com.fatec.springapi4.entity.PartnerExpertise;
 
-
 @Repository
-public interface PartnerExpertiseRepository extends JpaRepository<PartnerExpertise, Long>{
+public interface PartnerExpertiseRepository extends JpaRepository<PartnerExpertise, Long> {
     List<PartnerExpertise> findByPartner(Partner partner);
+
     List<PartnerExpertise> findByPartnerIn(List<Partner> partners);
-    
+
     // testar a seguinte função.
     Optional<PartnerExpertise> findByExpertiseAndPartner(Expertise expertise, Partner partner);
 }

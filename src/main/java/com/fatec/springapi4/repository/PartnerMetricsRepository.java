@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.fatec.springapi4.entity.PartnerMetrics;
 
 @Repository
-public interface PartnerMetricsRepository extends JpaRepository<PartnerMetrics, Long>{
-     
+public interface PartnerMetricsRepository extends JpaRepository<PartnerMetrics, Long> {
+
     @Query("select p from PartnerMetrics p where p.pt_id = :id")
     List<PartnerMetrics> findByPartnerId(@Param("id") Long id);
 }

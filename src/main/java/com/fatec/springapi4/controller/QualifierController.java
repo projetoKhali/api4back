@@ -42,5 +42,5 @@ public class QualifierController {
     public void deleteById(@PathVariable("trackId") Long id) {
         qualifierService.delQualifierkById(id);
     }
-    
+
 }

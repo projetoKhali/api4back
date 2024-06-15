@@ -9,7 +9,7 @@ import com.fatec.springapi4.entity.TrackMetrics;
 import com.fatec.springapi4.repository.TrackMetricsRepository;
 
 @Service
-public class TrackMetricsService implements ITrackMetricsService{
+public class TrackMetricsService implements ITrackMetricsService {
 
     @Autowired
     private TrackMetricsRepository trackMetricsRepository;
@@ -21,5 +21,5 @@ public class TrackMetricsService implements ITrackMetricsService{
     public List<TrackMetrics> listTrackMetricsByTrackId(Long id) {
         return trackMetricsRepository.findByTrackId(id);
     }
-    
+
 }

@@ -1,6 +1,5 @@
 package com.fatec.springapi4.entity;
 
-
 import java.math.BigInteger;
 
 import jakarta.persistence.Column;
@@ -12,11 +11,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name="partner_metrics")
+@Table(name = "partner_metrics")
 public class PartnerMetrics {
-    
+
     @Id
     @Column(name = "pt_id")
     private Long pt_id;
@@ -38,5 +40,5 @@ public class PartnerMetrics {
 
     @Column(name = "completed_qualifiers")
     private BigInteger completed_qualifiers;
-    
+
 }

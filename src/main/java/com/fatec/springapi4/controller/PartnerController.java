@@ -57,7 +57,6 @@ public class PartnerController {
     @Autowired
     IPartnerQualifierService iPartnerQualifierService;
 
-    
     @GetMapping(value = "/list")
     public Page<Partner> listPartners(@RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
@@ -70,14 +69,14 @@ public class PartnerController {
     }
 
     @GetMapping(value = "/filter")
-    public Page<Partner> filterPartner(@RequestParam(value = "country", required = false)String country,
-                                       @RequestParam(value = "compliance", required = false)Boolean compliance,
-                                       @RequestParam(value = "credit", required = false)Boolean credit,
-                                       @RequestParam(value = "status", required = false)Boolean status,
-                                       @RequestParam(value = "memberType", required = false)Boolean memberType,
-                                       Pageable pageable){
-                                        return iPartnerService.filterPartner(country, compliance, credit, status, memberType, pageable);
-                                    }
+    public Page<Partner> filterPartner(@RequestParam(value = "country", required = false) String country,
+            @RequestParam(value = "compliance", required = false) Boolean compliance,
+            @RequestParam(value = "credit", required = false) Boolean credit,
+            @RequestParam(value = "status", required = false) Boolean status,
+            @RequestParam(value = "memberType", required = false) Boolean memberType,
+            Pageable pageable) {
+        return iPartnerService.filterPartner(country, compliance, credit, status, memberType, pageable);
+    }
 
     @PostMapping
     public Partner saveAndUpdatePartner(@RequestBody Partner partner) {
@@ -165,7 +164,5 @@ public class PartnerController {
                     .body("Erro ao associar parceiro com expertise.");
         }
     }
-
-    
 
 }
