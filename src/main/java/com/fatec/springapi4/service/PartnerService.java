@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.fatec.springapi4.Validation;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -101,9 +103,9 @@ public class PartnerService implements IPartnerService {
     }
 
     public Partner saveAndUpdatePartner(Partner partner) {
-        if (partner == null ||
-                partner.getName() == null) {
-            throw new IllegalArgumentException("Error!");
+        Optional<String> error = Validation.validatePartner(partner);
+        if (error.isPresent()) {
+            throw new IllegalArgumentException("Error: Invalid partner: " + error.get());
         }
         return partnerRepository.save(partner);
     }
