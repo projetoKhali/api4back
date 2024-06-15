@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.fatec.springapi4.Validation;
 import com.fatec.springapi4.entity.user.ProfileType;
 
 import com.fatec.springapi4.entity.user.User;
@@ -40,9 +41,9 @@ public class UserService implements IUserService {
     }
 
     public User saveAndUpdateUser(User usr) {
-        if (usr == null ||
-                usr.getName() == null) {
-            throw new IllegalArgumentException("Error!");
+        Optional<String> error = Validation.validateUser(usr);
+        if (error.isPresent()) {
+            throw new IllegalArgumentException("Error: Invalid user: " + error.get());
         }
         return usrRepository.save(usr);
     }
