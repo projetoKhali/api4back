@@ -17,7 +17,7 @@ public interface PartnerReportsRepository extends JpaRepository<PartnerReports, 
     @SuppressWarnings("null")
     Page<PartnerReports> findAll(Pageable pageable);
 
-    @Query("select p from PartnerReports p where p.pt_id = :id")
+    @Query("select p from PartnerReports p where p.id = :id")
     List<PartnerReports> findByPartnerId(@Param("id") Long id);
 
 }

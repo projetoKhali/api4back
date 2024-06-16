@@ -20,38 +20,38 @@ import lombok.Setter;
 public class PartnerReports {
     @Id
     @Column(name = "pt_id")
-    private Long pt_id;
+    private Long id;
 
     @Column(name = "pt_name")
-    private String pt_name;
+    private String partnerName;
 
     @Column(name = "tk_name")
-    private String tk_name;
+    private String trackName;
 
     @Column(name = "tk_start_date")
-    private LocalDate tk_start_date;
+    private LocalDate trackStartDate;
 
     @Column(name = "tk_end_date")
-    private LocalDate tk_end_date;
+    private LocalDate trackEndDate;
 
     @Column(name = "ex_name")
-    private String ex_name;
+    private String expertiseName;
 
     @Column(name = "ex_start_date")
-    private LocalDate ex_start_date;
+    private LocalDate expertiseStartDate;
 
     @Column(name = "ex_end_date")
-    private LocalDate ex_end_date;
+    private LocalDate expertiseEndDate;
 
     @Column(name = "ql_name")
-    private String ql_name;
+    private String qualifierName;
 
     @Column(name = "ql_start_date")
-    private LocalDate ql_start_date;
+    private LocalDate qualifierStartDate;
 
     @Column(name = "ql_end_date")
-    private LocalDate ql_end_date;
+    private LocalDate qualifierEndDate;
 
     @Column(name = "ql_due_date")
-    private LocalDate ql_due_date;
+    private LocalDate qualifierDueDate;
 }
