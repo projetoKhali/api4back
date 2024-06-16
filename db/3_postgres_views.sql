@@ -127,11 +127,17 @@ FROM
 CREATE OR REPLACE VIEW partner_metrics AS
 SELECT prt.pt_id,prt.pt_name,prt.pt_city,
 	COUNT(DISTINCT pac.tk_id) as tracks,
-		COUNT(DISTINCT pac.pt_tk_complete_date) completed_tracks,
+		(SELECT aa.pt_tk_complete_date FROM partner_track aa
+		WHERE aa.pt_id = prt.pt_id
+		AND aa.pt_tk_complete_date IS NOT NULL) completed_tracks,
 	COUNT(DISTINCT pqu.ql_id) qualifiers,
-		COUNT(DISTINCT pqu.pt_ql_complete_date) completed_qualifiers,
+		(SELECT COUNT( aa.ql_id) FROM partner_qualifier aa 
+		 WHERE aa.pt_id = prt.pt_id
+		 AND aa.pt_ql_complete_date IS NOT NULL) completed_qualifiers,
 	COUNT(DISTINCT xpe.ex_id) expertises,
-		COUNT(DISTINCT xpe.pt_ex_complete_date) completed_expertises
+		(SELECT COUNT(aa.ex_id) FROM partner_expertise aa
+		 WHERE aa.pt_id = prt.pt_id
+		 AND aa.pt_ex_complete_date IS NOT NULL) completed_expertises
 
 FROM partner prt
 INNER JOIN partner_track pac
