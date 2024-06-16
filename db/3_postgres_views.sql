@@ -148,7 +148,8 @@ ORDER BY pt_id;
 --PARTNER REPORT
 
 CREATE OR REPLACE VIEW partner_reports AS
-SELECT pt.pt_id,pt.pt_name,tr.tk_name,
+SELECT row_number() OVER (ORDER BY pt.pt_id) AS id,
+		pt.pt_id,pt.pt_name,tr.tk_name,
 		pt_tr.pt_tk_insert_date as tk_start_date,
 		pt_tr.pt_tk_complete_date as tk_end_date,
 		ex.ex_name,
@@ -171,4 +172,4 @@ FROM partner pt
 		ON pt_ql.pt_id = pt_tr.pt_id
 	LEFT JOIN qualifier ql
 		ON ql.ql_id = pt_ql.ql_id
-ORDER BY pt.pt_name;
+ORDER BY pt.pt_id;

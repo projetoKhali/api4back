@@ -19,8 +19,11 @@ import lombok.Setter;
 @Table(name = "partner_reports")
 public class PartnerReports {
     @Id
-    @Column(name = "pt_id")
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "pt_id")
+    private Long partnerId;
 
     @Column(name = "pt_name")
     private String partnerName;
