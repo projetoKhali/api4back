@@ -29,7 +29,7 @@ public class PartnerReportsController {
     @GetMapping
     public Page<PartnerReports> allPartnerReports(@RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-        return partnerReportsRepository.findAll(PageRequest.of(page, size));
+        return partnerReportsRepository.findAll(PageRequest.of(page, size, Sort.by("id")));
     }
 
     @GetMapping
@@ -37,5 +37,4 @@ public class PartnerReportsController {
     public List<PartnerReports> partnerReportsById(@PathVariable("id") Long id) {
         return iPartnerReportsService.listPartnerReportsById(id);
     }
-
 }
