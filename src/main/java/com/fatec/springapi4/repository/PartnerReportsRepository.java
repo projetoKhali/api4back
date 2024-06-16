@@ -14,7 +14,6 @@ import com.fatec.springapi4.entity.PartnerReports;
 @Repository
 public interface PartnerReportsRepository extends JpaRepository<PartnerReports, Long> {
 
-    @SuppressWarnings("null")
     Page<PartnerReports> findAll(Pageable pageable);
 
     @Query("select p from PartnerReports p where p.id = :id")
