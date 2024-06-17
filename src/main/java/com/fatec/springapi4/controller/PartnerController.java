@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fatec.springapi4.dto.AssociatePartner.PartnerExpertiseAssociateDTO;
 import com.fatec.springapi4.dto.AssociatePartner.PartnerTrackAssociateDTO;
+import com.fatec.springapi4.dto.DetailsPartner.ExpertiseProgressDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerExpertiseDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerQualifierDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerSimpleDTO;
 import com.fatec.springapi4.dto.DetailsPartner.PartnerTrackDTO;
+import com.fatec.springapi4.dto.DetailsPartner.TrackExpertiseProgressDTO;
 import com.fatec.springapi4.entity.Partner;
 import com.fatec.springapi4.repository.PartnerRepository;
 import com.fatec.springapi4.service.IPartnerExpertiseService;
@@ -55,7 +57,6 @@ public class PartnerController {
     @Autowired
     IPartnerQualifierService iPartnerQualifierService;
 
-    
     @GetMapping(value = "/list")
     public Page<Partner> listPartners(@RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
@@ -68,14 +69,14 @@ public class PartnerController {
     }
 
     @GetMapping(value = "/filter")
-    public Page<Partner> filterPartner(@RequestParam(value = "country", required = false)String country,
-                                       @RequestParam(value = "compliance", required = false)Boolean compliance,
-                                       @RequestParam(value = "credit", required = false)Boolean credit,
-                                       @RequestParam(value = "status", required = false)Boolean status,
-                                       @RequestParam(value = "memberType", required = false)Boolean memberType,
-                                       Pageable pageable){
-                                        return iPartnerService.filterPartner(country, compliance, credit, status, memberType, pageable);
-                                    }
+    public Page<Partner> filterPartner(@RequestParam(value = "country", required = false) String country,
+            @RequestParam(value = "compliance", required = false) Boolean compliance,
+            @RequestParam(value = "credit", required = false) Boolean credit,
+            @RequestParam(value = "status", required = false) Boolean status,
+            @RequestParam(value = "memberType", required = false) Boolean memberType,
+            Pageable pageable) {
+        return iPartnerService.filterPartner(country, compliance, credit, status, memberType, pageable);
+    }
 
     @PostMapping
     public Partner saveAndUpdatePartner(@RequestBody Partner partner) {
@@ -87,6 +88,12 @@ public class PartnerController {
         String fieldName = requestBody.get("fieldName");
         String value = requestBody.get("value");
         return iPartnerService.updatePartnerField(id, fieldName, value);
+    }
+
+    @PatchMapping("/edit/{id}")
+    public ResponseEntity<Partner> updatePartner(@PathVariable Long id, @RequestBody Map<String, Object> fields) {
+        Partner partner = iPartnerService.updatePartner(id, fields);
+        return ResponseEntity.ok().body(partner);
     }
 
     @DeleteMapping(value = "/{partnerId}")
@@ -121,6 +128,16 @@ public class PartnerController {
         return iPartnerService.getAllPartnerQualifier(partner);
     }
 
+    @GetMapping("/trackExpertiseProgress")
+    public List<TrackExpertiseProgressDTO> getTrackExpertiseProgress(@RequestParam List<String> partnerNames) {
+        return iPartnerService.getTrackExpertiseProgress(partnerNames);
+    }
+
+    @GetMapping("/expertiseQualifierProgress")
+    public List<ExpertiseProgressDTO> getExpertiseQualifierProgress(@RequestParam List<String> partnerNames) {
+        return iPartnerService.getExpertiseQualifierProgress(partnerNames);
+    }
+
     // ASSOCIAÇÕES PARTNER
 
     @PostMapping("/associatePartnerTrack")
@@ -147,7 +164,5 @@ public class PartnerController {
                     .body("Erro ao associar parceiro com expertise.");
         }
     }
-
-    
 
 }

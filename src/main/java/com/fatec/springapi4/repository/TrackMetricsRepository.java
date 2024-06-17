@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.fatec.springapi4.entity.TrackMetrics;
 
 @Repository
-public interface TrackMetricsRepository extends JpaRepository<TrackMetrics, Long>{
-    
+public interface TrackMetricsRepository extends JpaRepository<TrackMetrics, Long> {
+
     @Query("select t from TrackMetrics t where t.tkId = :id")
     List<TrackMetrics> findByTrackId(@Param("id") Long tkId);
 

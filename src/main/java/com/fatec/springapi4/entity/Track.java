@@ -1,5 +1,5 @@
 package com.fatec.springapi4.entity;
-    
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,10 @@ import jakarta.persistence.Id;
 
 import java.time.LocalDate;
 
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Track {
     @Id

@@ -9,13 +9,12 @@ public interface ITrackService {
 
     public Track findTrackById(Long id);
 
-    public List<Track> listTracks ();
+    public List<Track> listTracks();
 
     public Track saveAndUpdateTrack(Track track);
 
-    public void delTrackById (Long id);
+    public void delTrackById(Long id);
 
-    public ProductTrackDTO findTrackDTOByName(String nameTrack);
+    public ProductTrackDTO findTrackDTOById(Long trackId);
 
-    
 }

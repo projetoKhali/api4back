@@ -32,7 +32,7 @@ public class ExpertiseQualifierService implements IExpertiseQualifier {
     public void associateExpertiseWithQualifier(ExpertiseQualifierAssociateDTO dto) {
         Long expertiseId = dto.getExpertiseId();
         Long qualifierId = dto.getQualifierId();
-        
+
         Optional<Expertise> expertiseOptional = expertiseRepository.findById(expertiseId);
 
         if (!expertiseOptional.isPresent()) {
@@ -47,11 +47,11 @@ public class ExpertiseQualifierService implements IExpertiseQualifier {
         Qualifier qualifier = qualifierOptional.get();
 
         ExpertiseQualifier expertiseQualifier = new ExpertiseQualifier();
-        expertiseQualifier.setExpertiseId(expertise);
-        expertiseQualifier.setQualifierId(qualifier);
+        expertiseQualifier.setExpertise(expertise);
+        expertiseQualifier.setQualifier(qualifier);
         expertiseQualifierRepository.save(expertiseQualifier);
     }
- 
+
     public List<ExpertiseQualifierAssociateDTO> getAllExpertiseQualifier() {
         List<ExpertiseQualifier> expertiseQualifiers = expertiseQualifierRepository.findAll();
         List<ExpertiseQualifierAssociateDTO> expertiseQualifierAssociateDTOs = new ArrayList<>();
@@ -59,8 +59,8 @@ public class ExpertiseQualifierService implements IExpertiseQualifier {
         for (ExpertiseQualifier expertiseQualifier : expertiseQualifiers) {
             ExpertiseQualifierAssociateDTO dto = new ExpertiseQualifierAssociateDTO();
 
-            dto.setExpertiseId(expertiseQualifier.getExpertiseId().getId());
-            dto.setQualifierId(expertiseQualifier.getQualifierId().getId());
+            dto.setExpertiseId(expertiseQualifier.getExpertise().getId());
+            dto.setQualifierId(expertiseQualifier.getQualifier().getId());
 
             expertiseQualifierAssociateDTOs.add(dto);
         }

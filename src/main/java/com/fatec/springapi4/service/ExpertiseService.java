@@ -26,19 +26,19 @@ public class ExpertiseService implements IExpertiseService {
 
     @Autowired
     TrackRepository trackRepository;
-    
+
     @Autowired
     QualifierRepository qualifierRepository;
-    
+
     @Autowired
     PartnerExpertiseRepository partExpRepository;
-    
+
     @Autowired
     PartnerQualifierRepository partQualRepository;
 
     public Expertise findExpertiseById(Long id) {
         Optional<Expertise> expertiseOptional = expertiseRepository.findById(id);
-        if(expertiseOptional.isPresent()) {
+        if (expertiseOptional.isPresent()) {
             return expertiseOptional.get();
         }
         throw new IllegalArgumentException("Id inválido!");
@@ -49,42 +49,44 @@ public class ExpertiseService implements IExpertiseService {
     }
 
     public Expertise saveAndUpdateExpertise(Expertise expertise) {
-        if(expertise == null ||
-        expertise.getName() == null) {
-                throw new IllegalArgumentException("Error!");
-            }
-            return expertiseRepository.save(expertise);
+        if (expertise == null ||
+                expertise.getName() == null) {
+            throw new IllegalArgumentException("Error!");
         }
+        return expertiseRepository.save(expertise);
+    }
 
-    public void delExpertiseById (Long id) {
+    public void delExpertiseById(Long id) {
         expertiseRepository.deleteById(id);
     }
 
-    public List<ProductExpertiseDTO> findExpertisesDTOByTrackName(String trackName){
-        Optional<Track> trackOptional = trackRepository.findByName(trackName);
-        if (trackOptional.isEmpty()) {return new ArrayList<ProductExpertiseDTO>();}
+    public List<ProductExpertiseDTO> findExpertisesDTOByTrackId(Long trackId) {
+        Optional<Track> trackOptional = trackRepository.findById(trackId);
+        if (trackOptional.isEmpty()) {
+            return new ArrayList<ProductExpertiseDTO>();
+        }
         List<Expertise> expertises = expertiseRepository.findByTrack(trackOptional.get());
-        List<ProductExpertiseDTO> expertisesDTO = new ArrayList<ProductExpertiseDTO>();   
-        for (Expertise expertise : expertises){
+        List<ProductExpertiseDTO> expertisesDTO = new ArrayList<ProductExpertiseDTO>();
+        for (Expertise expertise : expertises) {
             ProductExpertiseDTO expertiseDTO = new ProductExpertiseDTO(expertise, qualifierRepository);
             expertisesDTO.add(expertiseDTO);
         }
         return expertisesDTO;
-    }   
+    }
 
-    public List<ProductExpertisePartnerDTO> findExpertisesDTOByPartnerAndTrack (Track track, Partner partner) {
+    public List<ProductExpertisePartnerDTO> findExpertisesDTOByPartnerAndTrack(Track track, Partner partner) {
         List<Expertise> expertisesInTrack = expertiseRepository.findByTrack(track);
         List<ProductExpertisePartnerDTO> expertisesTrackPartner = new ArrayList<ProductExpertisePartnerDTO>();
 
-        for(Expertise expertise : expertisesInTrack) {
+        for (Expertise expertise : expertisesInTrack) {
             Optional<PartnerExpertise> partExp = partExpRepository.findByExpertiseAndPartner(expertise, partner);
-            if(partExp.isEmpty()){continue;}
-            ProductExpertisePartnerDTO prodExpPartDTO = 
-                new ProductExpertisePartnerDTO(expertise, partExp.get());
-            expertisesTrackPartner.add(prodExpPartDTO);
+            if (partExp.isEmpty()) {
+                continue;
             }
+            ProductExpertisePartnerDTO prodExpPartDTO = new ProductExpertisePartnerDTO(expertise, partExp.get());
+            expertisesTrackPartner.add(prodExpPartDTO);
+        }
         return expertisesTrackPartner;
     }
 
-    
 }

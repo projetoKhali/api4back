@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fatec.springapi4.converter.ProfileTypeConverter;
@@ -19,9 +17,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,12 +31,12 @@ public class User {
 
     @Column(name = "usr_login")
     private String login;
-    
+
     @Column(name = "usr_name")
     private String name;
 
     @JsonProperty(access = Access.WRITE_ONLY)
-    @Column(name = "usr_password")
+    @Column(name = "usr_password", insertable = false, updatable = false)
     private String password;
 
     @Convert(converter = ProfileTypeConverter.class)

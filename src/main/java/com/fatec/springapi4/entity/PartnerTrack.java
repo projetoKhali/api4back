@@ -16,7 +16,10 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.time.LocalDate;
 
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "Partner_Track", uniqueConstraints = { @UniqueConstraint(columnNames = { "pt_id", "tk_id" }) })
 public class PartnerTrack {
@@ -24,18 +27,18 @@ public class PartnerTrack {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pt_tk_id")
     private Long id;
-    
+
     @ManyToOne
     @JoinColumn(name = "pt_id", referencedColumnName = "pt_id")
     private Partner partner;
-    
+
     @ManyToOne
     @JoinColumn(name = "tk_id", referencedColumnName = "tk_id")
     private Track track;
-    
+
     @Column(name = "pt_tk_insert_date")
-    private LocalDate insertDate;   
-    
+    private LocalDate insertDate;
+
     @Column(name = "pt_tk_complete_date")
-    private LocalDate completeDate;   
+    private LocalDate completeDate;
 }

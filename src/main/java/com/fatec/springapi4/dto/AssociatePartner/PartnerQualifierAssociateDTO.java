@@ -7,12 +7,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class PartnerQualifierAssociateDTO {
     private Long partnerId;
     private Long qualifierId;
     private LocalDate insertDate;
     private LocalDate completeDate;
-    
+
 }
-    
+

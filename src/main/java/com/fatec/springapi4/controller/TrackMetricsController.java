@@ -19,7 +19,7 @@ public class TrackMetricsController {
 
     @Autowired
     private ITrackMetricsService trackMetricsService;
-    
+
     @GetMapping
     public List<TrackMetrics> getTrackMetrics() {
         return trackMetricsService.listTrackMetrics();

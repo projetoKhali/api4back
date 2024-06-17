@@ -16,6 +16,5 @@ public class ProfileTypeConverter implements AttributeConverter<ProfileType, Boo
     @Override
     public ProfileType convertToEntityAttribute(Boolean dbData) {
         return ProfileType.fromValue(dbData);
-
     }
 }

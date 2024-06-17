@@ -5,5 +5,6 @@ import com.fatec.springapi4.entity.TrackMetrics;
 
 public interface ITrackMetricsService {
     public List<TrackMetrics> listTrackMetrics();
+
     public List<TrackMetrics> listTrackMetricsByTrackId(Long id);
 }

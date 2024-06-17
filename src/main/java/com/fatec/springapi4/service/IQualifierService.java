@@ -8,15 +8,15 @@ import com.fatec.springapi4.entity.Qualifier;
 import com.fatec.springapi4.entity.Track;
 
 public interface IQualifierService {
-    
+
     public Qualifier findQualifierById(Long id);
 
-    public List<Qualifier> listQualifiers ();
+    public List<Qualifier> listQualifiers();
 
     public Qualifier saveAndUpdateQualifier(Qualifier qualifier);
 
-    public void delQualifierkById (Long id);
+    public void delQualifierkById(Long id);
 
-    public List<ProductQualifierPartnerDTO> findQualifiersDTOByPartnerAndTrack (Track track, Partner partner); 
+    public List<ProductQualifierPartnerDTO> findQualifiersDTOByPartnerAndTrack(Track track, Partner partner);
 
 }
