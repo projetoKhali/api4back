@@ -125,25 +125,29 @@ FROM
 
 --PARTNER METRICS============================================================================
 CREATE OR REPLACE VIEW partner_metrics AS
-SELECT pt_id,pt_name,pt_city,count(DISTINCT tracks) tracks,sum(completed_tracks) completed_tracks,
-		COUNT(DISTINCT qualifiers) qualifiers, SUM(completed_qualifiers) completed_qualifiers FROM
-(
-	SELECT prt.pt_id,prt.pt_name,pac.tk_id as tracks,
-			CASE WHEN pac.pt_tk_complete_date IS NOT NULL THEN 1
-			 ELSE 0 END completed_tracks,
-		pqu.ql_id qualifiers,
-		CASE WHEN pqu.pt_ql_complete_date IS NOT NULL THEN 1
-		 ELSE 0 END completed_qualifiers,prt.pt_city
+SELECT prt.pt_id,prt.pt_name,prt.pt_city,
+	COUNT(DISTINCT pac.tk_id) as tracks,
+		(SELECT aa.pt_tk_complete_date FROM partner_track aa
+		WHERE aa.pt_id = prt.pt_id
+		AND aa.pt_tk_complete_date IS NOT NULL) completed_tracks,
+	COUNT(DISTINCT pqu.ql_id) qualifiers,
+		(SELECT COUNT( aa.ql_id) FROM partner_qualifier aa 
+		 WHERE aa.pt_id = prt.pt_id
+		 AND aa.pt_ql_complete_date IS NOT NULL) completed_qualifiers,
+	COUNT(DISTINCT xpe.ex_id) expertises,
+		(SELECT COUNT(aa.ex_id) FROM partner_expertise aa
+		 WHERE aa.pt_id = prt.pt_id
+		 AND aa.pt_ex_complete_date IS NOT NULL) completed_expertises
 
-	FROM partner prt
-	LEFT JOIN partner_track pac
-		ON pac.pt_id = prt.pt_id
-	LEFT JOIN partner_qualifier pqu
-		ON pqu.pt_id = prt.pt_id
-	ORDER BY prt.pt_id
-)
-GROUP BY pt_id,pt_name,pt_city
-ORDER BY pt_id;
+FROM partner prt
+INNER JOIN partner_track pac
+	ON pac.pt_id = prt.pt_id
+INNER JOIN partner_qualifier pqu
+	ON pqu.pt_id = pac.pt_id
+INNER JOIN partner_expertise xpe
+	ON xpe.pt_id = prt.pt_id
+GROUP BY prt.pt_id,prt.pt_name,prt.pt_city
+ORDER BY prt.pt_id;
 
 --PARTNER REPORT
 

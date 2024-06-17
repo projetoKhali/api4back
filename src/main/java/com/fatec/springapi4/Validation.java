@@ -28,8 +28,8 @@ public class Validation {
         if (partner.getCountry() == null || partner.getCountry().length() < 3) {
             return Optional.of("Partner country must have at least 3 characters.");
         }
-        if (partner.getCity() == null || partner.getCity().length() < 3) {
-            return Optional.of("Partner city must have at least 3 characters.");
+        if (partner.getCity() == null || partner.getCity().length() < 2) {
+            return Optional.of("Partner city must have at least 2 characters.");
         }
         if (partner.getAddress() == null || partner.getAddress().length() < 3) {
             return Optional.of("Partner address must have at least 3 characters.");
